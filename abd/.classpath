@@ -22,5 +22,8 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/admin/Desktop/ABD/commons-lang3-3.3.2/commons-lang3-3.3.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/admin/Desktop/ABD/commons-lang3-3.3.2/commons-lang3-3.3.2-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/admin/Desktop/ABD/commons-lang3-3.3.2-bin.zip"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
