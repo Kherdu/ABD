@@ -1,5 +1,6 @@
 package ABD.abd;
 
+import java.sql.Blob;
 import java.sql.Date;
 import java.util.ArrayList;
 
@@ -12,19 +13,20 @@ public class User {
 	private String email;
 	private Date birthDate;
 	private char[] avatar;
+	private Blob picture;
 	private ArrayList <Crossword> activeCrosswords;
 	//should be this a crossword array or a new class with crossword, user and check?
 	private ArrayList<Crossword> helpCrosswords;
 	
 	
 	
-	public User(String nick, String pass, String email, Date birthDate, char[] picture)
+	public User(String nick, String pass, Date birthDate, Blob picture)
 	{
 		this.nick = nick;
 		this.pass = pass;
 		this.email = email;
 		this.birthDate = birthDate;
-		this.avatar = picture;
+		this.picture = picture;
 		
 	}
 	public User(String nick, String pass, String email, char[] picture)

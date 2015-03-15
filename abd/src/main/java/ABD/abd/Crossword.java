@@ -33,22 +33,10 @@ public class Crossword {
 	
 	public void loadWords()
 	{
-		/**
-		 * Load table contiene from database, set the words in the word's array from crossword with coords and orientation.
-		 * Check if there is a picture, if it's not null, add it to the auxiliar word. add to the array at the end.
-		 * 
-		 * */
-		int dbWordSize = 10000;
 		
-		for(int i = 0; i < dbWordSize;i++)
-		{
-			/**
-			 * If the word is already loaded, we can just use set to coords and orientation
-			 * */
-			Word aux = new Word(titulo, descripcion, coordX, coordY, orientacion);
-			if(foto!=null) aux.setPicture(foto);
-			this.words.add(aux);
-		}
+		
+		
+		
 		
 		
 	}
