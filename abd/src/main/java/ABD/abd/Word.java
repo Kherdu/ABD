@@ -1,5 +1,7 @@
 package ABD.abd;
 
+import java.sql.Blob;
+
 public class Word {
 	
 	private String word;
@@ -7,7 +9,7 @@ public class Word {
 	private int coordX;
 	private int coordY;
 	private String orientation;
-	private char[] picture;
+	private Blob picture;
 	
 	
 	//Full constructor without picture
@@ -21,7 +23,7 @@ public class Word {
 	}
 	
 	//Full constructor with picture
-	public Word(String w, String desc, int X, int Y, String ori, char[] pict)
+	public Word(String w, String desc, int X, int Y, String ori, Blob pict)
 	{
 		this.word = w;
 		this.description = desc;
@@ -40,7 +42,7 @@ public class Word {
 	
 	
 	//Word, description and picture
-	public Word(String w, String desc, char[] pict)
+	public Word(String w, String desc, Blob pict)
 	{
 		this.word = w;
 		this.description = desc;
@@ -117,12 +119,12 @@ public class Word {
 	}
 
 
-	public char[] getPicture() {
+	public Blob getPicture() {
 		return picture;
 	}
 
 
-	public void setPicture(char[] picture) {
+	public void setPicture(Blob picture) {
 		this.picture = picture;
 	}
 

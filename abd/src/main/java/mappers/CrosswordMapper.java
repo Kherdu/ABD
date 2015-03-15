@@ -6,9 +6,16 @@ import java.sql.SQLException;
 import javax.sql.DataSource;
 
 import ABD.abd.Crossword;
+import ABD.abd.User;
 
 public abstract  class CrosswordMapper extends AbstractMapper<Crossword, String> {
 
+	
+	private static final String crossword_key_name =  "Titulo";
+	private static final String[] crossword_column_names = new String[] { "Titulo", "Fecha" };
+	private static final String crossword_table_name = "crucigrama";
+	
+	
 	public CrosswordMapper(DataSource ds) {
 		super(ds);
 		// TODO Auto-generated constructor stub
@@ -16,26 +23,25 @@ public abstract  class CrosswordMapper extends AbstractMapper<Crossword, String>
 
 	@Override
 	protected String getTableName() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return crossword_table_name;
 	}
 
 	@Override
 	protected String[] getColumnNames() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return crossword_column_names;
 	}
 
 	@Override
 	protected String getKeyColumnName() {
-		// TODO Auto-generated method stub
-		return null;
+	
+		return crossword_key_name;
 	}
 
 	@Override
 	protected Crossword buildObject(ResultSet rs) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return new Crossword(rs.getString("Titulo"), rs.getDate("Fecha"));
 	}
 
 	@Override
@@ -46,8 +52,8 @@ public abstract  class CrosswordMapper extends AbstractMapper<Crossword, String>
 
 	@Override
 	protected Object[] serializeObject(Crossword object) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return new Object[] {  object.getTitle(), object.getDate()};
 	}
 
 	@Override
