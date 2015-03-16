@@ -8,6 +8,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.sql.DataSource;
+
+import mappers.AbstractMapper;
+import mappers.ContieneMapper;
+import mappers.UsuarioMapper;
+import mappers.WordMapper;
+
 public class Crossword {
 	
 	private String title;
@@ -30,20 +37,35 @@ public class Crossword {
 	
 	
 	
-	/**
-	 * 
-	 * FALTA POR ACABAR
-	 * 
-	 * */
-	
-	public void loadWords()
+	/*public void loadWords()
 	{
+		int i = 0;
+		Word aux = null;
+		DataSource ds;
+		//¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?
+		ContieneMapper um = new ContieneMapper(ds);
+		WordMapper wm = new WordMapper(ds);
 		
+		
+		//¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?
+		
+		
+		do
+		{
+			this.words.add(um.findById(this.title));
+			aux = wm.findById(this.title);
+			
+			this.words.get(i).setDescription(aux.getDescription());
+			
+			i++;
+		}while(!this.words.get(i-1).equals(null) /*!= null*/);
+		
+		this.words.remove(i-1);
 		
 		
 		
 	}
-	
+	*/
 	
 	@Override
 	public String toString() {

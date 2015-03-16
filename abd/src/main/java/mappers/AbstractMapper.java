@@ -38,6 +38,8 @@ public abstract class AbstractMapper  <T, K>{
 	}
 	
 
+	
+	
     public QueryCondition[] getConditionsFromKey(K id){ 
         
         String[] keyColumnNames = getColumnNames(); 
@@ -164,14 +166,51 @@ public abstract class AbstractMapper  <T, K>{
 	{
 		
 		Connection con = null;  
-        PreparedStatement stm = null;
+		Statement st = null;
         String tableName = getTableName();
 		String[] columnNames = getColumnNames();
-		Object[] objeto = serializeObject(object);
 		String[] key = new String[columnNames.length];
+	
+		
+		QueryCondition[] conditions = new QueryCondition[getKeyColumnName().length()];
+		String[] condString = new String[conditions.length];
 		
 		
-		//UPDATE _______ SET _______________ WHERE ______________________
+		
+		for (int i = 0; i < conditions.length; i++)
+		{
+			conditions[i] = new QueryCondition(getKeyColumnName(), QueryOperator.EQ, key);
+		}
+		for(int i = 0; i < condString.length; i++)
+		{
+			condString[i] = conditions[i].getColumnName() + " " + conditions[i].getOperator().getOperator() + 	" '"+ conditions[i].getValue()+"'"; 
+		}
+	
+		try{ 
+			con = this.ds.getConnection();
+			
+			st = con.createStatement();
+			
+			String sql = "UPDATE " + tableName + " SET "+ StringUtils.join(columnNames, ", ")  +  "WHERE " + StringUtils.join(condString, " AND ");
+			
+			//UPDATE _______ SET _______________ WHERE ______________________
+			
+			st.executeUpdate(sql);
+		
+		}catch(SQLException e){ 
+            e.printStackTrace(); 
+              
+        }finally{ 
+            try{ 
+                if(st != null) st.close(); 
+                if(con != null) con.close(); 
+            }catch(SQLException e){} 
+              
+        } 
+       
+		
+		
+		
 	}
 	
 	

@@ -22,6 +22,15 @@ public class Word {
 		this.orientation = ori;
 	}
 	
+	public Word(String w,  int X, int Y, String ori)
+	{
+		this.word = w;
+		this.description = null;
+		this.coordX = X;
+		this.coordY = Y;
+		this.orientation = ori;
+	}
+	
 	//Full constructor with picture
 	public Word(String w, String desc, int X, int Y, String ori, Blob pict)
 	{

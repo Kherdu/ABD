@@ -53,9 +53,7 @@ public abstract class UsuarioMapper extends AbstractMapper<User, String> {
 
 	@Override
 	protected Object[] serializeObject(User object) {
-	//protected User[] serializeObject(User object) {	
-		//User user = new User(object.getNick(), object.getPass(), object.getBirthDate(), object.getAvatar());
-		//return user;
+	
 		return new Object[] {  object.getNick(), object.getPass(), object.getBirthDate(), object.getAvatar()};
 	}
 
@@ -65,4 +63,10 @@ public abstract class UsuarioMapper extends AbstractMapper<User, String> {
 		return null;
 	}
 
+	public void insert()
+	{
+		
+		
+	}
+	
 }
