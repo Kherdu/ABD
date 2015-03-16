@@ -48,7 +48,14 @@ public class Word {
 		this.description = desc;
 		this.picture = pict;
 	}
-	
+	public Word(String word)
+	{
+		this.word = word;
+		this.coordX = -1;
+		this.coordY = -1;
+		this.orientation = null;
+	}
+
 	
 	//Empty constructor
 	public Word()

@@ -57,7 +57,6 @@ public class User {
 		
 	}
 	
-	
 	public User()
 	{
 		this.nick = null;

@@ -29,11 +29,28 @@ public abstract class AbstractMapper  <T, K>{
 	
     protected abstract Object[] serializeObject(T object);
 	
+    protected abstract Object[] serializeObjectKey(K object);
+	
 	protected abstract Object decomposeObject(T Object);
 	
 	public AbstractMapper(DataSource ds) {
 		this.ds = ds;
 	}
+	
+
+    public QueryCondition[] getConditionsFromKey(K id){ 
+        
+        String[] keyColumnNames = getColumnNames(); 
+        QueryCondition[] conditions = new QueryCondition[keyColumnNames.length]; 
+        Object columnValues[] = serializeObjectKey(id); 
+        for(int i = 0;i < conditions.length;i++){ 
+            conditions[i] = new QueryCondition(keyColumnNames[i], QueryOperator.EQ, columnValues[i]); 
+        } 
+          
+        return conditions; 
+          
+    } 
+	
 	
 	public T findById(K id) {
 		String tableName = getTableName();
@@ -101,20 +118,45 @@ public abstract class AbstractMapper  <T, K>{
 	public void delete(T object)
 	{
 		Connection con = null;  
-        PreparedStatement stm = null;
+		Statement st = null;
         String tableName = getTableName();
 		String[] columnNames = getColumnNames();
-		Object[] objeto = serializeObject(object);
 		String[] key = new String[columnNames.length];
+	
 		
+		QueryCondition[] conditions = new QueryCondition[getKeyColumnName().length()];
+		String[] condString = new String[conditions.length];
 		
+		for (int i = 0; i < conditions.length; i++)
+		{
+			conditions[i] = new QueryCondition(getKeyColumnName(), QueryOperator.EQ, key);
+		}
+		for(int i = 0; i < condString.length; i++)
+		{
+			condString[i] = conditions[i].getColumnName() + " " + conditions[i].getOperator().getOperator() + 	" '"+ conditions[i].getValue()+"'"; 
+		}
+	
+		try{ 
+			con = this.ds.getConnection();
+			
+			st = con.createStatement();
+			
+			String sql = "DELETE FROM " + tableName + " WHERE " + StringUtils.join(condString, " AND ");
+			
+			//DELETE FROM -_______________ WHERE ______________
+			
+			st.executeUpdate(sql);
 		
-		
-		
-		String sql = "DELETE FROM " + tableName + " WHERE ";
-		
-		//DELETE FROM -_______________ WHERE ______________
-		
+		}catch(SQLException e){ 
+            e.printStackTrace(); 
+              
+        }finally{ 
+            try{ 
+                if(st != null) st.close(); 
+                if(con != null) con.close(); 
+            }catch(SQLException e){} 
+              
+        } 
        
 	}
 	
