@@ -7,7 +7,7 @@ import javax.sql.DataSource;
 
 import ABD.abd.User;
 
-public abstract class UsuarioMapper extends AbstractMapper<User, String> {
+public class UsuarioMapper extends AbstractMapper<User, String> {
 
 	
 	private static final String user_key_name =  "Usuario";
@@ -54,6 +54,7 @@ public abstract class UsuarioMapper extends AbstractMapper<User, String> {
 	@Override
 	protected Object[] serializeObject(User object) {
 	
+		
 		return new Object[] {  object.getNick(), object.getPass(), object.getBirthDate(), object.getAvatar()};
 	}
 
@@ -63,10 +64,12 @@ public abstract class UsuarioMapper extends AbstractMapper<User, String> {
 		return null;
 	}
 
-	public void insert()
-	{
-		
-		
+
+
+	@Override
+	protected Object[] serializeObjectKey(String object) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

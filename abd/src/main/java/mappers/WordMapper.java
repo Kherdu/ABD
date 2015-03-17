@@ -8,7 +8,7 @@ import javax.sql.DataSource;
 import ABD.abd.User;
 import ABD.abd.Word;
 
-public abstract class WordMapper extends AbstractMapper<Word, String> {
+public class WordMapper extends AbstractMapper<Word, String> {
 
 	
 	private static final String word_key_name =  "Secuencia";
@@ -57,6 +57,12 @@ public abstract class WordMapper extends AbstractMapper<Word, String> {
 
 	@Override
 	protected Object decomposeObject(Word Object) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected Object[] serializeObjectKey(String object) {
 		// TODO Auto-generated method stub
 		return null;
 	}

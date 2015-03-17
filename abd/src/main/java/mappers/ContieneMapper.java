@@ -8,7 +8,7 @@ import javax.sql.DataSource;
 import ABD.abd.Crossword;
 import ABD.abd.Word;
 
-public abstract class ContieneMapper extends AbstractMapper<Word, String> {
+public class ContieneMapper extends AbstractMapper<Word, String> {
 
 	
 	/**
