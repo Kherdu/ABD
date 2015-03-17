@@ -1,7 +1,8 @@
-package ABD.abd;
+package GUI;
 
 import java.awt.EventQueue;
 
+import javax.sql.DataSource;
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -15,15 +16,27 @@ import javax.swing.JLabel;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.swing.JPasswordField;
 import javax.swing.JTextPane;
+
+import mappers.UsuarioMapper;
+import ABD.abd.User;
+
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 public class GUI {
 
 	private JFrame frame;
 	private JTextField textField;
 	private JPasswordField passwordField;
+	private UsuarioMapper um;
+	private User user;
 	/**
 	 * @wbp.nonvisual location=261,349
 	 */
@@ -32,11 +45,28 @@ public class GUI {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception{
+		
+		ComboPooledDataSource cpds = new ComboPooledDataSource();
+		cpds.setDriverClass("com.mysql.jdbc.Driver");
+		cpds.setJdbcUrl("jdbc:mysql://localhost/Practica1_715");
+		cpds.setUser("UsuarioP1");
+		cpds.setPassword("");
+
+		
+
+		cpds.setAcquireRetryAttempts(1);
+		cpds.setAcquireRetryDelay(1);
+		final DataSource ds = cpds;
+	
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GUI window = new GUI();
+					
+					
+					
+					GUI window = new GUI(ds);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -48,14 +78,7 @@ public class GUI {
 	/**
 	 * Create the application.
 	 */
-	public GUI() {
-		initialize();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
+	public GUI(final DataSource ds) {
 		frame = new JFrame("Bienvenido");
 		frame.setType(Type.UTILITY);
 		frame.setBounds(100, 100, 450, 197);
@@ -100,31 +123,49 @@ public class GUI {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				//change later
+				UserMenu nug;
 				String user = textField.getText();
 				char[] pass = passwordField.getPassword();
 				
-				String passw = pass.toString();
+				String passw = new String(pass);
 				
 				
-				//testing, delete later
-				JFrame textPane = new JFrame();
-				textPane.setBounds(100, 100, 450, 197);
-
-				JLabel test = new JLabel(user + " " +passw);
-				textPane.add(test);
 				
-				textPane.setVisible(true);
 			
 				System.out.println(user + " " + passw);
 				//check
 				
-				//open new window --> execute game/app/crosswordApp.run()
+				um = new UsuarioMapper(ds);
+				
+				
+				User aux = um.findById(user);
+				
+				
+				if(aux == null)
+				{
+					System.out.println("Usuario incorrecto");
+				}
+				else
+				{
+					
+					if(aux.getNick().equalsIgnoreCase(user) || aux.getPass().equals(pass))
+					{
+						nug = new UserMenu(ds, aux);
+						
+						
+						frame.setVisible(false);
+					}
+					else  System.out.println("Contraseña incorrecta");
+						
+				} 
 				
 				
 			}
 		});
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+				
 			}
 		});
 		btnNewButton.setBounds(78, 114, 123, 23);
@@ -141,6 +182,24 @@ public class GUI {
 		btnNuevoUsuario.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				String user = textField.getText();
+				char[] pass = passwordField.getPassword();
+				
+				String passw = new String(pass);
+			
+				
+				um = new UsuarioMapper(ds);
+				
+				User aux = um.findById(user);
+				
+				if(aux == null)
+				{
+					aux = new User(user, passw);
+					um.insert(aux);
+				}
+				else System.out.println("Usuario ya en uso");
+				
+				
 			}
 		});
 		btnNuevoUsuario.setBounds(242, 114, 123, 23);
@@ -148,4 +207,9 @@ public class GUI {
 		
 		
 	}
+	
+
+	
+
+		
 }

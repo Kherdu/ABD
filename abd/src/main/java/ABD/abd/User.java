@@ -2,6 +2,8 @@ package ABD.abd;
 
 import java.sql.Blob;
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class User {
@@ -47,12 +49,13 @@ public class User {
 		this.avatar = null;
 		
 	}
-	public User(String nick, String pass, String email)
+	public User(String nick, String pass)
 	{
 		this.nick = nick;
 		this.pass = pass;
-		this.email = email;
-		this.birthDate = null;
+		
+	    
+		
 		this.avatar = null;
 		
 	}
