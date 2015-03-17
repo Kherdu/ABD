@@ -89,12 +89,10 @@ public abstract class AbstractMapper  <T, K>{
 		Object[] objeto = serializeObject(object);
 		String[] key = new String[columnNames.length];
 		
-		
 		for(int i = 0; i < key.length; i++)
 		{
-			System.out.println(objeto[i]);
-			if(objeto[i] != null) key[i] = "'" + (String) objeto[i] + "'" ;
-			else key[i] = "NULL";
+			if(objeto[i] != null) key[i] = "' '";
+			else key[i] = "'" + objeto[i] + "'";
 		}
 		
 		
@@ -103,8 +101,8 @@ public abstract class AbstractMapper  <T, K>{
 			
 			st = con.createStatement();
 			
-			String sql = "INSERT INTO " + tableName  +" (" +  StringUtils.join(columnNames, ", ") +") VALUES (" +  StringUtils.join(key, ", ") + ")";
-			System.out.println(sql);
+			String sql = "INSERT INTO " + tableName + " " + StringUtils.join(columnNames, ", ") + " INTO " + StringUtils.join(key, ", ");
+			
 			st.executeUpdate(sql);
 		
 		}catch(SQLException e){ 
