@@ -8,7 +8,7 @@ import javax.sql.DataSource;
 import ABD.abd.Crossword;
 import ABD.abd.User;
 
-public class CrosswordMapper extends AbstractMapper<Crossword, String> {
+public abstract  class CrosswordMapper extends AbstractMapper<Crossword, String> {
 
 	
 	private static final String crossword_key_name =  "Titulo";
@@ -58,12 +58,6 @@ public class CrosswordMapper extends AbstractMapper<Crossword, String> {
 
 	@Override
 	protected Object decomposeObject(Crossword Object) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	protected Object[] serializeObjectKey(String object) {
 		// TODO Auto-generated method stub
 		return null;
 	}

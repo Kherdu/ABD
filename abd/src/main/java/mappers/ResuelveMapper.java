@@ -5,9 +5,7 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
-import ABD.abd.User;
-
-public class ResuelveMapper extends AbstractMapper<User, String> {
+public abstract class ResuelveMapper extends AbstractMapper<T, K> {
 
 	public ResuelveMapper(DataSource ds) {
 		super(ds);
@@ -33,31 +31,31 @@ public class ResuelveMapper extends AbstractMapper<User, String> {
 	}
 
 	@Override
-	protected User buildObject(ResultSet rs) throws SQLException {
+	protected T buildObject(ResultSet rs) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	protected User buildObject(Object[] components) throws SQLException {
+	protected T buildObject(Object[] components) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	protected Object[] serializeObject(User object) {
+	protected Object[] serializeObject(T object) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	protected Object[] serializeObjectKey(String object) {
+	protected Object[] serializeObjectKey(K object) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	protected Object decomposeObject(User Object) {
+	protected Object decomposeObject(T Object) {
 		// TODO Auto-generated method stub
 		return null;
 	}

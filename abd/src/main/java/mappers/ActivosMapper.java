@@ -5,9 +5,7 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
-import ABD.abd.Crossword;
-
-public class ActivosMapper extends AbstractMapper<Crossword, String> {
+public abstract class ActivosMapper extends AbstractMapper<T, K> {
 
 	public ActivosMapper(DataSource ds) {
 		super(ds);
@@ -33,31 +31,31 @@ public class ActivosMapper extends AbstractMapper<Crossword, String> {
 	}
 
 	@Override
-	protected Crossword buildObject(ResultSet rs) throws SQLException {
+	protected T buildObject(ResultSet rs) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	protected Crossword buildObject(Object[] components) throws SQLException {
+	protected T buildObject(Object[] components) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	protected Object[] serializeObject(Crossword object) {
+	protected Object[] serializeObject(T object) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	protected Object[] serializeObjectKey(String object) {
+	protected Object[] serializeObjectKey(K object) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	protected Object decomposeObject(Crossword Object) {
+	protected Object decomposeObject(T Object) {
 		// TODO Auto-generated method stub
 		return null;
 	}
