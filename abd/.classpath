@@ -25,5 +25,11 @@
 	<classpathentry kind="lib" path="C:/Users/admin/Desktop/ABD/commons-lang3-3.3.2/commons-lang3-3.3.2.jar"/>
 	<classpathentry kind="lib" path="C:/Users/admin/Desktop/ABD/commons-lang3-3.3.2/commons-lang3-3.3.2-javadoc.jar"/>
 	<classpathentry kind="lib" path="C:/Users/admin/Desktop/ABD/commons-lang3-3.3.2-bin.zip"/>
+	<classpathentry kind="lib" path="jgoodies-forms-1.8.0.jar" sourcepath="jgoodies-forms-1.8.0-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/admin/Desktop/ABD/c3p0-0.9.5.bin.zip"/>
+	<classpathentry kind="lib" path="C:/Users/admin/Desktop/ABD/c3p0-0.9.5/src/c3p0-0.9.5-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/admin/Desktop/ABD/c3p0-0.9.5/src/mchange-commons-java-0.2.9-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/admin/Desktop/ABD/com.springsource.com.mchange.v2.c3p0-0.9.1.2.jar.zip"/>
+	<classpathentry kind="lib" path="C:/Users/admin/Desktop/ABD/com.springsource.com.mchange.v2.c3p0-0.9.1.2.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

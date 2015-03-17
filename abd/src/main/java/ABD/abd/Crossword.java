@@ -58,7 +58,7 @@ public class Crossword {
 			this.words.get(i).setDescription(aux.getDescription());
 			
 			i++;
-		}while(!this.words.get(i-1).equals(null) /*!= null*/);
+		}while(!this.words.get(i-1).equals(null) );
 		
 		this.words.remove(i-1);
 		
