@@ -28,6 +28,15 @@ public class Crossword {
 		this.date = date;
 		this.words = null;
 	}
+	
+
+	public Crossword(String title)
+	{
+		this.title = title;
+		this.date = null;
+		this.words = null;
+	}
+	
 	public Crossword()
 	{
 		this.title=null;

@@ -2,13 +2,20 @@ package mappers;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
 import ABD.abd.Crossword;
+import ABD.abd.User;
 
 public class ActivosMapper extends AbstractMapper<Crossword, String> {
 
+	
+	private static final String activos_key_name =  "Nick";
+	private static final String[] activos_column_names = new String[] { "Id", "Titulo_Crucigrama", "Nick", "amigo", "solicitud"};
+	private static final String activos_table_name = "activos";
+	
 	public ActivosMapper(DataSource ds) {
 		super(ds);
 		// TODO Auto-generated constructor stub
@@ -16,26 +23,26 @@ public class ActivosMapper extends AbstractMapper<Crossword, String> {
 
 	@Override
 	protected String getTableName() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return activos_table_name;
 	}
 
 	@Override
 	protected String[] getColumnNames() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return activos_column_names;
 	}
 
 	@Override
 	protected String getKeyColumnName() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return activos_key_name;
 	}
 
 	@Override
 	protected Crossword buildObject(ResultSet rs) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return new Crossword(rs.getString("Titulo_Crucigrama"));
 	}
 
 	@Override
@@ -62,4 +69,6 @@ public class ActivosMapper extends AbstractMapper<Crossword, String> {
 		return null;
 	}
 
+	
+	
 }

@@ -2,34 +2,26 @@ package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+
+import javax.sql.DataSource;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.DefaultListModel;
+import javax.swing.JTabbedPane;
+import javax.swing.JList;
+import javax.swing.JButton;
+
+import mappers.ActivosMapper;
+import mappers.CrosswordMapper;
+import ABD.abd.Crossword;
+import ABD.abd.User;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-import javax.sql.DataSource;
-import javax.swing.JFrame;
-
-import ABD.abd.Crossword;
-import ABD.abd.User;
-
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JTabbedPane;
-import javax.swing.JToolBar;
-import javax.swing.JPanel;
-import javax.swing.JInternalFrame;
-import javax.swing.JList;
-import javax.swing.JComboBox;
-
-import mappers.ActivosMapper;
-import mappers.CrosswordMapper;
-import mappers.UsuarioMapper;
-
-public class UserMenu {
+public class UserGUI extends JFrame {
 
 	private JFrame frame;
 
@@ -37,10 +29,8 @@ public class UserMenu {
 	private CrosswordMapper cm;
 	private ActivosMapper am;
 	private User user;
-	
-	
-	public UserMenu(final DataSource ds, final User user) {
-		
+	 
+	public UserGUI(final DataSource ds, final User user) {
 		this.user = user;
 		
 		frame = new JFrame();
@@ -52,20 +42,14 @@ public class UserMenu {
 		tabbedPane.setBounds(111, 97, 488, 308);
 		frame.getContentPane().add(tabbedPane);
 		
-		JPanel panel = new JPanel();
-		tabbedPane.addTab("Crucigramas", null, panel, null);
-		
-	
-	
-		
-		JList list = new JList();
-		
 		
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("Amigos", null, panel_1, null);
 		
 		JPanel panel_2 = new JPanel();
 		tabbedPane.addTab("Peticiones de ayuda", null, panel_2, null);
+		
+		
 		
 		this.frame.setVisible(true);
 		
@@ -88,9 +72,43 @@ public class UserMenu {
 			lista.addElement(this.user.getActiveCrosswords().get(i));
 			System.out.println(this.user.getActiveCrosswords().get(i));
 		}
+		
+		JPanel panel = new JPanel();
+		tabbedPane.addTab("Crucigramas", null, panel, null);
+		
+	
+	
+		
+		JList list = new JList();
+		list.setBounds(379, 197, -287, -181);
+		
+		
+		
+		
+		
+		
+		
+		JButton btnNewButton = new JButton("Abrir crucigrama");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
+		panel.setLayout(null);
+		btnNewButton.setBounds(102, 246, 111, 23);
+		panel.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("Busqueda de crucigramas");
+		btnNewButton_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+			}
+		});
+		btnNewButton_1.setBounds(233, 246, 155, 23);
+		panel.add(btnNewButton_1);
 		list.setModel(lista);
 		
-		panel.add(list, BorderLayout.CENTER);
+		panel.add(list);
 		if(crucigrama != null){
 			
 			
@@ -99,32 +117,5 @@ public class UserMenu {
 		}
 		else System.out.println("Fallo");
 	
-	
-		JButton btnNewButton = new JButton("Abrir crucigrama");
-		btnNewButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
-		btnNewButton.setBounds(360, 0, 100, 23);
-		panel.add(btnNewButton, BorderLayout.SOUTH);
-		
-		JButton btnNewButton_1 = new JButton("Busqueda de crucigrama");
-		btnNewButton_1.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				
-				
-			}
-		});
-		btnNewButton_1.setBounds(116, 0, 100, 23);
-		panel.add(btnNewButton_1, BorderLayout.SOUTH);
-		
-		
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	
+    }
 }

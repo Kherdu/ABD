@@ -49,8 +49,8 @@ public class GUI {
 		
 		ComboPooledDataSource cpds = new ComboPooledDataSource();
 		cpds.setDriverClass("com.mysql.jdbc.Driver");
-		cpds.setJdbcUrl("jdbc:mysql://localhost/Practica1_715");
-		cpds.setUser("UsuarioP1");
+		cpds.setJdbcUrl("jdbc:mysql://localhost:3306/Practica1_715");
+		cpds.setUser("root");
 		cpds.setPassword("");
 
 		
@@ -148,12 +148,14 @@ public class GUI {
 				else
 				{
 					
-					if(aux.getNick().equalsIgnoreCase(user) || aux.getPass().equals(pass))
+					if(aux.getNick().equalsIgnoreCase(user) && aux.getPass().equals(passw))
 					{
+						frame.setVisible(false);
+						
 						nug = new UserMenu(ds, aux);
 						
 						
-						frame.setVisible(false);
+						
 					}
 					else  System.out.println("Contraseña incorrecta");
 						

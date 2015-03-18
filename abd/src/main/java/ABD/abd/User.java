@@ -77,6 +77,7 @@ public class User {
 	
 	public void addActiveCrossword(Crossword cw)
 	{
+		if(cw == null) System.out.println("pene");
 		this.activeCrosswords.add(cw);
 	}
 	
