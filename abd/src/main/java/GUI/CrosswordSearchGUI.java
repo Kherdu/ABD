@@ -43,6 +43,7 @@ public class CrosswordSearchGUI  {
 	private UsuarioMapper um;
 	private User us;
 	private ActivosMapper am;
+	private JFrame jfm;
 	/**
 	 * Launch the application.
 	 */
@@ -51,13 +52,12 @@ public class CrosswordSearchGUI  {
 	/**
 	 * Create the frame.
 	 */
-	public CrosswordSearchGUI(CrosswordMapper c, DataSource ds, ActivosMapper a, User u) {
+	public CrosswordSearchGUI(CrosswordMapper c, DataSource d, ActivosMapper a, User user) {
 	
 		cwm=c;
-		ds = ds;
+		ds = d;
 		am = a;
-		us = u;
-		
+		us = user;
 		
 		
 		
@@ -94,13 +94,7 @@ public class CrosswordSearchGUI  {
 			
 			public void mouseClicked(MouseEvent arg0) {
 				String e = textField.getText();
-				//ArrayList<Crossword> resultados= new ArrayList<Crossword>();
-				//for now it just only can search for exact match... cant implement search with LIKE instead of WHERE
-				/*for(Crossword i: resultados){
-				if (!list.contains(i))
-				list.addElement(i);
-				
-			}*/
+			
 				Crossword resultado=new Crossword();
 				
 				resultado=cwm.findById(e);
@@ -115,6 +109,9 @@ public class CrosswordSearchGUI  {
 				
 				listField.setModel(list);
 				frame.add(listField,BorderLayout.SOUTH);
+				
+				
+				
 			}
 		});
 		
