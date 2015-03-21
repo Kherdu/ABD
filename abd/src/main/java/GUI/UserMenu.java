@@ -59,6 +59,7 @@ public class UserMenu {
 	
 		
 		JList list = new JList();
+		list.setToolTipText("Selecciona el crucigrama que quieras abrir");
 		
 		
 		JPanel panel_1 = new JPanel();
@@ -113,7 +114,7 @@ public class UserMenu {
 		btnNewButton_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				
+				CrosswordSearchGUI searchframe= new CrosswordSearchGUI(cm);
 				
 			}
 		});
