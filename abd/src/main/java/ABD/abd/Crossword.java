@@ -20,7 +20,6 @@ public class Crossword {
 	private String title;
 	private Date date;
 	private ArrayList <Word> words;
-	private User user;
 	
 	
 	public Crossword(String title, Date date)
@@ -28,7 +27,6 @@ public class Crossword {
 		this.title = title;
 		this.date = date;
 		this.words = null;
-		this.user = null;
 	}
 	
 
@@ -37,7 +35,6 @@ public class Crossword {
 		this.title = title;
 		this.date = null;
 		this.words = null;
-		this.user = null;
 	}
 	
 	public Crossword()
@@ -45,7 +42,6 @@ public class Crossword {
 		this.title=null;
 		this.date = null;
 		this.words = null;
-		this.user = null;
 	}
 	
 	
@@ -107,16 +103,6 @@ public class Crossword {
 	}
 	public void setWords(ArrayList<Word> words) {
 		this.words = words;
-	}
-
-
-	public String getUser() {
-		return user.getNick();
-	}
-
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 	

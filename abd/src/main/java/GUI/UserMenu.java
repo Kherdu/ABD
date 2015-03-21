@@ -114,8 +114,7 @@ public class UserMenu {
 		btnNewButton_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-	
-				CrosswordSearchGUI searchframe= new CrosswordSearchGUI(cm, ds, am, user);
+				CrosswordSearchGUI searchframe= new CrosswordSearchGUI(cm);
 				
 			}
 		});

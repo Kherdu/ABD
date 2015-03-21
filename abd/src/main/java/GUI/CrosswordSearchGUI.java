@@ -3,7 +3,6 @@ package GUI;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
-import javax.sql.DataSource;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,17 +16,12 @@ import javax.swing.border.EmptyBorder;
 
 import ABD.abd.Crossword;
 import ABD.abd.UIController;
-import ABD.abd.User;
-import mappers.ActivosMapper;
 import mappers.CrosswordMapper;
-import mappers.UsuarioMapper;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-
 import javax.swing.ListSelectionModel;
-
 import java.awt.Color;
 
 public class CrosswordSearchGUI  {
@@ -39,10 +33,6 @@ public class CrosswordSearchGUI  {
 	private CrosswordMapper cwm;
 	private DefaultListModel list;
 	private JList listField;
-	private DataSource ds;
-	private UsuarioMapper um;
-	private User us;
-	private ActivosMapper am;
 	/**
 	 * Launch the application.
 	 */
@@ -51,32 +41,30 @@ public class CrosswordSearchGUI  {
 	/**
 	 * Create the frame.
 	 */
-	public CrosswordSearchGUI(CrosswordMapper c, DataSource ds, ActivosMapper a, User u) {
-	
+	public CrosswordSearchGUI(CrosswordMapper c) {
+		initialize();
 		cwm=c;
-		ds = ds;
-		am = a;
-		us = u;
+	}
+	private void initialize() {
 		
 		
 		
-		
-
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 573, 430);
 		frame.getContentPane().setLayout(null);
 		
 		 btnBuscar = new JButton("Buscar");
 		
-		btnBuscar.setBounds(231, 38, 111, 29);
+		btnBuscar.setBounds(286, 38, 111, 29);
 		frame.getContentPane().add(btnBuscar);
 		
 		textField = new JTextField();
-		textField.setBounds(35, 38, 183, 29);
+		textField.setBounds(35, 38, 228, 29);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		list=new DefaultListModel();
 		listField = new JList(list);
+		listField.setBounds(33, 354, 491, -246);
 		listField.setBackground(Color.WHITE);
 		listField.setToolTipText("Selecciona el crucigrama a añadir");
 		listField.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -84,43 +72,34 @@ public class CrosswordSearchGUI  {
 		frame.getContentPane().add(listField);
 		
 		JButton btnAdd = new JButton("btnAñadir");
-		btnAdd.setBounds(335, 205, 89, 23);
+		btnAdd.setBounds(458, 41, 89, 23);
 		frame.getContentPane().add(btnAdd);
 		
 		frame.setVisible(true);
 		
 		btnBuscar.addMouseListener(new MouseAdapter() {
-		
-			
+			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				String e = textField.getText();
-				//ArrayList<Crossword> resultados= new ArrayList<Crossword>();
+				//String e = textField.getText();
+				
 				//for now it just only can search for exact match... cant implement search with LIKE instead of WHERE
-				/*for(Crossword i: resultados){
+			/*	for(Crossword i: resultados){
 				if (!list.contains(i))
 				list.addElement(i);
 				
 			}*/
-				Crossword resultado=new Crossword();
+				//Crossword resultado=new Crossword();
 				
-				resultado=cwm.findById(e);
-				resultado.setUser(us);
-				System.out.println(resultado.toString());
-				am.insert(resultado);
-				
-			
-				
-				
-				
-				
+				ArrayList<Crossword> resultados= cwm.findAll();
+				System.out.println(resultados.toString());
+				for (Crossword i: resultados){
+				list.addElement(i);
+				}
 				listField.setModel(list);
-				frame.add(listField,BorderLayout.SOUTH);
+				frame.getContentPane().add(listField,BorderLayout.SOUTH);
 			}
 		});
 		
-		
-		
 	}
-
 }
 
