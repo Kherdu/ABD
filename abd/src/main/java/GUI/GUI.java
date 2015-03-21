@@ -50,7 +50,7 @@ public class GUI {
 		ComboPooledDataSource cpds = new ComboPooledDataSource();
 		cpds.setDriverClass("com.mysql.jdbc.Driver");
 		cpds.setJdbcUrl("jdbc:mysql://localhost:3306/Practica1_715");
-		cpds.setUser("UsuarioP1");
+		cpds.setUser("root");
 		cpds.setPassword("");
 
 		cpds.setAcquireRetryAttempts(1);

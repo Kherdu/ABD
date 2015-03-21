@@ -53,8 +53,8 @@ public class ActivosMapper extends AbstractMapper<Crossword, String> {
 
 	@Override
 	protected Object[] serializeObject(Crossword object) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return new Object[] { null, object.getTitle(), object.getUser(), null, null};
 	}
 
 	@Override

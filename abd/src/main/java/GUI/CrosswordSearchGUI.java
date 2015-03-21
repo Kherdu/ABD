@@ -3,6 +3,7 @@ package GUI;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
+import javax.sql.DataSource;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,12 +17,17 @@ import javax.swing.border.EmptyBorder;
 
 import ABD.abd.Crossword;
 import ABD.abd.UIController;
+import ABD.abd.User;
+import mappers.ActivosMapper;
 import mappers.CrosswordMapper;
+import mappers.UsuarioMapper;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+
 import javax.swing.ListSelectionModel;
+
 import java.awt.Color;
 
 public class CrosswordSearchGUI  {
@@ -33,6 +39,10 @@ public class CrosswordSearchGUI  {
 	private CrosswordMapper cwm;
 	private DefaultListModel list;
 	private JList listField;
+	private DataSource ds;
+	private UsuarioMapper um;
+	private User us;
+	private ActivosMapper am;
 	/**
 	 * Launch the application.
 	 */
@@ -41,14 +51,17 @@ public class CrosswordSearchGUI  {
 	/**
 	 * Create the frame.
 	 */
-	public CrosswordSearchGUI(CrosswordMapper c) {
-		initialize();
+	public CrosswordSearchGUI(CrosswordMapper c, DataSource ds, ActivosMapper a, User u) {
+	
 		cwm=c;
-	}
-	private void initialize() {
+		ds = ds;
+		am = a;
+		us = u;
 		
 		
 		
+		
+
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.getContentPane().setLayout(null);
@@ -77,7 +90,8 @@ public class CrosswordSearchGUI  {
 		frame.setVisible(true);
 		
 		btnBuscar.addMouseListener(new MouseAdapter() {
-			@Override
+		
+			
 			public void mouseClicked(MouseEvent arg0) {
 				String e = textField.getText();
 				//ArrayList<Crossword> resultados= new ArrayList<Crossword>();
@@ -88,14 +102,25 @@ public class CrosswordSearchGUI  {
 				
 			}*/
 				Crossword resultado=new Crossword();
-				resultado=cwm.findById(e);
 				
+				resultado=cwm.findById(e);
+				resultado.setUser(us);
 				System.out.println(resultado.toString());
+				am.insert(resultado);
+				
+			
+				
+				
+				
+				
 				listField.setModel(list);
 				frame.add(listField,BorderLayout.SOUTH);
 			}
 		});
 		
+		
+		
 	}
+
 }
 
