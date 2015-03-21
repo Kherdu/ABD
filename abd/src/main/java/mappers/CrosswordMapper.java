@@ -1,14 +1,10 @@
 package mappers;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.sql.DataSource;
-
-import org.apache.commons.lang3.StringUtils;
 
 import ABD.abd.Crossword;
 import ABD.abd.User;
@@ -73,30 +69,6 @@ public class CrosswordMapper extends AbstractMapper<Crossword, String> {
 		return null;
 	}
 
-	public ArrayList<Crossword> findAll(){
-		ArrayList<Crossword> ret= new ArrayList<Crossword>();
-		String tableName = getTableName();
-		String[] columnNames = getColumnNames();
-		String keyColumnName = getKeyColumnName();
-		
-		String sql = "SELECT " + "*" + " FROM "
-				+ tableName;
-		try (Connection con = ds.getConnection();
-			 PreparedStatement pst = con.prepareStatement(sql)) {
-			
-			
-			try(ResultSet rs = pst.executeQuery()) {
-				while (rs.next()) {
-					ret.add(buildObject(rs));
-				} return ret;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}
-		
-		
-	}
 	
 
 }

@@ -126,9 +126,9 @@ public abstract class AbstractMapper  <T, K>{
 		
 		for(int i = 0; i < key.length; i++)
 		{
-			System.out.println(objeto[i]);
-			if(objeto[i] != null) key[i] = "'" + (String) objeto[i] + "'" ;
-			else key[i] = "NULL";
+			if(objeto[i] == null)  key[i] = "NULL";
+			else key[i] = "'" + (String) objeto[i] + "'" ;
+			
 		}
 		
 		
