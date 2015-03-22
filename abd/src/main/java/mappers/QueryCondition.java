@@ -1,12 +1,13 @@
 package mappers;
 
 public class QueryCondition {
-	
+
 	private String columnName;
 	private QueryOperator operator;
 	private Object value;
-	
-	public QueryCondition(String columnName, QueryOperator operator, Object value) {
+
+	public QueryCondition(String columnName, QueryOperator operator,
+			Object value) {
 		this.columnName = columnName;
 		this.operator = operator;
 		this.value = value;
@@ -35,7 +36,5 @@ public class QueryCondition {
 	public void setValue(Object value) {
 		this.value = value;
 	}
-	
-	
-	
+
 }

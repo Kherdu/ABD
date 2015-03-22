@@ -9,12 +9,11 @@ import ABD.abd.User;
 
 public class UsuarioMapper extends AbstractMapper<User, String> {
 
-	
-	private static final String user_key_name =  "Usuario";
-	private static final String[] user_column_names = new String[] { "Usuario", "Contraseña", "FechaNacimiento", "Foto" };
+	private static final String user_key_name = "Usuario";
+	private static final String[] user_column_names = new String[] { "Usuario",
+			"Contraseña", "FechaNacimiento", "Foto" };
 	private static final String user_table_name = "usuario";
-	
-	
+
 	public UsuarioMapper(DataSource ds) {
 		super(ds);
 		// TODO Auto-generated constructor stub
@@ -22,7 +21,7 @@ public class UsuarioMapper extends AbstractMapper<User, String> {
 
 	@Override
 	protected String getTableName() {
-	
+
 		return user_table_name;
 	}
 
@@ -33,29 +32,29 @@ public class UsuarioMapper extends AbstractMapper<User, String> {
 
 	@Override
 	protected String getKeyColumnName() {
-	
+
 		return user_key_name;
 	}
 
 	@Override
 	protected User buildObject(ResultSet rs) throws SQLException {
-		
-		return new User(rs.getString("Usuario"), rs.getString("Contraseña"), rs.getDate("FechaNacimiento"), rs.getBlob("Foto"));
+
+		return new User(rs.getString("Usuario"), rs.getString("Contraseña"),
+				rs.getDate("FechaNacimiento"), rs.getBlob("Foto"));
 	}
 
 	@Override
 	protected User buildObject(Object[] components) throws SQLException {
 		// TODO Auto-generated method stub
-		
-		
+
 		return null;
 	}
 
 	@Override
 	protected Object[] serializeObject(User object) {
-	
-		
-		return new Object[] {  object.getNick(), object.getPass(), object.getBirthDate(), object.getAvatar()};
+
+		return new Object[] { object.getNick(), object.getPass(),
+				object.getBirthDate(), object.getAvatar() };
 	}
 
 	@Override
@@ -64,11 +63,9 @@ public class UsuarioMapper extends AbstractMapper<User, String> {
 		return null;
 	}
 
-
-
 	@Override
 	protected Object[] serializeObjectKey(String object) {
-		
+
 		return new Object[] { object };
 	}
 
@@ -76,5 +73,5 @@ public class UsuarioMapper extends AbstractMapper<User, String> {
 	protected String getKeyFromObject(User Object) {
 		return Object.getNick();
 	}
-	
+
 }

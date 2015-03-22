@@ -129,7 +129,8 @@ public class GUI {
 
 				if (aux == null) {
 					System.out.println("Usuario incorrecto");
-					//this should be changed to notification window instead of console message
+					// this should be changed to notification window instead of
+					// console message
 				} else {
 
 					if (aux.getNick().equalsIgnoreCase(user)
@@ -140,7 +141,8 @@ public class GUI {
 
 					} else
 						System.out.println("Contraseña incorrecta");
-					//this should be changed to notification window instead of console message
+					// this should be changed to notification window instead of
+					// console message
 				}
 
 			}

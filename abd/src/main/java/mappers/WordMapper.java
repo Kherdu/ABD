@@ -10,11 +10,11 @@ import ABD.abd.Word;
 
 public class WordMapper extends AbstractMapper<Word, String> {
 
-	
-	private static final String word_key_name =  "Secuencia";
-	private static final String[] word_column_names = new String[] { "Secuencia", "Desripcion", "Foto" };
+	private static final String word_key_name = "Secuencia";
+	private static final String[] word_column_names = new String[] {
+			"Secuencia", "Desripcion", "Foto" };
 	private static final String word_table_name = "palabra";
-	
+
 	public WordMapper(DataSource ds) {
 		super(ds);
 		// TODO Auto-generated constructor stub
@@ -22,7 +22,7 @@ public class WordMapper extends AbstractMapper<Word, String> {
 
 	@Override
 	protected String getTableName() {
-	
+
 		return word_table_name;
 	}
 
@@ -34,13 +34,14 @@ public class WordMapper extends AbstractMapper<Word, String> {
 
 	@Override
 	protected String getKeyColumnName() {
-	
+
 		return word_key_name;
 	}
 
 	@Override
 	protected Word buildObject(ResultSet rs) throws SQLException {
-		return new Word(rs.getString("Secuencia"), rs.getString("Descripcion"), rs.getBlob("Foto"));
+		return new Word(rs.getString("Secuencia"), rs.getString("Descripcion"),
+				rs.getBlob("Foto"));
 	}
 
 	@Override
@@ -51,8 +52,9 @@ public class WordMapper extends AbstractMapper<Word, String> {
 
 	@Override
 	protected Object[] serializeObject(Word object) {
-		
-		return new Object[] {  object.getWord(), object.getDescription(), object.getPicture()};
+
+		return new Object[] { object.getWord(), object.getDescription(),
+				object.getPicture() };
 	}
 
 	@Override

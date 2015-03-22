@@ -10,19 +10,19 @@ import ABD.abd.Word;
 
 public class ContieneMapper extends AbstractMapper<Word, String> {
 
-	
 	/**
 	 * 
 	 * CAMBIAR KEY_NAME A ARRAY
 	 * */
-	
-	private static final String contains_key_name =  "Secuencia";
-	private static final String[] contains_column_names = new String[] { "Secuencia", "Desripcion", "Foto" };
+
+	private static final String contains_key_name = "Secuencia";
+	private static final String[] contains_column_names = new String[] {
+			"Secuencia", "Desripcion", "Foto" };
 	private static final String contains_table_name = "palabra";
-	
+
 	public ContieneMapper(DataSource ds) {
 		super(ds);
-		
+
 	}
 
 	@Override
@@ -45,7 +45,8 @@ public class ContieneMapper extends AbstractMapper<Word, String> {
 
 	@Override
 	protected Word buildObject(ResultSet rs) throws SQLException {
-		return new Word(rs.getString("Id_palabra"), rs.getInt("PosicionX"),rs.getInt("PosicionY"),rs.getString("Orientacion"));
+		return new Word(rs.getString("Id_palabra"), rs.getInt("PosicionX"),
+				rs.getInt("PosicionY"), rs.getString("Orientacion"));
 	}
 
 	@Override
