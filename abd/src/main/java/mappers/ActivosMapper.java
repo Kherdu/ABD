@@ -1,10 +1,14 @@
 package mappers;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.sql.DataSource;
+
+import org.apache.commons.lang3.StringUtils;
 
 import ABD.abd.Crossword;
 import ABD.abd.User;
@@ -74,7 +78,42 @@ public class ActivosMapper extends AbstractMapper<Crossword, String> {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	public Boolean findByUserAndCrossword(User user, Crossword crossword){
+		boolean ret=false;
+		String tableName = getTableName();
+		String[] columnNames = getColumnNames();
+		String keyColumnNameUser= "Nick";
+		String keyColumnNameCrossword= "Titulo_Crucigrama";
+		Object object=null;
+		
+		String sql = "SELECT " + StringUtils.join(columnNames, ", ") + " FROM "
+				+ tableName + " WHERE "+ keyColumnNameUser + " = ?" + " AND " + keyColumnNameCrossword + " = ?";
+		try (Connection con = ds.getConnection();
+			 PreparedStatement pst = con.prepareStatement(sql)) {
+			
+			pst.setString(1, user.getNick());
+			pst.setString(2, crossword.getTitle());
+			
+			
+			
+			try(ResultSet rs = pst.executeQuery()) {
+			
+				while(rs.next())
+				{
+					 object=buildObject(rs);
+				}
+				
+			}
+			if (object!=null) ret=true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			ret=false;
+		}
+		
+		return ret;
+		
+	}
 	
 	
 }

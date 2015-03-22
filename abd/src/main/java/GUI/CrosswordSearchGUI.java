@@ -66,7 +66,7 @@ public class CrosswordSearchGUI  {
 		frame.setBounds(100, 100, 772, 482);
 		frame.getContentPane().setLayout(null);
 		
-		 btnBuscar = new JButton("Buscar");
+		btnBuscar = new JButton("Buscar");
 		
 		btnBuscar.setBounds(231, 38, 111, 29);
 		frame.getContentPane().add(btnBuscar);
@@ -76,20 +76,16 @@ public class CrosswordSearchGUI  {
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		list=new DefaultListModel();
-		ArrayList<Crossword> resultados= cwm.findAll();
-		System.out.println(resultados.toString());
-		for (Crossword i: resultados){
-			list.addElement(i);
-		}
-		
 		listField = new JList(list);
 		listField.setBackground(Color.WHITE);
 		listField.setToolTipText("Selecciona el crucigrama a añadir");
 		listField.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		listField.setModel(list);
 		
 		frame.getContentPane().add(listField);
-		
+		frame.repaint();
 		JButton btnAdd = new JButton("btnAñadir");
+		
 		btnAdd.setBounds(465, 41, 89, 23);
 		frame.getContentPane().add(btnAdd);
 		
@@ -105,35 +101,39 @@ public class CrosswordSearchGUI  {
 			public void mouseClicked(MouseEvent arg0) {
 				String e = textField.getText();
 				ArrayList<Crossword> resultados= new ArrayList<Crossword>();
-				//for now it just only can search for exact match... cant implement search with LIKE instead of WHERE
-				/*for(Crossword i: resultados){
-				if (!list.contains(i))
-				list.addElement(i);
 				
-			}*/
 				Crossword resultado=new Crossword();
-				
-		
-				 
-				DefaultListModel lista = new DefaultListModel();
-				
+				list.clear();
 				resultados=cwm.findCrosswordsByTitle(e);
 				for(Crossword i: resultados){
 					i.setUser(us);
 					System.out.println(i.toString());
-					lista.addElement(i);
-					//am.insert(i);
+					list.addElement(i);
+					
 				}
 				
 				
 				
-				listField.setModel(lista);
+				listField.setModel(list);
 				frame.getContentPane().add(listField);
 				frame.repaint();
 			}
 		});
 		
-		
+		btnAdd.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Crossword selected= new Crossword();
+				selected=(Crossword) listField.getSelectedValue();
+				if (selected!=null){
+					if (am.findByUserAndCrossword(us, selected)){
+						//error msg , probably advice window
+						
+					} else am.insert(selected);
+					
+				}
+			}
+		});
 		
 	}
 }
