@@ -76,6 +76,12 @@ public class CrosswordSearchGUI  {
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		list=new DefaultListModel();
+		ArrayList<Crossword> resultados= cwm.findAll();
+		System.out.println(resultados.toString());
+		for (Crossword i: resultados){
+			list.addElement(i);
+		}
+		
 		listField = new JList(list);
 		listField.setBackground(Color.WHITE);
 		listField.setToolTipText("Selecciona el crucigrama a añadir");
@@ -94,7 +100,7 @@ public class CrosswordSearchGUI  {
 			
 			public void mouseClicked(MouseEvent arg0) {
 				String e = textField.getText();
-				//ArrayList<Crossword> resultados= new ArrayList<Crossword>();
+				ArrayList<Crossword> resultados= new ArrayList<Crossword>();
 				//for now it just only can search for exact match... cant implement search with LIKE instead of WHERE
 				/*for(Crossword i: resultados){
 				if (!list.contains(i))
@@ -103,15 +109,12 @@ public class CrosswordSearchGUI  {
 			}*/
 				Crossword resultado=new Crossword();
 				
-				resultado=cwm.findById(e);
-				resultado.setUser(us);
-				System.out.println(resultado.toString());
-				am.insert(resultado);
-				
-			
-				
-				
-				
+				resultados=cwm.findCrosswordsByTitle(e);
+				for(Crossword i: resultados){
+					i.setUser(us);
+					System.out.println(i.toString());
+					am.insert(i);
+				}
 				
 				listField.setModel(list);
 				frame.add(listField,BorderLayout.SOUTH);

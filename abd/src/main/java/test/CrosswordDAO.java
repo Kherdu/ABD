@@ -127,10 +127,7 @@ public class CrosswordDAO {
 		
 		CrosswordMapper cm = new CrosswordMapper(ds);
 		
-		
-		
-	
-		return cm.find2(str);
+		return cm.findCrosswordsByTitle(str);
 	}
 
 	/**
