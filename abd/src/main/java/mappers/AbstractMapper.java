@@ -196,20 +196,16 @@ public abstract class AbstractMapper<T, K> {
 		String[] columnNames = getColumnNames();
 		String[] key = new String[columnNames.length];
 
-		QueryCondition[] conditions = new QueryCondition[getKeyColumnName()
-				.length()];
+		QueryCondition[] conditions = getConditionsFromKey2(getKeyFromObject(object));
+		
 		String[] condString = new String[conditions.length];
 
-		for (int i = 0; i < conditions.length; i++) {
-			conditions[i] = new QueryCondition(getKeyColumnName(),
-					QueryOperator.EQ, key);
-		}
+		
 		for (int i = 0; i < condString.length; i++) {
 			condString[i] = conditions[i].getColumnName() + " "
-					+ conditions[i].getOperator().getOperator() + " '"
-					+ conditions[i].getValue() + "'";
+					+ conditions[i].getOperator().getOperator() + key[i];
 		}
-
+		
 		try {
 			con = this.ds.getConnection();
 
@@ -218,7 +214,7 @@ public abstract class AbstractMapper<T, K> {
 			String sql = "DELETE FROM " + tableName + " WHERE "
 					+ StringUtils.join(condString, " AND ");
 
-			// DELETE FROM -_______________ WHERE ______________
+			// DELETE FROM _______________ WHERE ______________
 
 			st.executeUpdate(sql);
 
@@ -247,8 +243,6 @@ public abstract class AbstractMapper<T, K> {
 
 		String[] assignments = new String[columnNames.length];
 
-		// QueryCondition[] conditions = new
-		// QueryCondition[getKeyColumnName().length()];
 		QueryCondition[] conditions = getConditionsFromKey2(getKeyFromObject(object));
 		String[] condString = new String[conditions.length];
 

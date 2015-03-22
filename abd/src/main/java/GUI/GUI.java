@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.sql.DataSource;
 import javax.swing.JFrame;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import java.awt.event.ActionListener;
@@ -120,7 +121,7 @@ public class GUI {
 
 				String passw = new String(pass);
 
-				System.out.println(user + " " + passw);
+		
 				// check
 
 				um = new UsuarioMapper(ds);
@@ -128,7 +129,10 @@ public class GUI {
 				User aux = um.findById(user);
 
 				if (aux == null) {
-					System.out.println("Usuario incorrecto");
+					String error = "Usuario incorrecto";
+					System.out.println(error);
+					JOptionPane.showMessageDialog(new JFrame(), error, "Dialog",
+				        JOptionPane.ERROR_MESSAGE);
 					// this should be changed to notification window instead of
 					// console message
 				} else {
@@ -140,7 +144,13 @@ public class GUI {
 						nug = new UserMenu(ds, aux);
 
 					} else
-						System.out.println("Contraseña incorrecta");
+						{
+							String error = "Contrasela incorrecta";
+							System.out.println(error);
+							JOptionPane.showMessageDialog(new JFrame(), error, "Dialog",
+						        JOptionPane.ERROR_MESSAGE);
+						
+						}
 					// this should be changed to notification window instead of
 					// console message
 				}
@@ -175,11 +185,18 @@ public class GUI {
 
 				User aux = um.findById(user);
 
-				if (aux == null) {
+				if (aux == null) 
+				{
 					aux = new User(user, passw);
 					um.insert(aux);
-				} else
-					System.out.println("Usuario ya en uso");
+				}
+				else
+				{
+					String error = "Usuario ya en uso";
+					System.out.println(error);
+					JOptionPane.showMessageDialog(new JFrame(), error, "Dialog",
+			        JOptionPane.ERROR_MESSAGE);
+				}
 
 			}
 		});

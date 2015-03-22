@@ -24,6 +24,9 @@ public class CrosswordDAO {
 	 * Aquí se debe inicializar el pool de conexiones, mediante la creación de
 	 * un DataSource, que deberá ser asignado a la variable ds.
 	 */
+	private UsuarioMapper um ;
+	private CrosswordMapper cm;
+	private ActivosMapper am;
 	public CrosswordDAO() {
 		// this.ds = ...
 		ComboPooledDataSource cpds = new ComboPooledDataSource();
@@ -36,7 +39,7 @@ public class CrosswordDAO {
 			e.printStackTrace();
 		}
 		cpds.setJdbcUrl("jdbc:mysql://localhost:3306/Practica1_715");
-		cpds.setUser("root");
+		cpds.setUser("UsuarioP1");
 		cpds.setPassword("");
 
 		cpds.setAcquireRetryAttempts(1);
@@ -51,11 +54,11 @@ public class CrosswordDAO {
 	 */
 	public String getPassword(String nick) {
 
-		UsuarioMapper um = new UsuarioMapper(ds);
+		um = new UsuarioMapper(ds);
 		User aux = null;
 		try {
 			aux = um.findById(nick);
-			System.out.println(aux);
+	
 		} catch (NullPointerException e) {
 
 		} finally {
@@ -72,26 +75,15 @@ public class CrosswordDAO {
 	 */
 	public void modifyPassword(String nick, String newPassword) {
 
-		UsuarioMapper um = new UsuarioMapper(ds);
+		um = new UsuarioMapper(ds);
 		User aux = null;
 		aux = um.findById(nick);
-		System.out.println(aux);
+
 
 		aux.setPass(newPassword);
 		um.update(aux);
 
-		/*
-		 * try {
-		 * 
-		 * } catch(NullPointerException e) {
-		 * 
-		 * 
-		 * } finally { if(aux == null)
-		 * System.out.println("Usuario no existente"); else {
-		 * 
-		 * 
-		 * } }
-		 */
+
 
 	}
 
@@ -107,9 +99,8 @@ public class CrosswordDAO {
 	 */
 	public List<Crossword> findCrosswordsByTitle(String str) {
 
-		List<Object> asd;
 
-		CrosswordMapper cm = new CrosswordMapper(ds);
+		cm = new CrosswordMapper(ds);
 
 		return cm.findCrosswordsByTitle(str);
 	}
@@ -119,14 +110,11 @@ public class CrosswordDAO {
 	 */
 	public String getCrosswordTitle(Object id) {
 
-		/*
-		 * CrosswordMapper cm = new CrosswordMapper(ds); Crossword aux =
-		 * cm.findById((String) id);
-		 */
+
 		Crossword aux = (Crossword) id;
 
 		return aux.getTitle();
-		// return aux.getTitle();
+
 	}
 
 	/**
@@ -143,12 +131,12 @@ public class CrosswordDAO {
 		ActivosMapper am = new ActivosMapper(ds);
 
 		Crossword resultado = new Crossword();
-		CrosswordMapper cwm = new CrosswordMapper(ds);
+	
 
 		resultado = (Crossword) crosswordId;
 
 		resultado.setUser(user);
-		System.out.println(resultado.toString());
+
 		am.insert(resultado);
 
 	}
@@ -158,11 +146,11 @@ public class CrosswordDAO {
 	 * usuario pasado como parámetro
 	 */
 	public ArrayList<Crossword> getCrosswordsOf(String nick) {
-		UsuarioMapper um = new UsuarioMapper(ds);
+		um = new UsuarioMapper(ds);
 		User user = um.findById(nick);
 
-		System.out.println(user.getNick());
-		ActivosMapper am = new ActivosMapper(ds);
+	
+		am = new ActivosMapper(ds);
 
 		user.setActiveCrosswords(am.find(user.getNick()));
 

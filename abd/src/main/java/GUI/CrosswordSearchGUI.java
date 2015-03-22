@@ -8,6 +8,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -16,7 +17,7 @@ import javax.swing.ListModel;
 import javax.swing.border.EmptyBorder;
 
 import ABD.abd.Crossword;
-import ABD.abd.UIController;
+
 import ABD.abd.User;
 import mappers.ActivosMapper;
 import mappers.CrosswordMapper;
@@ -43,6 +44,7 @@ public class CrosswordSearchGUI {
 	private UsuarioMapper um;
 	private User us;
 	private ActivosMapper am;
+	private DefaultListModel listaMenu;
 
 	/**
 	 * Launch the application.
@@ -50,14 +52,16 @@ public class CrosswordSearchGUI {
 
 	/**
 	 * Create the frame.
+	 * @param lista 
 	 */
 	public CrosswordSearchGUI(CrosswordMapper c, DataSource ds,
-			ActivosMapper a, User u) {
+			ActivosMapper a, User u, DefaultListModel listamenu) {
 
 		cwm = c;
 		ds = ds;
 		am = a;
 		us = u;
+		listaMenu = listamenu;
 
 		frame = new JFrame();
 		frame.setBounds(100, 100, 772, 482);
@@ -102,7 +106,7 @@ public class CrosswordSearchGUI {
 				resultados = cwm.findCrosswordsByTitle(e);
 				for (Crossword i : resultados) {
 					i.setUser(us);
-					System.out.println(i.toString());
+					//System.out.println(i.toString());
 					list.addElement(i);
 
 				}
@@ -121,9 +125,17 @@ public class CrosswordSearchGUI {
 				if (selected != null) {
 					if (am.findByUserAndCrossword(us, selected)) {
 						// error msg , probably advice window
+						String error = "Crucigrama ya activo";
+						System.out.println(error);
+						JOptionPane.showMessageDialog(new JFrame(), error, "Dialog",
+						        JOptionPane.ERROR_MESSAGE);
+
 
 					} else
+					{
 						am.insert(selected);
+						listaMenu.addElement(selected);
+					}
 
 				}
 			}

@@ -36,6 +36,7 @@ public class UserMenu {
 	private CrosswordMapper cm;
 	private ActivosMapper am;
 	private User user;
+	private DefaultListModel lista;
 
 	public UserMenu(final DataSource ds, final User user) {
 
@@ -69,11 +70,12 @@ public class UserMenu {
 		Crossword crucigrama = new Crossword();
 		ArrayList<Crossword> crucisActivos = null;
 
-		DefaultListModel lista = new DefaultListModel();
+		 lista = new DefaultListModel();
+		
 		this.user.setActiveCrosswords(am.find(user.getNick()));
 		for (int i = 0; i < this.user.getActiveCrosswords().size(); i++) {
 			lista.addElement(this.user.getActiveCrosswords().get(i));
-			System.out.println(this.user.getActiveCrosswords().get(i));
+			//System.out.println(this.user.getActiveCrosswords().get(i));
 		}
 		list.setModel(lista);
 
@@ -100,7 +102,7 @@ public class UserMenu {
 			public void mouseClicked(MouseEvent arg0) {
 
 				CrosswordSearchGUI searchframe = new CrosswordSearchGUI(cm, ds,
-						am, user);
+						am, user, lista);
 
 			}
 		});
