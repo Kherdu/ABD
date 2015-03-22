@@ -63,7 +63,7 @@ public class CrosswordSearchGUI  {
 		
 
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 772, 482);
 		frame.getContentPane().setLayout(null);
 		
 		 btnBuscar = new JButton("Buscar");
@@ -90,8 +90,12 @@ public class CrosswordSearchGUI  {
 		frame.getContentPane().add(listField);
 		
 		JButton btnAdd = new JButton("btnAñadir");
-		btnAdd.setBounds(335, 205, 89, 23);
+		btnAdd.setBounds(465, 41, 89, 23);
 		frame.getContentPane().add(btnAdd);
+		
+		listField = new JList();
+		listField.setBounds(104, 105, 450, 297);
+	
 		
 		frame.setVisible(true);
 		
@@ -109,21 +113,28 @@ public class CrosswordSearchGUI  {
 			}*/
 				Crossword resultado=new Crossword();
 				
+		
+				 
+				DefaultListModel lista = new DefaultListModel();
+				
 				resultados=cwm.findCrosswordsByTitle(e);
 				for(Crossword i: resultados){
 					i.setUser(us);
 					System.out.println(i.toString());
-					am.insert(i);
+					lista.addElement(i);
+					//am.insert(i);
 				}
 				
-				listField.setModel(list);
-				frame.add(listField,BorderLayout.SOUTH);
+				
+				
+				listField.setModel(lista);
+				frame.getContentPane().add(listField);
+				frame.repaint();
 			}
 		});
 		
 		
 		
 	}
-
 }
 
