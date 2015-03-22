@@ -62,4 +62,10 @@ public class ResuelveMapper extends AbstractMapper<User, String> {
 		return null;
 	}
 
+	@Override
+	protected String getKeyFromObject(User Object) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

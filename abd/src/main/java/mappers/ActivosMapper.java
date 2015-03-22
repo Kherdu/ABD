@@ -69,6 +69,12 @@ public class ActivosMapper extends AbstractMapper<Crossword, String> {
 		return null;
 	}
 
+	@Override
+	protected String getKeyFromObject(Crossword Object) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 	
 }

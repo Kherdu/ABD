@@ -122,4 +122,10 @@ public class CrosswordMapper<K> extends AbstractMapper<Crossword, String> {
 
 	}
 
+	@Override
+	protected String getKeyFromObject(Crossword Object) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

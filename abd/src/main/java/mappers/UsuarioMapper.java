@@ -68,8 +68,13 @@ public class UsuarioMapper extends AbstractMapper<User, String> {
 
 	@Override
 	protected Object[] serializeObjectKey(String object) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return new Object[] { object };
+	}
+
+	@Override
+	protected String getKeyFromObject(User Object) {
+		return Object.getNick();
 	}
 	
 }

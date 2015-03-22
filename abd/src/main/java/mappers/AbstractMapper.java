@@ -37,6 +37,8 @@ public abstract class AbstractMapper  <T, K>{
 	
 	protected abstract Object decomposeObject(T Object);
 	
+    protected abstract K getKeyFromObject(T Object); 
+	
 	public AbstractMapper(DataSource ds) {
 		this.ds = ds;
 	}
@@ -55,8 +57,22 @@ public abstract class AbstractMapper  <T, K>{
           
         return conditions; 
           
+    
     } 
 	
+    public QueryCondition[] getConditionsFromKey2(K id){ 
+        
+        String keyColumnNames = getKeyColumnName(); 
+        QueryCondition[] conditions = new QueryCondition[1]; 
+        Object columnValues[] = serializeObjectKey(id); 
+        for(int i = 0;i < conditions.length;i++){ 
+            conditions[i] = new QueryCondition(keyColumnNames, QueryOperator.EQ, columnValues[i]); 
+        } 
+          
+        return conditions; 
+          
+    
+    } 
 
 	
 	public T findById(K id) {
@@ -236,29 +252,41 @@ public abstract class AbstractMapper  <T, K>{
 		Statement st = null;
         String tableName = getTableName();
 		String[] columnNames = getColumnNames();
-		String[] key = new String[columnNames.length];
-	
 		
-		QueryCondition[] conditions = new QueryCondition[getKeyColumnName().length()];
+		String[] assignments = new String[columnNames.length]; 
+		
+		
+		  
+		//QueryCondition[] conditions = new QueryCondition[getKeyColumnName().length()];
+		QueryCondition[] conditions =  getConditionsFromKey2(getKeyFromObject(object));
 		String[] condString = new String[conditions.length];
 		
 		
+		Object[] objeto = serializeObject(object);
+		String[] key = new String[columnNames.length];
 		
-		for (int i = 0; i < conditions.length; i++)
+		
+		for(int i = 0; i < key.length; i++)
 		{
-			conditions[i] = new QueryCondition(getKeyColumnName(), QueryOperator.EQ, key);
+			if(objeto[i] == null)  key[i] = "NULL";
+			else key[i] = "'" + (String) objeto[i] + "'" ;
+			
 		}
-		for(int i = 0; i < condString.length; i++)
-		{
-			condString[i] = conditions[i].getColumnName() + " " + conditions[i].getOperator().getOperator() + 	" '"+ conditions[i].getValue()+"'"; 
-		}
-	
+		
+		 for(int i = 0;i < condString.length;i++){ 
+			 condString[i] = conditions[i].getColumnName() + " " + conditions[i].getOperator().getOperator() + key[i]; 
+	        } 
+		 for(int i = 0; i < assignments.length;i++){ 
+	            assignments[i] = columnNames[i] + " = " + key[i]; 
+	        } 
+		  
+		
 		try{ 
 			con = this.ds.getConnection();
 			
 			st = con.createStatement();
 			
-			String sql = "UPDATE " + tableName + " SET "+ StringUtils.join(columnNames, ", ")  +  " WHERE " + StringUtils.join(condString, " AND ");
+			String sql = "UPDATE " + tableName + " SET "+ StringUtils.join(assignments, ", ")  +  " WHERE " + StringUtils.join(condString, " AND ");
 			System.out.println(sql);
 			//UPDATE _______ SET _______________ WHERE ______________________
 			

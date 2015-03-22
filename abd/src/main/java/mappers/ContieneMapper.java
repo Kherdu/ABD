@@ -72,4 +72,10 @@ public class ContieneMapper extends AbstractMapper<Word, String> {
 		return null;
 	}
 
+	@Override
+	protected String getKeyFromObject(Word Object) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
