@@ -28,6 +28,7 @@ import javax.swing.JComboBox;
 import mappers.ActivosMapper;
 import mappers.CrosswordMapper;
 import mappers.UsuarioMapper;
+import javax.swing.JScrollPane;
 
 public class UserMenu {
 
@@ -54,9 +55,6 @@ public class UserMenu {
 		JPanel panel = new JPanel();
 		tabbedPane.addTab("Crucigramas", null, panel, null);
 
-		JList list = new JList();
-		list.setToolTipText("Selecciona el crucigrama que quieras abrir");
-
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("Amigos", null, panel_1, null);
 
@@ -77,9 +75,16 @@ public class UserMenu {
 			lista.addElement(this.user.getActiveCrosswords().get(i));
 			//System.out.println(this.user.getActiveCrosswords().get(i));
 		}
+		panel.setLayout(null);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(65, 65, 320, 176);
+		panel.add(scrollPane);
+		
+				JList list = new JList();
+				scrollPane.setViewportView(list);
+				list.setToolTipText("Selecciona el crucigrama que quieras abrir");
 		list.setModel(lista);
-
-		panel.add(list, BorderLayout.CENTER);
 		if (crucigrama != null) {
 
 			this.user.addActiveCrossword(crucigrama);
@@ -88,15 +93,18 @@ public class UserMenu {
 			System.out.println("Fallo");
 
 		JButton btnNewButton = new JButton("Abrir crucigrama");
+		btnNewButton.setBounds(224, 31, 161, 23);
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
+				CrosswordGUI crosswordGUI= new CrosswordGUI();
 			}
 		});
-		btnNewButton.setBounds(360, 0, 100, 23);
-		panel.add(btnNewButton, BorderLayout.SOUTH);
+		panel.add(btnNewButton);
 
 		JButton btnNewButton_1 = new JButton("Busqueda de crucigrama");
+		btnNewButton_1.setBounds(65, 31, 149, 23);
 		btnNewButton_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -106,8 +114,7 @@ public class UserMenu {
 
 			}
 		});
-		btnNewButton_1.setBounds(116, 0, 100, 23);
-		panel.add(btnNewButton_1, BorderLayout.SOUTH);
+		panel.add(btnNewButton_1);
 
 	}
 

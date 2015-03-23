@@ -45,6 +45,7 @@ public class CrosswordSearchGUI {
 	private User us;
 	private ActivosMapper am;
 	private DefaultListModel listaMenu;
+	private JScrollPane scrollPane;
 
 	/**
 	 * Launch the application.
@@ -69,25 +70,30 @@ public class CrosswordSearchGUI {
 
 		btnBuscar = new JButton("Buscar");
 
-		btnBuscar.setBounds(231, 38, 111, 29);
+		btnBuscar.setBounds(293, 38, 111, 29);
 		frame.getContentPane().add(btnBuscar);
 
 		textField = new JTextField();
-		textField.setBounds(35, 38, 183, 29);
+		textField.setBounds(35, 38, 248, 29);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		list = new DefaultListModel();
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(50, 385, 448, -282);
+		frame.getContentPane().add(scrollPane);
+		
 		listField = new JList(list);
+		scrollPane.setViewportView(listField);
+		
 		listField.setBackground(Color.WHITE);
 		listField.setToolTipText("Selecciona el crucigrama a añadir");
 		listField.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listField.setModel(list);
-
-		frame.getContentPane().add(listField);
 		frame.repaint();
-		JButton btnAdd = new JButton("btnAñadir");
+		JButton btnAdd = new JButton("Añadir");
 
-		btnAdd.setBounds(465, 41, 89, 23);
+		btnAdd.setBounds(465, 38, 100, 29);
 		frame.getContentPane().add(btnAdd);
 
 		listField = new JList();

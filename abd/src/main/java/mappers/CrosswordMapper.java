@@ -72,7 +72,7 @@ public class CrosswordMapper<K> extends AbstractMapper<Crossword, String> {
 		return null;
 	}
 
-	public ArrayList<Crossword> findAll() {
+	public ArrayList<Crossword> findAllCrossword() {
 		ArrayList<Crossword> ret = new ArrayList<Crossword>();
 		String tableName = getTableName();
 		String[] columnNames = getColumnNames();
