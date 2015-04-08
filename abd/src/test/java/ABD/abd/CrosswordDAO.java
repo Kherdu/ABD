@@ -1,4 +1,4 @@
-package test;
+package ABD.abd;
 
 import java.awt.BorderLayout;
 import java.beans.PropertyVetoException;

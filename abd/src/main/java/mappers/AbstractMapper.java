@@ -119,7 +119,8 @@ public abstract class AbstractMapper<T, K> {
 			return null;
 		}
 	}
-
+	
+	//this method is the same as the upper one but it returns list instead of arraylist... why?
 	public List<T> find2(K id) {
 		String tableName = getTableName();
 		String[] columnNames = getColumnNames();

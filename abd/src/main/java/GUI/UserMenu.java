@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 
 import ABD.abd.Crossword;
 import ABD.abd.User;
+import ABD.abd.Word;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -22,8 +23,11 @@ import javax.swing.JList;
 import javax.swing.JComboBox;
 
 import mappers.ActivosMapper;
+import mappers.ContieneMapper;
 import mappers.CrosswordMapper;
 import mappers.UsuarioMapper;
+import mappers.WordMapper;
+
 import javax.swing.JScrollPane;
 
 public class UserMenu {
@@ -32,13 +36,15 @@ public class UserMenu {
 
 	private CrosswordMapper cm;
 	private ActivosMapper am;
+	private ContieneMapper ctm;
 	private User user;
 	private DefaultListModel lista;
+	
 
 	public UserMenu(final DataSource ds, final User user) {
 
 		this.user = user;
-
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 737, 528);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -58,7 +64,7 @@ public class UserMenu {
 		tabbedPane.addTab("Peticiones de ayuda", null, panel_2, null);
 
 		this.frame.setVisible(true);
-
+		ctm= new ContieneMapper(ds);
 		cm = new CrosswordMapper(ds);
 		am = new ActivosMapper(ds);
 		Crossword crucigrama = new Crossword();
@@ -77,10 +83,11 @@ public class UserMenu {
 		scrollPane.setBounds(65, 65, 320, 176);
 		panel.add(scrollPane);
 		
-				JList list = new JList();
+				final JList list = new JList();
 				scrollPane.setViewportView(list);
 				list.setToolTipText("Selecciona el crucigrama que quieras abrir");
-		list.setModel(lista);
+				list.setModel(lista);
+				
 		if (crucigrama != null) {
 
 			this.user.addActiveCrossword(crucigrama);
@@ -92,8 +99,13 @@ public class UserMenu {
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				ArrayList<Word> abrir= new ArrayList();
 				
-				CrosswordGUI crosswordGUI= new CrosswordGUI();
+				Crossword selected= new Crossword();
+				 selected=(Crossword) list.getSelectedValue();
+				abrir.addAll(ctm.find(selected.getTitle()));
+				
+				CrosswordGUI crosswordGUI= new CrosswordGUI(abrir);
 			}
 		});
 		panel.add(btnNewButton);

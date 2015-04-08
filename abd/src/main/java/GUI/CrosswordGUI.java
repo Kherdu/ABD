@@ -12,12 +12,16 @@ import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.swing.JTextField;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 
+import ABD.abd.Crossword;
+import ABD.abd.Word;
 import es.ucm.abd.crossword.CrosswordPanel;
 
 public class CrosswordGUI {
@@ -29,7 +33,7 @@ public class CrosswordGUI {
 	 * Launch the application.
 	 */
 
-	public CrosswordGUI() {
+	public CrosswordGUI(ArrayList<Word> cwd) {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 634, 734);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -38,7 +42,12 @@ public class CrosswordGUI {
 		JPanel crosswordContainer = new JPanel();
 		crosswordContainer.setBounds(23, 11, 550, 400);
 		frame.getContentPane().add(crosswordContainer);
-		CrosswordPanel paintCwd= new CrosswordPanel();
+		
+		
+		
+		
+	    CrosswordPanel paintCwd= new CrosswordPanel(crosswordContainer, cwd);
+		
 		//generar panel con atributos del crucigrama
 		
 		JPanel ImageContainer = new JPanel();
