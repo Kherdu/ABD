@@ -87,9 +87,6 @@ public class Crossword {
 
 
 	
-	
-	
-	
 	public String getTitle() {
 		return title;
 	}

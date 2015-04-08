@@ -12,10 +12,6 @@ import javax.swing.JFrame;
 import ABD.abd.Crossword;
 import ABD.abd.User;
 
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JTabbedPane;
@@ -89,8 +85,7 @@ public class UserMenu {
 
 			this.user.addActiveCrossword(crucigrama);
 
-		} else
-			System.out.println("Fallo");
+		} 
 
 		JButton btnNewButton = new JButton("Abrir crucigrama");
 		btnNewButton.setBounds(224, 31, 161, 23);

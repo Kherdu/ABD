@@ -2,7 +2,9 @@ package ABD.abd;
 
 import java.sql.Blob;
 
-public class Word {
+import es.ucm.abd.crossword.WordModel;
+
+public class Word implements WordModel{
 	
 	private String word;
 	private String description;
@@ -21,7 +23,7 @@ public class Word {
 		this.coordY = Y;
 		this.orientation = ori;
 	}
-	
+	//constructor without description
 	public Word(String w,  int X, int Y, String ori)
 	{
 		this.word = w;
@@ -57,6 +59,7 @@ public class Word {
 		this.description = desc;
 		this.picture = pict;
 	}
+	
 	public Word(String word)
 	{
 		this.word = word;
@@ -76,15 +79,12 @@ public class Word {
 	}
 
 
-	
-	
 	@Override
 	public String toString() {
-		return "Word [word=" + word + ", coordX=" + coordX + ", coordY="
-				+ coordY + ", orientation=" + orientation + "]";
+		return "Word [word=" + word + ", description=" + description
+				+ ", coordX=" + coordX + ", coordY=" + coordY
+				+ ", orientation=" + orientation + ", picture=" + picture + "]";
 	}
-
-
 	public String getWord() {
 		return word;
 	}
@@ -104,20 +104,6 @@ public class Word {
 		this.description = description;
 	}
 
-
-	public int getCoordX() {
-		return coordX;
-	}
-
-
-	public void setCoordX(int coordX) {
-		this.coordX = coordX;
-	}
-
-
-	public int getCoordY() {
-		return coordY;
-	}
 
 
 	public void setCoordY(int coordY) {
@@ -142,6 +128,28 @@ public class Word {
 
 	public void setPicture(Blob picture) {
 		this.picture = picture;
+	}
+
+	public void setX(int coordX) {
+		this.coordX = coordX;
+	}
+
+	@Override
+	public int getX() {
+		return coordX;
+	}
+
+	@Override
+	public int getY() {
+		return coordY;
+	}
+
+	@Override
+	public boolean isHorizontal() {
+		if (orientation.equalsIgnoreCase("h") ){
+			return true;
+		}
+		else return false;
 	}
 
 
