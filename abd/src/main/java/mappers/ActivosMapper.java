@@ -115,4 +115,16 @@ public class ActivosMapper extends AbstractMapper<Crossword, String> {
 
 	}
 
+	@Override
+	protected String getKeyColumnNameForFriend() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected Crossword buildObjectForFriend(ResultSet rs) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

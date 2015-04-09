@@ -11,7 +11,10 @@ import javax.swing.JFrame;
 
 import ABD.abd.Crossword;
 import ABD.abd.User;
-import ABD.abd.Word;
+
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.RowSpec;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -23,10 +26,9 @@ import javax.swing.JList;
 import javax.swing.JComboBox;
 
 import mappers.ActivosMapper;
-import mappers.ContieneMapper;
+import mappers.AmigosMapper;
 import mappers.CrosswordMapper;
 import mappers.UsuarioMapper;
-import mappers.WordMapper;
 
 import javax.swing.JScrollPane;
 
@@ -36,15 +38,15 @@ public class UserMenu {
 
 	private CrosswordMapper cm;
 	private ActivosMapper am;
-	private ContieneMapper ctm;
 	private User user;
 	private DefaultListModel lista;
-	
+	private DefaultListModel listaForFriends;
+	private AmigosMapper amigosm;
 
 	public UserMenu(final DataSource ds, final User user) {
 
 		this.user = user;
-		
+
 		frame = new JFrame();
 		frame.setBounds(100, 100, 737, 528);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -64,7 +66,15 @@ public class UserMenu {
 		tabbedPane.addTab("Peticiones de ayuda", null, panel_2, null);
 
 		this.frame.setVisible(true);
-		ctm= new ContieneMapper(ds);
+
+		
+		
+		/**
+		 * 
+		 * PANEL CRUCIGRAMAS
+		 * 
+		 * */
+		
 		cm = new CrosswordMapper(ds);
 		am = new ActivosMapper(ds);
 		Crossword crucigrama = new Crossword();
@@ -83,29 +93,24 @@ public class UserMenu {
 		scrollPane.setBounds(65, 65, 320, 176);
 		panel.add(scrollPane);
 		
-				final JList list = new JList();
+				JList list = new JList();
 				scrollPane.setViewportView(list);
 				list.setToolTipText("Selecciona el crucigrama que quieras abrir");
-				list.setModel(lista);
-				
+		list.setModel(lista);
 		if (crucigrama != null) {
 
 			this.user.addActiveCrossword(crucigrama);
 
-		} 
+		} else
+			System.out.println("Fallo");
 
 		JButton btnNewButton = new JButton("Abrir crucigrama");
 		btnNewButton.setBounds(224, 31, 161, 23);
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ArrayList<Word> abrir= new ArrayList();
 				
-				Crossword selected= new Crossword();
-				 selected=(Crossword) list.getSelectedValue();
-				abrir.addAll(ctm.find(selected.getTitle()));
-				
-				CrosswordGUI crosswordGUI= new CrosswordGUI(abrir);
+				//CrosswordSearchGUI crosswordGUI= new CrosswordSearchGUI();
 			}
 		});
 		panel.add(btnNewButton);
@@ -123,10 +128,49 @@ public class UserMenu {
 		});
 		panel.add(btnNewButton_1);
 
+		
+		/**
+		 * 
+		 * PANEL CRUCIGRAMAS
+		 * 
+		 * */
+		
+		//amigosm;
+		listaForFriends = new DefaultListModel();
+		
+		
+		amigosm = new AmigosMapper(ds);
+		ArrayList<User> auxiliar = new ArrayList<>();
+		auxiliar = amigosm.findForFriend(user.getNick());
+		ArrayList<User> auxiliar2 = new ArrayList<>();
+		auxiliar2 = amigosm.find(user.getNick());
+		for(int i = 0; i < auxiliar.size(); i++)
+		{
+			listaForFriends.addElement(auxiliar.get(i).getNick());
+			System.out.println(auxiliar.get(i).getNick());
+		}
+		for(int i = 0; i < auxiliar2.size(); i++)
+		{
+			listaForFriends.addElement(auxiliar2.get(i).getNick());
+			System.out.println(auxiliar2.get(i).getNick());
+		}
+		
+		JScrollPane scrollPaneForFriends = new JScrollPane();
+		scrollPaneForFriends.setBounds(65, 65, 320, 176);
+		panel_1.add(scrollPaneForFriends);
+		
+		JList listForFriends = new JList();
+		scrollPaneForFriends.setViewportView(listForFriends);
+		list.setToolTipText("Lista de amigos");
+		listForFriends.setModel(listaForFriends);
+		
+		/**
+		 * 
+		 * PANEL PETICIONES
+		 * 
+		 * */
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
+	
 
 }

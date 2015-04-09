@@ -7,37 +7,49 @@ import javax.sql.DataSource;
 
 import ABD.abd.User;
 
-public class ResuelveMapper extends AbstractMapper<User, String> {
+public class AmigosMapper extends AbstractMapper<User, String> {
 
-	public ResuelveMapper(DataSource ds) {
+	
+	private static final String[] user_key_name = new String[] { "Nick1", "Nick2"};
+	private static final String[] user_column_names = new String[] { "Nick1", "Nick2"};
+	private static final String user_table_name = "amigo";
+
+	
+	public AmigosMapper(DataSource ds) {
 		super(ds);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	protected String getTableName() {
-		// TODO Auto-generated method stub
-		return null;
+		return user_table_name;
 	}
 
 	@Override
 	protected String[] getColumnNames() {
-		// TODO Auto-generated method stub
-		return null;
+		return user_column_names;
 	}
 
 	@Override
 	protected String getKeyColumnName() {
-		// TODO Auto-generated method stub
-		return null;
+		return user_key_name[0];
 	}
-
+	
+	protected String getKeyColumnNameForFriend() {
+		return user_key_name[1];
+	}
+	
+	
 	@Override
 	protected User buildObject(ResultSet rs) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return new User(rs.getString("Nick2"));
+	}
+	
+	protected User buildObjectForFriend(ResultSet rs) throws SQLException {
+		return new User(rs.getString("Nick1"));
 	}
 
+	
 	@Override
 	protected User buildObject(Object[] components) throws SQLException {
 		// TODO Auto-generated method stub
@@ -46,14 +58,13 @@ public class ResuelveMapper extends AbstractMapper<User, String> {
 
 	@Override
 	protected Object[] serializeObject(User object) {
-		// TODO Auto-generated method stub
-		return null;
+
+		return new Object[] { object.getNick() };
 	}
 
 	@Override
 	protected Object[] serializeObjectKey(String object) {
-		// TODO Auto-generated method stub
-		return null;
+		return new Object[] { object };
 	}
 
 	@Override
@@ -64,20 +75,7 @@ public class ResuelveMapper extends AbstractMapper<User, String> {
 
 	@Override
 	protected String getKeyFromObject(User Object) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	protected String getKeyColumnNameForFriend() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	protected User buildObjectForFriend(ResultSet rs) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return Object.getNick();
 	}
 
 }

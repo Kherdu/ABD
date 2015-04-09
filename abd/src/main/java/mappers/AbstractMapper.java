@@ -14,6 +14,7 @@ import javax.sql.DataSource;
 import org.apache.commons.lang3.StringUtils;
 
 import ABD.abd.Crossword;
+import ABD.abd.User;
 
 public abstract class AbstractMapper<T, K> {
 
@@ -26,7 +27,9 @@ public abstract class AbstractMapper<T, K> {
 	protected abstract String getKeyColumnName();
 
 	protected abstract T buildObject(ResultSet rs) throws SQLException;
-
+	
+	protected abstract T buildObjectForFriend(ResultSet rs) throws SQLException;
+	
 	protected abstract T buildObject(Object[] components) throws SQLException;
 
 	protected abstract Object[] serializeObject(T object);
@@ -37,6 +40,8 @@ public abstract class AbstractMapper<T, K> {
 
 	protected abstract K getKeyFromObject(T Object);
 
+	protected abstract String getKeyColumnNameForFriend();
+	
 	public AbstractMapper(DataSource ds) {
 		this.ds = ds;
 	}
@@ -55,6 +60,7 @@ public abstract class AbstractMapper<T, K> {
 
 	}
 
+	
 	public QueryCondition[] getConditionsFromKey2(K id) {
 
 		String keyColumnNames = getKeyColumnName();
@@ -68,7 +74,7 @@ public abstract class AbstractMapper<T, K> {
 		return conditions;
 
 	}
-
+	//devuelve un unico objeto a partir de una id
 	public T findById(K id) {
 		String tableName = getTableName();
 		String[] columnNames = getColumnNames();
@@ -94,6 +100,8 @@ public abstract class AbstractMapper<T, K> {
 		}
 	}
 
+	
+	//encuentra todos los objetos a partir de una id
 	public ArrayList<T> find(K id) {
 		String tableName = getTableName();
 		String[] columnNames = getColumnNames();
@@ -120,7 +128,34 @@ public abstract class AbstractMapper<T, K> {
 		}
 	}
 	
-	//this method is the same as the upper one but it returns list instead of arraylist... why?
+	//realiza la misma funcion que find, pero para el 2º valor de clave, usado para friend
+	public ArrayList<T> findForFriend(K id) {
+		String tableName = getTableName();
+		String[] columnNames = getColumnNames();
+		String keyColumnName = getKeyColumnNameForFriend();
+
+		ArrayList<T> result = new ArrayList<T>();
+
+		String sql = "SELECT " + StringUtils.join(columnNames, ", ") + " FROM "
+				+ tableName + " WHERE " + keyColumnName + " = ?";
+		try (Connection con = ds.getConnection();
+				PreparedStatement pst = con.prepareStatement(sql)) {
+
+			pst.setObject(1, id);
+
+			try (ResultSet rs = pst.executeQuery()) {
+				while (rs.next()) {
+					result.add(buildObjectForFriend(rs));
+				}
+				return result;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	//encuentra todos los objetos a partir de una id, pero lo devuelve como tipo list
 	public List<T> find2(K id) {
 		String tableName = getTableName();
 		String[] columnNames = getColumnNames();

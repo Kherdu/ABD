@@ -75,4 +75,16 @@ public class WordMapper extends AbstractMapper<Word, String> {
 		return null;
 	}
 
+	@Override
+	protected String getKeyColumnNameForFriend() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected Word buildObjectForFriend(ResultSet rs) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

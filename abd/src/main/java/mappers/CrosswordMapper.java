@@ -128,4 +128,16 @@ public class CrosswordMapper<K> extends AbstractMapper<Crossword, String> {
 		return null;
 	}
 
+	@Override
+	protected String getKeyColumnNameForFriend() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected Crossword buildObjectForFriend(ResultSet rs) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

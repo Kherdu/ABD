@@ -74,4 +74,16 @@ public class UsuarioMapper extends AbstractMapper<User, String> {
 		return Object.getNick();
 	}
 
+	@Override
+	protected String getKeyColumnNameForFriend() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected User buildObjectForFriend(ResultSet rs) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
