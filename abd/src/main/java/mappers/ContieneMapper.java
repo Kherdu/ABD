@@ -1,9 +1,14 @@
 package mappers;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.sql.DataSource;
+
+import org.apache.commons.lang3.StringUtils;
 
 import ABD.abd.Crossword;
 import ABD.abd.Word;
@@ -15,10 +20,10 @@ public class ContieneMapper extends AbstractMapper<Word, String> {
 	 * CAMBIAR KEY_NAME A ARRAY
 	 * */
 
-	private static final String contains_key_name = "Secuencia";
+	private static final String contains_key_name = "Titulo_crucigrama";
 	private static final String[] contains_column_names = new String[] {
-			"Secuencia", "Desripcion", "Foto" };
-	private static final String contains_table_name = "palabra";
+			"Titulo_crucigrama","Id_palabra", "Puntuacion","Orientacion","PosicionX","PosicionY" };
+	private static final String contains_table_name = "contiene";
 
 	public ContieneMapper(DataSource ds) {
 		super(ds);
@@ -91,4 +96,33 @@ public class ContieneMapper extends AbstractMapper<Word, String> {
 		return null;
 	}
 
+	protected ArrayList<Word> findWordsFromCrossword(String id){
+		
+		String tableName = getTableName();
+		String[] columnNames = getColumnNames();
+		String keyColumnName = getKeyColumnName();
+
+		ArrayList<Word> result = new ArrayList<Word>();
+
+		String sql = "SELECT " + StringUtils.join(columnNames, ", ") + " FROM "
+				+ tableName + " WHERE " + keyColumnName + " LIKE ?";
+		try (Connection con = ds.getConnection();
+				PreparedStatement pst = con.prepareStatement(sql)) {
+
+			pst.setObject(1, "%" + id + "%");
+
+			try (ResultSet rs = pst.executeQuery()) {
+				while (rs.next()) {
+					result.add((Word) buildObject(rs));
+				}
+				return result;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+
+	}
 }
+	
+

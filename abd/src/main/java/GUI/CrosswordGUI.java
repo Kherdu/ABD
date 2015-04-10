@@ -1,6 +1,7 @@
 package GUI;
 
 import java.awt.EventQueue;
+import java.awt.Panel;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -39,16 +40,16 @@ public class CrosswordGUI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JPanel crosswordContainer = new JPanel();
+		/*Panel crosswordContainer = new Panel();
 		crosswordContainer.setBounds(23, 11, 550, 400);
-		frame.getContentPane().add(crosswordContainer);
-		
-		
-		
-		
-	    CrosswordPanel paintCwd= new CrosswordPanel(crosswordContainer, cwd);
-		
+		*/
 		//generar panel con atributos del crucigrama
+		
+	    CrosswordPanel paintCwd= new CrosswordPanel(frame, cwd);
+	    paintCwd.setBounds(23, 11, 550, 400);
+		frame.getContentPane().add(paintCwd);
+		
+		
 		
 		JPanel ImageContainer = new JPanel();
 		ImageContainer.setBounds(33, 422, 93, 101);

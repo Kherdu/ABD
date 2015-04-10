@@ -19,10 +19,7 @@ import ABD.abd.Crossword;
 import ABD.abd.Friends;
 import ABD.abd.Peticiones;
 import ABD.abd.User;
-
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
+import ABD.abd.Word;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -36,6 +33,7 @@ import javax.swing.JComboBox;
 
 import mappers.ActivosMapper;
 import mappers.AmigosMapper;
+import mappers.ContieneMapper;
 import mappers.CrosswordMapper;
 import mappers.PeticionesMapper;
 import mappers.UsuarioMapper;
@@ -53,9 +51,11 @@ public class UserMenu {
 
 	private CrosswordMapper cm;
 	private ActivosMapper am;
+	private ContieneMapper cntm;
 	private User user;
-	private DefaultListModel lista;
+	private DefaultListModel listField;
 	private DefaultListModel listaForFriends;
+	private JList list;
 	private AmigosMapper amigosm;
 	private JList listForFriends;
 	private PeticionesMapper petm;
@@ -113,17 +113,19 @@ public class UserMenu {
 		petm = new PeticionesMapper(ds);
 		cm = new CrosswordMapper(ds);
 		am = new ActivosMapper(ds);
+		cntm= new ContieneMapper(ds);
 		Crossword crucigrama = new Crossword();
 		ArrayList<Crossword> crucisActivos = null;
+		
 
-		 lista = new DefaultListModel();
+		listField = new DefaultListModel();
 		
 		this.user.setActiveCrosswords(am.find(user.getNick()));
 		
 		
 	
 		for (int i = 0; i < this.user.getActiveCrosswords().size(); i++) {
-			lista.addElement(this.user.getActiveCrosswords().get(i));
+			listField.addElement(this.user.getActiveCrosswords().get(i));
 		
 		}
 		panel.setLayout(null);
@@ -132,10 +134,11 @@ public class UserMenu {
 		scrollPane.setBounds(65, 65, 320, 176);
 		panel.add(scrollPane);
 		
-				JList list = new JList();
+				list = new JList(listField);
 				scrollPane.setViewportView(list);
 				list.setToolTipText("Selecciona el crucigrama que quieras abrir");
-				list.setModel(lista);
+				list.setModel(listField);
+				
 		if (crucigrama != null) {
 
 			this.user.addActiveCrossword(crucigrama);
@@ -148,8 +151,12 @@ public class UserMenu {
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
-				//CrosswordSearchGUI crosswordGUI= new CrosswordSearchGUI();
+					
+				Crossword selected=new Crossword();
+				selected = (Crossword) list.getSelectedValue();
+				ArrayList<Word> words= new ArrayList<Word>();
+				words.addAll(cntm.find(selected.getTitle()));
+				CrosswordGUI opencrossword= new CrosswordGUI(words);
 			}
 		});
 		panel.add(btnNewButton);
@@ -161,7 +168,7 @@ public class UserMenu {
 			public void mouseClicked(MouseEvent arg0) {
 
 				CrosswordSearchGUI searchframe = new CrosswordSearchGUI(cm, ds,
-						am, user, lista);
+						am, user, listField);
 
 			}
 		});
