@@ -16,7 +16,7 @@ import ABD.abd.User;
 public class ActivosMapper extends AbstractMapper<Crossword, String> {
 
 	private static final String activos_key_name = "Nick";
-	private static final String[] activos_column_names = new String[] { "Id",
+	private static final String[] activos_column_names = new String[] {
 			"Titulo_Crucigrama", "Nick", "amigo", "solicitud" };
 	private static final String activos_table_name = "activos";
 
@@ -46,7 +46,7 @@ public class ActivosMapper extends AbstractMapper<Crossword, String> {
 	@Override
 	protected Crossword buildObject(ResultSet rs) throws SQLException {
 
-		return new Crossword(rs.getString("Titulo_Crucigrama"), rs.getString("amigo"));
+		return new Crossword(rs.getString("Titulo_Crucigrama"), rs.getString("Nick"), rs.getString("amigo"));
 	}
 
 	@Override
@@ -58,14 +58,13 @@ public class ActivosMapper extends AbstractMapper<Crossword, String> {
 	@Override
 	protected Object[] serializeObject(Crossword object) {
 
-		return new Object[] { null, object.getTitle(), object.getUser(), null,
-				null, object.getAmigo() };
+		return new Object[] {  object.getTitle(), object.getUser(), object.getAmigo(),
+				null  };
 	}
 
 	@Override
 	protected Object[] serializeObjectKey(String object) {
-		// TODO Auto-generated method stub
-		return null;
+		return new Object[] { object };
 	}
 
 	@Override
@@ -77,7 +76,7 @@ public class ActivosMapper extends AbstractMapper<Crossword, String> {
 	@Override
 	protected String getKeyFromObject(Crossword Object) {
 		// TODO Auto-generated method stub
-		return null;
+		return Object.getUser();
 	}
 
 	public Boolean findByUserAndCrossword(User user, Crossword crossword) {

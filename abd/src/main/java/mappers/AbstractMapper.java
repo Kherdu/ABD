@@ -79,11 +79,13 @@ public abstract class AbstractMapper<T, K> {
 		String keyColumnNames = getKeyColumnName();
 		QueryCondition[] conditions = new QueryCondition[1];
 		Object columnValues[] = serializeObjectKey(id);
+	
 		for (int i = 0; i < conditions.length; i++) {
+			
 			conditions[i] = new QueryCondition(keyColumnNames,
 					QueryOperator.EQ, columnValues[i]);
 		}
-
+	
 		return conditions;
 
 	}
@@ -293,7 +295,7 @@ public abstract class AbstractMapper<T, K> {
 
 		for (int i = 0; i < condString.length; i++) {
 			condString[i] = conditions[i].getColumnName() + " "
-					+ conditions[i].getOperator().getOperator() + key[i];
+					+ conditions[i].getOperator().getOperator() + "'"+ conditions[i].getValue()+ "'";
 		}
 		for (int i = 0; i < assignments.length; i++) {
 			assignments[i] = columnNames[i] + " = " + key[i];

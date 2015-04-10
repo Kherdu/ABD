@@ -4,6 +4,7 @@ public class Peticiones {
 
 	private String usuario;
 	private String crucigrama;
+	private String amigo;
 	
 	public Peticiones()
 	{
@@ -31,6 +32,14 @@ public class Peticiones {
 
 	public void setCrucigrama(String crucigrama) {
 		this.crucigrama = crucigrama;
+	}
+
+	public String getAmigo() {
+		return amigo;
+	}
+
+	public void setAmigo(String amigo) {
+		this.amigo = amigo;
 	}
 	
 	

@@ -6,6 +6,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
+
 public class User {
 
 	
@@ -14,15 +16,15 @@ public class User {
 	private String pass;
 	private String email;
 	private Date birthDate;
-	private char[] avatar;
-	private Blob picture;
+	private byte[] avatar;
+	private ImageIcon picture;
 	private ArrayList <Crossword> activeCrosswords;
 	//should be this a crossword array or a new class with crossword, user and check?
 	private ArrayList<Crossword> helpCrosswords;
 	
 	
 	
-	public User(String nick, String pass, Date birthDate, Blob picture)
+	public User(String nick, String pass, Date birthDate, ImageIcon picture)
 	{
 		this.nick = nick;
 		this.pass = pass;
@@ -31,7 +33,7 @@ public class User {
 		this.picture = picture;
 		
 	}
-	public User(String nick, String pass, String email, char[] picture)
+	public User(String nick, String pass, String email,  byte[] picture)
 	{
 		this.nick = nick;
 		this.pass = pass;
@@ -128,10 +130,10 @@ public class User {
 	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
 	}
-	public char[] getAvatar() {
+	public  byte[] getAvatar() {
 		return avatar;
 	}
-	public void setAvatar(char[] avatar) {
+	public void setAvatar( byte[] avatar) {
 		this.avatar = avatar;
 	}
 
@@ -167,6 +169,12 @@ public class User {
 
 	public void setHelpCrosswords(ArrayList<Crossword> helpCrosswords) {
 		this.helpCrosswords = helpCrosswords;
+	}
+	public ImageIcon getPicture() {
+		return picture;
+	}
+	public void setPicture(ImageIcon picture) {
+		this.picture = picture;
 	}
 	
 }

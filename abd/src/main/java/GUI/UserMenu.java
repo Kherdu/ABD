@@ -1,7 +1,13 @@
 package GUI;
 
+
+
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -11,6 +17,7 @@ import javax.swing.JFrame;
 
 import ABD.abd.Crossword;
 import ABD.abd.Friends;
+import ABD.abd.Peticiones;
 import ABD.abd.User;
 
 import com.jgoodies.forms.layout.FormLayout;
@@ -30,12 +37,15 @@ import javax.swing.JComboBox;
 import mappers.ActivosMapper;
 import mappers.AmigosMapper;
 import mappers.CrosswordMapper;
+import mappers.PeticionesMapper;
 import mappers.UsuarioMapper;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 
 public class UserMenu {
 
@@ -48,9 +58,13 @@ public class UserMenu {
 	private DefaultListModel listaForFriends;
 	private AmigosMapper amigosm;
 	private JList listForFriends;
+	private PeticionesMapper petm;
+	private ArrayList<Peticiones> peticionado;
 	private JTextField textField;
 	private UsuarioMapper um;
 	private JTable table;
+	
+	
 	public UserMenu(final DataSource ds, final User user) {
 
 		this.user = user;
@@ -96,7 +110,7 @@ public class UserMenu {
 		 * PANEL CRUCIGRAMAS
 		 * 
 		 * */
-		
+		petm = new PeticionesMapper(ds);
 		cm = new CrosswordMapper(ds);
 		am = new ActivosMapper(ds);
 		Crossword crucigrama = new Crossword();
@@ -110,7 +124,7 @@ public class UserMenu {
 	
 		for (int i = 0; i < this.user.getActiveCrosswords().size(); i++) {
 			lista.addElement(this.user.getActiveCrosswords().get(i));
-			System.out.println(this.user.getActiveCrosswords().get(i).getAmigo());
+		
 		}
 		panel.setLayout(null);
 		
@@ -121,7 +135,7 @@ public class UserMenu {
 				JList list = new JList();
 				scrollPane.setViewportView(list);
 				list.setToolTipText("Selecciona el crucigrama que quieras abrir");
-		list.setModel(lista);
+				list.setModel(lista);
 		if (crucigrama != null) {
 
 			this.user.addActiveCrossword(crucigrama);
@@ -154,6 +168,35 @@ public class UserMenu {
 		panel.add(btnNewButton_1);
 
 		
+		//Boton en el que metemos la imagen
+		JButton btnNewButton_12 = new JButton();
+		btnNewButton_12.setBounds(111, 11, 89, 74);
+		frame.getContentPane().add(btnNewButton_12);
+		
+		if(user.getPicture()!=null) btnNewButton_12.setIcon(user.getPicture());
+		
+		
+		JLabel lblNewLabel_1 = new JLabel("NICK:");
+		lblNewLabel_1.setBounds(222, 11, 112, 25);
+		lblNewLabel_1.setFont(new Font("Serif", Font.PLAIN, 24));
+		frame.getContentPane().add(lblNewLabel_1);
+		
+		JLabel lblNewLabel = new JLabel(user.getNick());
+		lblNewLabel.setForeground(Color.BLUE);
+		lblNewLabel.setFont(new Font("Serif", Font.PLAIN, 24));
+		lblNewLabel.setBounds(381, 11, 262, 27);
+		frame.getContentPane().add(lblNewLabel);
+		
+		JLabel lblEdad = new JLabel("Edad:");
+		lblEdad.setBounds(222, 58, 46, 14);
+		frame.getContentPane().add(lblEdad);
+		
+		JLabel lblAos = new JLabel("34 años");
+		lblAos.setBounds(381, 58, 145, 14);
+		frame.getContentPane().add(lblAos);
+		
+		
+		
 		/**
 		 * 
 		 * PANEL CRUCIGRAMAS
@@ -172,14 +215,12 @@ public class UserMenu {
 		for(int i = 0; i < auxiliar.size(); i++)
 		{
 			listaForFriends.addElement(auxiliar.get(i).getNick1());
-			//if(auxiliar.get(i) != null) this.user.addAmigo(auxiliar.get(i));
-			System.out.println(auxiliar.get(i).getNick1());
+			
 		}
 		for(int i = 0; i < auxiliar2.size(); i++)
 		{
 			listaForFriends.addElement(auxiliar2.get(i).getNick1());
-			//if(auxiliar.get(i) != null) this.user.addAmigo(auxiliar2.get(i));
-			System.out.println(auxiliar2.get(i).getNick1());
+			
 		}
 		panel_1.setLayout(null);
 		
@@ -220,7 +261,7 @@ public class UserMenu {
 				else
 				{
 					String error = "Este usuario no existe";
-					System.out.println(error);
+				
 					JOptionPane.showMessageDialog(new JFrame(), error, "Dialog",
 					        JOptionPane.ERROR_MESSAGE);
 				}
@@ -264,15 +305,28 @@ public class UserMenu {
 		 * PANEL PETICIONES
 		 * 
 		 * */
-		Object[][] data = { 
-				{"asdd" , "Crucigrama1"},
-				
-				{"asdd" , "Crucigrama2"}
-			};
-		String[] columnNames = {"Usuario", "Crucigrama"};
-		table = new JTable(data, columnNames);
 		
+		peticionado = new ArrayList<>();
+		
+		peticionado = petm.find(user.getNick());
+		Object[][] data = new Object[8][8];
+		
+		
+		for(int i = 0; i < peticionado.size(); i++)
+		{
+			peticionado.get(i).setAmigo(user.getNick());
+			data[i][0] = peticionado.get(i).getCrucigrama();
+			data[i][1] = peticionado.get(i).getUsuario();
+			
+		}
+		
+		
+		String[] columnNames = {"Usuario", "Crucigrama"};
+		
+		table = new JTable(data, columnNames);
+		table.setModel(new DefaultTableModel(data, columnNames));
 
+		
 		scrollPane_2.setViewportView(table);
 		
 		
@@ -290,10 +344,42 @@ public class UserMenu {
 		btnDescartarPeticin.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				Peticiones pet = new Peticiones();
+				Crossword crAux = new Crossword();
+				Object[][] dataAux = new Object[8][8];
+				
+				int row = table.getSelectedRow();
+				int column = table.getColumnCount();
+				for(int i = 0; i < column; i++) {
+					dataAux[row][i]= table.getValueAt(row, i);
+				   
+				   
+				}
+				
+				 crAux.setAmigo(null);
+				crAux.setUserNick((String) dataAux[row][0]);
+				crAux.setTitle((String) dataAux[row][1]);
+	
+				
+				
+				((DefaultTableModel)table.getModel()).removeRow(row);
+				am.update(crAux);
+			
+				
 			}
 		});
 		btnDescartarPeticin.setBounds(264, 225, 148, 23);
 		panel_2.add(btnDescartarPeticin);
+		
+
+	
+
+				
+				
+				
+				
+				
+				
 		
 		
 	}

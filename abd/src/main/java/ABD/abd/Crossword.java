@@ -52,6 +52,14 @@ public class Crossword {
 		this.amigo = amigo;
 	}
 	
+	public Crossword(String title, String nick, String amigo)
+	{
+		this.title = title;
+		this.date = null;
+		this.words = null;
+		setUserNick(nick);
+		this.amigo = amigo;
+	}
 	
 	public Crossword()
 	{
@@ -63,36 +71,7 @@ public class Crossword {
 	}
 	
 	
-	
-	/*public void loadWords()
-	{
-		int i = 0;
-		Word aux = null;
-		DataSource ds;
-		//¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?
-		ContieneMapper um = new ContieneMapper(ds);
-		WordMapper wm = new WordMapper(ds);
-		
-		
-		//¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?
-		
-		
-		do
-		{
-			this.words.add(um.findById(this.title));
-			aux = wm.findById(this.title);
-			
-			this.words.get(i).setDescription(aux.getDescription());
-			
-			i++;
-		}while(!this.words.get(i-1).equals(null) );
-		
-		this.words.remove(i-1);
-		
-		
-		
-	}
-	*/
+
 	
 	@Override
 	public String toString() {
@@ -128,7 +107,12 @@ public class Crossword {
 		return user.getNick();
 	}
 
-
+	
+	public void setUserNick(String user)
+	{
+		this.user = new User(user);
+	}
+	
 	public void setUser(User user) {
 		this.user = user;
 	}

@@ -1,9 +1,11 @@
 package mappers;
 
+import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.sql.DataSource;
+import javax.swing.ImageIcon;
 
 import ABD.abd.User;
 
@@ -38,9 +40,14 @@ public class UsuarioMapper extends AbstractMapper<User, String> {
 
 	@Override
 	protected User buildObject(ResultSet rs) throws SQLException {
-
+		Blob foto = rs.getBlob("Foto");
+	
+		ImageIcon im = null;
+		
+		if(!rs.wasNull()) im = new ImageIcon(foto.getBytes(1, (int)foto.length()));
+		
 		return new User(rs.getString("Usuario"), rs.getString("Contraseña"),
-				rs.getDate("FechaNacimiento"), rs.getBlob("Foto"));
+				rs.getDate("FechaNacimiento"), im);
 	}
 
 	@Override
