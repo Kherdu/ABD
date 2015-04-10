@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 import javax.swing.JFrame;
 
 import ABD.abd.Crossword;
+import ABD.abd.Friends;
 import ABD.abd.User;
 
 import com.jgoodies.forms.layout.FormLayout;
@@ -18,6 +19,7 @@ import com.jgoodies.forms.layout.RowSpec;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
 import javax.swing.JPanel;
@@ -31,6 +33,9 @@ import mappers.CrosswordMapper;
 import mappers.UsuarioMapper;
 
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
+import javax.swing.JTable;
 
 public class UserMenu {
 
@@ -42,7 +47,10 @@ public class UserMenu {
 	private DefaultListModel lista;
 	private DefaultListModel listaForFriends;
 	private AmigosMapper amigosm;
-
+	private JList listForFriends;
+	private JTextField textField;
+	private UsuarioMapper um;
+	private JTable table;
 	public UserMenu(final DataSource ds, final User user) {
 
 		this.user = user;
@@ -64,6 +72,20 @@ public class UserMenu {
 
 		JPanel panel_2 = new JPanel();
 		tabbedPane.addTab("Peticiones de ayuda", null, panel_2, null);
+		panel_2.setLayout(null);
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBounds(81, 34, 331, 154);
+		panel_2.add(panel_3);
+		panel_3.setLayout(null);
+		
+		JScrollPane scrollPane_2 = new JScrollPane();
+		scrollPane_2.setBounds(0, 0, 331, 154);
+		panel_3.add(scrollPane_2);
+		
+		
+		
+		
 
 		this.frame.setVisible(true);
 
@@ -83,9 +105,12 @@ public class UserMenu {
 		 lista = new DefaultListModel();
 		
 		this.user.setActiveCrosswords(am.find(user.getNick()));
+		
+		
+	
 		for (int i = 0; i < this.user.getActiveCrosswords().size(); i++) {
 			lista.addElement(this.user.getActiveCrosswords().get(i));
-			//System.out.println(this.user.getActiveCrosswords().get(i));
+			System.out.println(this.user.getActiveCrosswords().get(i).getAmigo());
 		}
 		panel.setLayout(null);
 		
@@ -135,42 +160,141 @@ public class UserMenu {
 		 * 
 		 * */
 		
-		//amigosm;
+		
 		listaForFriends = new DefaultListModel();
 		
-		
+		//creamos un mapper de activos, y hacemos 2 busquedas, una por el nick del primer amigo y otra por la del segundo, y los añadimos al panel
 		amigosm = new AmigosMapper(ds);
-		ArrayList<User> auxiliar = new ArrayList<>();
+		ArrayList<Friends> auxiliar = new ArrayList<>();
 		auxiliar = amigosm.findForFriend(user.getNick());
-		ArrayList<User> auxiliar2 = new ArrayList<>();
+		ArrayList<Friends> auxiliar2 = new ArrayList<>();
 		auxiliar2 = amigosm.find(user.getNick());
 		for(int i = 0; i < auxiliar.size(); i++)
 		{
-			listaForFriends.addElement(auxiliar.get(i).getNick());
-			System.out.println(auxiliar.get(i).getNick());
+			listaForFriends.addElement(auxiliar.get(i).getNick1());
+			//if(auxiliar.get(i) != null) this.user.addAmigo(auxiliar.get(i));
+			System.out.println(auxiliar.get(i).getNick1());
 		}
 		for(int i = 0; i < auxiliar2.size(); i++)
 		{
-			listaForFriends.addElement(auxiliar2.get(i).getNick());
-			System.out.println(auxiliar2.get(i).getNick());
+			listaForFriends.addElement(auxiliar2.get(i).getNick1());
+			//if(auxiliar.get(i) != null) this.user.addAmigo(auxiliar2.get(i));
+			System.out.println(auxiliar2.get(i).getNick1());
 		}
+		panel_1.setLayout(null);
 		
 		JScrollPane scrollPaneForFriends = new JScrollPane();
-		scrollPaneForFriends.setBounds(65, 65, 320, 176);
+		scrollPaneForFriends.setBounds(54, 5, 379, 171);
 		panel_1.add(scrollPaneForFriends);
 		
-		JList listForFriends = new JList();
+		 listForFriends = new JList();
 		scrollPaneForFriends.setViewportView(listForFriends);
 		list.setToolTipText("Lista de amigos");
 		listForFriends.setModel(listaForFriends);
+		
+		
+		textField = new JTextField();
+		textField.setBounds(193, 183, 240, 20);
+		panel_1.add(textField);
+		textField.setColumns(10);
+		
+		JLabel lblBuscarAmigo = new JLabel("Añadir amigo:");
+		lblBuscarAmigo.setBounds(64, 186, 100, 14);
+		panel_1.add(lblBuscarAmigo);
+		
+		JButton btnAadirAmigo = new JButton("Añadir amigo");
+		btnAadirAmigo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+				User aux = new User(textField.getText());
+				System.out.println(textField.getText());
+				um = new UsuarioMapper(ds);
+				aux = um.findById(textField.getText());
+				if(aux != null)
+				{
+					Friends fr = new Friends(user.getNick(), aux.getNick());
+					amigosm.insert(fr);
+					listaForFriends.addElement(aux.getNick());
+				}
+				else
+				{
+					String error = "Este usuario no existe";
+					System.out.println(error);
+					JOptionPane.showMessageDialog(new JFrame(), error, "Dialog",
+					        JOptionPane.ERROR_MESSAGE);
+				}
+				
+			}
+		});
+		btnAadirAmigo.setBounds(81, 211, 131, 23);
+		panel_1.add(btnAadirAmigo);
+		
+		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				String selected;
+				selected = (String) listForFriends.getSelectedValue();
+				User usuario = new User(selected);
+				Friends amigos = new Friends(user.getNick(), usuario.getNick());
+				System.out.println(user.getNick() + " " + usuario.getNick());
+				if (selected != null) {
+					amigosm.delete(amigos);
+					amigos = new Friends(usuario.getNick(), user.getNick());
+					amigosm.delete(amigos);
+					listaForFriends.removeElement(usuario.getNick());
+					
+				
+				
+				}
+			}
+		});
+		btnEliminar.setBounds(262, 211, 131, 23);
+		panel_1.add(btnEliminar);
+		
+		
+		
+		
+		
 		
 		/**
 		 * 
 		 * PANEL PETICIONES
 		 * 
 		 * */
+		Object[][] data = { 
+				{"asdd" , "Crucigrama1"},
+				
+				{"asdd" , "Crucigrama2"}
+			};
+		String[] columnNames = {"Usuario", "Crucigrama"};
+		table = new JTable(data, columnNames);
+		
+
+		scrollPane_2.setViewportView(table);
+		
+		
+		
+		JButton btnAbrirCrucigrama = new JButton("Abrir crucigrama");
+		btnAbrirCrucigrama.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+			}
+		});
+		btnAbrirCrucigrama.setBounds(81, 225, 148, 23);
+		panel_2.add(btnAbrirCrucigrama);
+		
+		JButton btnDescartarPeticin = new JButton("Descartar Petición");
+		btnDescartarPeticin.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
+		btnDescartarPeticin.setBounds(264, 225, 148, 23);
+		panel_2.add(btnDescartarPeticin);
+		
+		
 	}
-
-	
-
 }

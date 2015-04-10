@@ -46,7 +46,7 @@ public class ActivosMapper extends AbstractMapper<Crossword, String> {
 	@Override
 	protected Crossword buildObject(ResultSet rs) throws SQLException {
 
-		return new Crossword(rs.getString("Titulo_Crucigrama"));
+		return new Crossword(rs.getString("Titulo_Crucigrama"), rs.getString("amigo"));
 	}
 
 	@Override
@@ -59,7 +59,7 @@ public class ActivosMapper extends AbstractMapper<Crossword, String> {
 	protected Object[] serializeObject(Crossword object) {
 
 		return new Object[] { null, object.getTitle(), object.getUser(), null,
-				null };
+				null, object.getAmigo() };
 	}
 
 	@Override
@@ -91,6 +91,8 @@ public class ActivosMapper extends AbstractMapper<Crossword, String> {
 		String sql = "SELECT " + StringUtils.join(columnNames, ", ") + " FROM "
 				+ tableName + " WHERE " + keyColumnNameUser + " = ?" + " AND "
 				+ keyColumnNameCrossword + " = ?";
+		
+		
 		try (Connection con = ds.getConnection();
 				PreparedStatement pst = con.prepareStatement(sql)) {
 

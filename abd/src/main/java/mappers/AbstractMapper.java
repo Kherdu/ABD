@@ -60,6 +60,19 @@ public abstract class AbstractMapper<T, K> {
 
 	}
 
+	public QueryCondition[] getConditionsFromKey3(T id) {
+
+		String[] keyColumnNames = getColumnNames();
+		QueryCondition[] conditions = new QueryCondition[keyColumnNames.length];
+		Object columnValues[] = serializeObject(id);
+		for (int i = 0; i < conditions.length; i++) {
+			conditions[i] = new QueryCondition(keyColumnNames[i],
+					QueryOperator.EQ, columnValues[i]);
+		}
+
+		return conditions;
+
+	}
 	
 	public QueryCondition[] getConditionsFromKey2(K id) {
 
@@ -82,6 +95,8 @@ public abstract class AbstractMapper<T, K> {
 
 		String sql = "SELECT " + StringUtils.join(columnNames, ", ") + " FROM "
 				+ tableName + " WHERE " + keyColumnName + " = ?";
+		
+		
 		try (Connection con = ds.getConnection();
 				PreparedStatement pst = con.prepareStatement(sql)) {
 
@@ -111,6 +126,7 @@ public abstract class AbstractMapper<T, K> {
 
 		String sql = "SELECT " + StringUtils.join(columnNames, ", ") + " FROM "
 				+ tableName + " WHERE " + keyColumnName + " = ?";
+		System.out.println(sql);
 		try (Connection con = ds.getConnection();
 				PreparedStatement pst = con.prepareStatement(sql)) {
 
@@ -226,47 +242,29 @@ public abstract class AbstractMapper<T, K> {
 	}
 
 	public void delete(T object) {
-		Connection con = null;
-		Statement st = null;
-		String tableName = getTableName();
-		String[] columnNames = getColumnNames();
-		String[] key = new String[columnNames.length];
+		 Connection con = null;  
+	        PreparedStatement stm = null;
 
-		QueryCondition[] conditions = getConditionsFromKey2(getKeyFromObject(object));
-		
-		String[] condString = new String[conditions.length];
-
-		
-		for (int i = 0; i < condString.length; i++) {
-			condString[i] = conditions[i].getColumnName() + " "
-					+ conditions[i].getOperator().getOperator() + key[i];
-		}
-		
-		try {
-			con = this.ds.getConnection();
-
-			st = con.createStatement();
-
-			String sql = "DELETE FROM " + tableName + " WHERE "
-					+ StringUtils.join(condString, " AND ");
-
-			// DELETE FROM _______________ WHERE ______________
-
-			st.executeUpdate(sql);
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-
-		} finally {
-			try {
-				if (st != null)
-					st.close();
-				if (con != null)
-					con.close();
-			} catch (SQLException e) {
-			}
-
-		}
+	        QueryCondition[] conditions = getConditionsFromKey3(object);   
+	        
+	        String[] conditionsStr = new String[conditions.length]; 
+	          
+	        for(int i = 0;i < conditionsStr.length;i++){ 
+	            conditionsStr[i] = conditions[i].getColumnName() + " " + conditions[i].getOperator().getOperator() + 
+	            		" '"+ conditions[i].getValue()+"'"; 
+	        }                
+	        
+	        try { 
+	        	con = this.ds.getConnection(); 
+	            String sql = "DELETE FROM " + getTableName() + " WHERE " + StringUtils.join(conditionsStr, " AND ");
+	            System.out.println(sql);
+	            stm = con.prepareStatement(sql);
+	            
+	            stm.executeUpdate();
+	            
+	        } catch (SQLException e) { 
+	            e.printStackTrace(); 
+	        } 
 
 	}
 

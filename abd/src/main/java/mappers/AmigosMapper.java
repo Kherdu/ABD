@@ -1,13 +1,18 @@
 package mappers;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.lang3.StringUtils;
+
+import ABD.abd.Friends;
 import ABD.abd.User;
 
-public class AmigosMapper extends AbstractMapper<User, String> {
+public class AmigosMapper extends AbstractMapper<Friends, String> {
 
 	
 	private static final String[] user_key_name = new String[] { "Nick1", "Nick2"};
@@ -41,41 +46,49 @@ public class AmigosMapper extends AbstractMapper<User, String> {
 	
 	
 	@Override
-	protected User buildObject(ResultSet rs) throws SQLException {
-		return new User(rs.getString("Nick2"));
+	protected Friends buildObject(ResultSet rs) throws SQLException {
+		return new Friends(rs.getString("Nick2"));
 	}
 	
-	protected User buildObjectForFriend(ResultSet rs) throws SQLException {
-		return new User(rs.getString("Nick1"));
+	protected Friends buildObjectForFriend(ResultSet rs) throws SQLException {
+		return new Friends(rs.getString("Nick1"));
 	}
 
 	
 	@Override
-	protected User buildObject(Object[] components) throws SQLException {
-		// TODO Auto-generated method stub
+	protected Friends buildObject(Object[] components) throws SQLException {
+		
 		return null;
 	}
 
 	@Override
-	protected Object[] serializeObject(User object) {
+	protected Object[] serializeObject(Friends object) {
 
-		return new Object[] { object.getNick() };
+		return new Object[] { object.getNick1() , object.getNick2()};
 	}
-
+	
 	@Override
 	protected Object[] serializeObjectKey(String object) {
-		return new Object[] { object };
+		return new Object[] {  "Nick1", "Nick22" };
 	}
 
 	@Override
-	protected Object decomposeObject(User Object) {
+	protected Object decomposeObject(Friends Object) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	protected String getKeyFromObject(User Object) {
-		return Object.getNick();
+	protected String getKeyFromObject(Friends Object) {
+		return Object.getNick1() + Object.getNick2();
 	}
+	private String getKeyFromObj(User Object, User Object2)
+	{
+		String aux= Object.getNick() + ", " + Object2.getNick();
+		return aux;
+	}
+	
+
+	
 
 }

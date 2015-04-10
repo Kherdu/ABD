@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class User {
 
 	
-	private ArrayList <User> amigo;
+	private ArrayList <Friends> amigo;
 	private String nick;
 	private String pass;
 	private String email;
@@ -53,6 +53,17 @@ public class User {
 	{
 		this.nick = nick;
 		this.pass = pass;
+		
+	    
+		
+		this.avatar = null;
+		
+	}
+	
+	public User(String nick)
+	{
+		this.nick = nick;
+		this.pass = null;
 		
 	    
 		
@@ -135,16 +146,20 @@ public class User {
 	}
 
 
-	public ArrayList <User> getAmigo() {
+	public ArrayList <Friends> getAmigo() {
 		return amigo;
 	}
 
 
-	public void setAmigo(ArrayList <User> amigo) {
+	public void setAmigo(ArrayList <Friends> amigo) {
 		this.amigo = amigo;
 	}
 
-
+	public void addAmigo(Friends friend)
+	{
+		this.amigo.add(friend);
+	}
+	
 	public ArrayList<Crossword> getHelpCrosswords() {
 		return helpCrosswords;
 	}
