@@ -1,20 +1,15 @@
 package mappers;
 
-import java.lang.invoke.SerializedLambda;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.apache.commons.lang3.StringUtils;
-
-import ABD.abd.Crossword;
-import ABD.abd.User;
 
 public abstract class AbstractMapper<T, K> {
 
@@ -327,30 +322,6 @@ public abstract class AbstractMapper<T, K> {
 
 	}
 
-	public ArrayList<T> find(K id, boolean b) {
-		String tableName = getTableName();
-		String[] columnNames = getColumnNames();
-		String keyColumnName = getKeyColumnName();
-
-		ArrayList<T> result = new ArrayList<T>();
-
-		String sql = "SELECT " + StringUtils.join(columnNames, ", ") + " FROM "
-				+ tableName + " WHERE " + keyColumnName + " = ?";
-		try (Connection con = ds.getConnection();
-				PreparedStatement pst = con.prepareStatement(sql)) {
-
-			pst.setObject(1, id);
-
-			try (ResultSet rs = pst.executeQuery()) {
-				while (rs.next()) {
-					result.add(buildObject(rs));
-				}
-				return result;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
+	
 
 }

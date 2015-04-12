@@ -2,13 +2,14 @@ package ABD.abd;
 
 public class Resuelve {
 
-
+	private Integer idCrucigrama;
 	private String usuario;
 	private String responde;
 	private String palabra;
 	
 	public Resuelve()
 	{
+		this.idCrucigrama=0;
 		this.usuario = null;
 		this.responde = null;
 		this.palabra = null;
@@ -18,7 +19,9 @@ public class Resuelve {
 		this.usuario = usuario;
 		this.responde = responde;
 		this.palabra = palabra;
+		
 	}
+	
 	public Resuelve( String responde, String palabra)
 	{
 		this.usuario = null;
@@ -50,4 +53,10 @@ public class Resuelve {
 		this.palabra = palabra;
 	}
 
+	public Integer getIdCrucigrama() {
+		return idCrucigrama;
+	}
+	public void setIdCrucigrama(Integer idCrucigrama) {
+		this.idCrucigrama = idCrucigrama;
+	}
 }

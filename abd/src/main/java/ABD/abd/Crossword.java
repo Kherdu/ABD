@@ -1,19 +1,7 @@
 package ABD.abd;
 
-import java.sql.Connection;
 import java.sql.Date;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-
-import javax.sql.DataSource;
-
-import mappers.AbstractMapper;
-import mappers.ContieneMapper;
-import mappers.UsuarioMapper;
-import mappers.WordMapper;
 
 public class Crossword {
 	

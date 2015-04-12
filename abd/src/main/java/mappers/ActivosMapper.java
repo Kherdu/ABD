@@ -19,7 +19,7 @@ public class ActivosMapper extends AbstractMapper<Crossword, String> {
 	private static final String[] activos_column_names = new String[] {
 			"Titulo_Crucigrama", "Nick", "amigo", "solicitud" };
 	private static final String activos_table_name = "activos";
-
+	//triple key
 	public ActivosMapper(DataSource ds) {
 		super(ds);
 		// TODO Auto-generated constructor stub

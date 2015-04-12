@@ -1,7 +1,5 @@
 package ABD.abd;
 
-import java.sql.Blob;
-
 import javax.swing.ImageIcon;
 
 import es.ucm.abd.crossword.WordModel;

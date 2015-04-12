@@ -16,7 +16,7 @@ public class ResuelveMapper extends AbstractMapper<Resuelve, String> {
 	private static final String[] activos_column_names = new String[] {
 			"Palabra", "Fecha", "Hora", "Nick", "Respuesta" };
 	private static final String activos_table_name = "resuelve";
-	
+	//idActivo...
 	
 	public ResuelveMapper(DataSource ds) {
 		super(ds);
@@ -53,13 +53,13 @@ public class ResuelveMapper extends AbstractMapper<Resuelve, String> {
 
 	@Override
 	protected Object[] serializeObject(Resuelve object) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd ");
 		Date date = new Date();
 		String fecha = dateFormat.format(date);
 		
 		SimpleDateFormat hourFormat = new SimpleDateFormat("HH:mm:ss");
 		Date hora = new Date();
-		String hour = dateFormat.format(date);
+		String hour = hourFormat.format(hora);
 		System.out.println(); //2013/10/15 16:16:39
 
 		return new Object[] {  object.getPalabra(), fecha, hour, object.getUsuario(),
