@@ -15,9 +15,10 @@ import ABD.abd.User;
 
 public class ActivosMapper extends AbstractMapper<Crossword, String> {
 
-	private static final String activos_key_name = "Nick";
+	
+	private static final String[] activos_key_name = new String[]{"Id", "Titulo_crucigrama","Nick"};
 	private static final String[] activos_column_names = new String[] {
-			"Titulo_Crucigrama", "Nick", "amigo", "solicitud" };
+			"Id","Titulo_Crucigrama", "Nick", "amigo", "solicitud" };
 	private static final String activos_table_name = "activos";
 
 	public ActivosMapper(DataSource ds) {
@@ -40,9 +41,16 @@ public class ActivosMapper extends AbstractMapper<Crossword, String> {
 	@Override
 	protected String getKeyColumnName() {
 
-		return activos_key_name;
+		return activos_key_name[2];
 	}
 
+	@Override
+	protected String getKeyColumnNameForFriend() {
+		
+		return activos_key_name[0];
+	}
+	
+	
 	@Override
 	protected Crossword buildObject(ResultSet rs) throws SQLException {
 
@@ -116,11 +124,7 @@ public class ActivosMapper extends AbstractMapper<Crossword, String> {
 
 	}
 
-	@Override
-	protected String getKeyColumnNameForFriend() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	@Override
 	protected Crossword buildObjectForFriend(ResultSet rs) throws SQLException {
