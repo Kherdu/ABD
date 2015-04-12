@@ -46,10 +46,6 @@ public abstract class AbstractMapper<T, K> {
 		this.ds = ds;
 	}
 
-	
-
-	 //getConditionsFromKey, dada una clave y con las claves siendo arrays
-
 	public QueryCondition[] getConditionsFromKey(K id) {
 
 		String[] keyColumnNames = getColumnNames();
@@ -64,8 +60,6 @@ public abstract class AbstractMapper<T, K> {
 
 	}
 
-	 // getConditionsFromKey, dada un objeto
-	
 	public QueryCondition[] getConditionsFromKey3(T id) {
 
 		String[] keyColumnNames = getColumnNames();
@@ -79,9 +73,6 @@ public abstract class AbstractMapper<T, K> {
 		return conditions;
 
 	}
-	
-
-	  //getConditionsFromKey, dada una clave y con la clave sin ser array
 	
 	public QueryCondition[] getConditionsFromKey2(K id) {
 
@@ -98,7 +89,6 @@ public abstract class AbstractMapper<T, K> {
 		return conditions;
 
 	}
-	
 	//devuelve un unico objeto a partir de una id
 	public T findById(K id) {
 		String tableName = getTableName();
@@ -183,7 +173,32 @@ public abstract class AbstractMapper<T, K> {
 		}
 	}
 	
+	//encuentra todos los objetos a partir de una id, pero lo devuelve como tipo list
+	public List<T> find2(K id) {
+		String tableName = getTableName();
+		String[] columnNames = getColumnNames();
+		String keyColumnName = getKeyColumnName();
 
+		ArrayList<T> result = new ArrayList<T>();
+
+		String sql = "SELECT " + StringUtils.join(columnNames, ", ") + " FROM "
+				+ tableName + " WHERE " + keyColumnName + " = ?";
+		try (Connection con = ds.getConnection();
+				PreparedStatement pst = con.prepareStatement(sql)) {
+
+			pst.setObject(1, id);
+
+			try (ResultSet rs = pst.executeQuery()) {
+				while (rs.next()) {
+					result.add(buildObject(rs));
+				}
+				return result;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 	public void insert(T object) {
 
@@ -230,7 +245,7 @@ public abstract class AbstractMapper<T, K> {
 
 	public void delete(T object) {
 		 Connection con = null;  
-	     Statement st = null;
+	        PreparedStatement stm = null;
 
 	        QueryCondition[] conditions = getConditionsFromKey3(object);   
 	        
@@ -243,27 +258,15 @@ public abstract class AbstractMapper<T, K> {
 	        
 	        try { 
 	        	con = this.ds.getConnection(); 
-	        	st = con.createStatement();
 	            String sql = "DELETE FROM " + getTableName() + " WHERE " + StringUtils.join(conditionsStr, " AND ");
 	            System.out.println(sql);
+	            stm = con.prepareStatement(sql);
 	            
-	            
-	            st.executeUpdate(sql);
+	            stm.executeUpdate();
 	            
 	        } catch (SQLException e) { 
 	            e.printStackTrace(); 
-	        } finally {
-				try {
-					if (st != null)
-						st.close();
-					if (con != null)
-						con.close();
-				} catch (SQLException e) {
-				}
-
-			}
-	        
-	        
+	        } 
 
 	}
 

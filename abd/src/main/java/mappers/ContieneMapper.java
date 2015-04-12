@@ -11,13 +11,16 @@ import javax.sql.DataSource;
 import org.apache.commons.lang3.StringUtils;
 
 import ABD.abd.Crossword;
-import ABD.abd.Friends;
 import ABD.abd.Word;
 
 public class ContieneMapper extends AbstractMapper<Word, String> {
 
+	/**
+	 * 
+	 * CAMBIAR KEY_NAME A ARRAY
+	 * */
 
-	private static final String[] contains_key_name = new String[] {"Titulo_crucigrama", "Id_palabra"};
+	private static final String contains_key_name = "Titulo_crucigrama";
 	private static final String[] contains_column_names = new String[] {
 			"Titulo_crucigrama","Id_palabra", "Puntuacion","Orientacion","PosicionX","PosicionY" };
 	private static final String contains_table_name = "contiene";
@@ -39,24 +42,18 @@ public class ContieneMapper extends AbstractMapper<Word, String> {
 		return contains_column_names;
 	}
 
+	@Override
 	protected String getKeyColumnName() {
-		return contains_key_name[0];
+		// TODO Auto-generated method stub
+		return contains_key_name;
 	}
-	
-	protected String getKeyColumnNameForFriend() {
-		return contains_key_name[1];
-	}
+
 	@Override
 	protected Word buildObject(ResultSet rs) throws SQLException {
 		return new Word(rs.getString("Id_palabra"), rs.getInt("PosicionX"),
-				rs.getInt("PosicionY"), rs.getString("Orientacion"), rs.getInt("Puntuacion"));
+				rs.getInt("PosicionY"), rs.getString("Orientacion"));
 	}
 
-	protected Word buildObjectForFriend(ResultSet rs) throws SQLException {
-		//return new Friends(rs.getString("Nick1"));
-		return null;
-	}
-	
 	@Override
 	protected Word buildObject(Object[] components) throws SQLException {
 		// TODO Auto-generated method stub
@@ -65,7 +62,8 @@ public class ContieneMapper extends AbstractMapper<Word, String> {
 
 	@Override
 	protected Object[] serializeObject(Word object) {
-		return new Object[] { null,  object.getWord(), object.getPuntuacion(), object.getOrientation(), object.getX(), object.getY()};
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -86,33 +84,18 @@ public class ContieneMapper extends AbstractMapper<Word, String> {
 		return null;
 	}
 
-
-	public Word findByIdAuxiliar(String id) {
-		String tableName = getTableName();
-		String[] columnNames = getColumnNames();
-		String keyColumnName = getKeyColumnNameForFriend();
-
-		String sql = "SELECT " + StringUtils.join(columnNames, ", ") + " FROM "
-				+ tableName + " WHERE " + keyColumnName + " = ?";
-		
-		
-		try (Connection con = ds.getConnection();
-				PreparedStatement pst = con.prepareStatement(sql)) {
-
-			pst.setObject(1, id);
-
-			try (ResultSet rs = pst.executeQuery()) {
-				if (rs.next()) {
-					return buildObject(rs);
-				} else {
-					return null;
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}
+	@Override
+	protected String getKeyColumnNameForFriend() {
+		// TODO Auto-generated method stub
+		return null;
 	}
+
+	@Override
+	protected Word buildObjectForFriend(ResultSet rs) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	protected ArrayList<Word> findWordsFromCrossword(String id){
 		
 		String tableName = getTableName();

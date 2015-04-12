@@ -1,11 +1,9 @@
 package mappers;
 
-import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.sql.DataSource;
-import javax.swing.ImageIcon;
 
 import ABD.abd.User;
 import ABD.abd.Word;
@@ -42,16 +40,8 @@ public class WordMapper extends AbstractMapper<Word, String> {
 
 	@Override
 	protected Word buildObject(ResultSet rs) throws SQLException {
-		Blob foto = rs.getBlob("Foto_palabra");
-		
-		ImageIcon im = null;
-		
-		
-		
-		if(!rs.wasNull()) im = new ImageIcon(foto.getBytes(1, (int)foto.length()));
-		
 		return new Word(rs.getString("Secuencia"), rs.getString("Descripcion"),
-				im);
+				rs.getBlob("Foto_palabra"));
 	}
 
 	@Override
@@ -75,13 +65,14 @@ public class WordMapper extends AbstractMapper<Word, String> {
 
 	@Override
 	protected Object[] serializeObjectKey(String object) {
-		return new Object[] { object };
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	protected String getKeyFromObject(Word Object) {
-
-		return Object.getWord();
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override

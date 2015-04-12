@@ -2,13 +2,15 @@ package GUI;
 
 
 
-
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import javax.sql.DataSource;
 import javax.swing.JFrame;
@@ -16,7 +18,6 @@ import javax.swing.JFrame;
 import ABD.abd.Crossword;
 import ABD.abd.Friends;
 import ABD.abd.Peticiones;
-import ABD.abd.Resuelve;
 import ABD.abd.User;
 import ABD.abd.Word;
 
@@ -24,19 +25,19 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JToolBar;
 import javax.swing.JPanel;
+import javax.swing.JInternalFrame;
 import javax.swing.JList;
-
-
-
+import javax.swing.JComboBox;
 
 import mappers.ActivosMapper;
 import mappers.AmigosMapper;
 import mappers.ContieneMapper;
 import mappers.CrosswordMapper;
 import mappers.PeticionesMapper;
-import mappers.ResuelveMapper;
 import mappers.UsuarioMapper;
+import mappers.WordMapper;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -52,6 +53,7 @@ public class UserMenu {
 	private CrosswordMapper cm;
 	private ActivosMapper am;
 	private ContieneMapper cntm;
+	private WordMapper wm;
 	private User user;
 	private DefaultListModel listField;
 	private DefaultListModel listaForFriends;
@@ -63,7 +65,6 @@ public class UserMenu {
 	private JTextField textField;
 	private UsuarioMapper um;
 	private JTable table;
-	
 	
 	
 	public UserMenu(final DataSource ds, final User user) {
@@ -104,7 +105,8 @@ public class UserMenu {
 
 		this.frame.setVisible(true);
 
-	
+		
+		
 		/**
 		 * 
 		 * PANEL CRUCIGRAMAS
@@ -114,6 +116,7 @@ public class UserMenu {
 		cm = new CrosswordMapper(ds);
 		am = new ActivosMapper(ds);
 		cntm= new ContieneMapper(ds);
+		wm= new WordMapper(ds);
 		Crossword crucigrama = new Crossword();
 		ArrayList<Crossword> crucisActivos = null;
 		
@@ -146,32 +149,30 @@ public class UserMenu {
 		} else
 			System.out.println("Fallo");
 
-		/**
-		 * ABRIMOS EL CRUCIGRAMA SELECCIONADO
-		 * */
-		
 		JButton btnNewButton = new JButton("Abrir crucigrama");
 		btnNewButton.setBounds(224, 31, 161, 23);
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+					
 				Crossword selected=new Crossword();
 				selected = (Crossword) list.getSelectedValue();
 				ArrayList<Word> words= new ArrayList<Word>();
 				words.addAll(cntm.find(selected.getTitle()));
-				Resuelve resuelve;	
-				resuelve = new Resuelve();
-				resuelve.setUsuario(user.getNick());
-				CrosswordGUI opencrossword= new CrosswordGUI(words, ds, user, resuelve);
+				
+				//no coje bien las palabras??
+				ArrayList<Word> cw= new ArrayList<Word>();
+				for (Word w: words){
+					//solo se pueden pillar de un lado o de otro... como lo soluciono?
+					cw.add(wm.findById(w.getWord()));
+				}
+					
+					
+				CrosswordGUI opencrossword= new CrosswordGUI(cw);
 			}
 		});
 		panel.add(btnNewButton);
 
-		/**
-		 * ABRIMOS UNA NUEVA VENTANA PARA BUSCAR CRUCIGRAMAS
-		 * */
-		
 		JButton btnNewButton_1 = new JButton("Busqueda de crucigrama");
 		btnNewButton_1.setBounds(65, 31, 149, 23);
 		btnNewButton_1.addMouseListener(new MouseAdapter() {
@@ -186,14 +187,32 @@ public class UserMenu {
 		panel.add(btnNewButton_1);
 
 		
+		//Boton en el que metemos la imagen
+		JButton btnNewButton_12 = new JButton();
+		btnNewButton_12.setBounds(111, 11, 89, 74);
+		frame.getContentPane().add(btnNewButton_12);
 		
-		/**
-		 * 
-		 * INFORMACION DEL USUARIO
-		 * 
-		 * */
-		addUserInterface(frame,user);
+		if(user.getPicture()!=null) btnNewButton_12.setIcon(user.getPicture());
 		
+		
+		JLabel lblNewLabel_1 = new JLabel("NICK:");
+		lblNewLabel_1.setBounds(222, 11, 112, 25);
+		lblNewLabel_1.setFont(new Font("Serif", Font.PLAIN, 24));
+		frame.getContentPane().add(lblNewLabel_1);
+		
+		JLabel lblNewLabel = new JLabel(user.getNick());
+		lblNewLabel.setForeground(Color.BLUE);
+		lblNewLabel.setFont(new Font("Serif", Font.PLAIN, 24));
+		lblNewLabel.setBounds(381, 11, 262, 27);
+		frame.getContentPane().add(lblNewLabel);
+		
+		JLabel lblEdad = new JLabel("Edad:");
+		lblEdad.setBounds(222, 58, 46, 14);
+		frame.getContentPane().add(lblEdad);
+		
+		JLabel lblAos = new JLabel("34 años");
+		lblAos.setBounds(381, 58, 145, 14);
+		frame.getContentPane().add(lblAos);
 		
 		
 		
@@ -206,8 +225,7 @@ public class UserMenu {
 		
 		listaForFriends = new DefaultListModel();
 		
-		//creamos un mapper de los crucigramas activosactivos, y hacemos 2 busquedas, una por el nick del primer amigo como clave y otra por la del segundo como clave
-		//, y los añadimos al panel
+		//creamos un mapper de activos, y hacemos 2 busquedas, una por el nick del primer amigo y otra por la del segundo, y los añadimos al panel
 		amigosm = new AmigosMapper(ds);
 		ArrayList<Friends> auxiliar = new ArrayList<>();
 		auxiliar = amigosm.findForFriend(user.getNick());
@@ -229,7 +247,7 @@ public class UserMenu {
 		scrollPaneForFriends.setBounds(54, 5, 379, 171);
 		panel_1.add(scrollPaneForFriends);
 		
-		 listForFriends = new JList();
+		listForFriends = new JList();
 		scrollPaneForFriends.setViewportView(listForFriends);
 		list.setToolTipText("Lista de amigos");
 		listForFriends.setModel(listaForFriends);
@@ -243,11 +261,6 @@ public class UserMenu {
 		JLabel lblBuscarAmigo = new JLabel("Añadir amigo:");
 		lblBuscarAmigo.setBounds(64, 186, 100, 14);
 		panel_1.add(lblBuscarAmigo);
-		
-		
-		/**
-		 * AÑADIMOS UN AMIGO INTRODUCIENDO SU NOMBRE DE USUARIO EN UN TEXTFIELD
-		 * */
 		
 		JButton btnAadirAmigo = new JButton("Añadir amigo");
 		btnAadirAmigo.addMouseListener(new MouseAdapter() {
@@ -276,11 +289,6 @@ public class UserMenu {
 		});
 		btnAadirAmigo.setBounds(81, 211, 131, 23);
 		panel_1.add(btnAadirAmigo);
-		
-		
-		/**
-		 * ELIMINAR AMIGO
-		 * */
 		
 		JButton btnEliminar = new JButton("Eliminar");
 		btnEliminar.addMouseListener(new MouseAdapter() {
@@ -316,7 +324,6 @@ public class UserMenu {
 		 * PANEL PETICIONES
 		 * 
 		 * */
-	
 		
 		peticionado = new ArrayList<>();
 		
@@ -342,48 +349,36 @@ public class UserMenu {
 		scrollPane_2.setViewportView(table);
 		
 		
-		/**
-		 * ABRIR CRUCIGRAMA PARA AYUDAR
-		 * */
+		
 		JButton btnAbrirCrucigrama = new JButton("Abrir crucigrama");
 		btnAbrirCrucigrama.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				
-				Crossword crAux = new Crossword();
-				int row = table.getSelectedRow();
-				crAux.setTitle((String) table.getValueAt(row, 1));
-				
-				ArrayList<Word> words= new ArrayList<Word>();
-				words.addAll(cntm.find(crAux.getTitle()));
-				
-				
-				Resuelve resuelve;	
-				resuelve = new Resuelve();
-				resuelve.setUsuario((String)table.getValueAt(row, 0) );
-				CrosswordGUI opencrossword= new CrosswordGUI(words, ds, user, resuelve);
-				
 			}
 		});
 		btnAbrirCrucigrama.setBounds(81, 225, 148, 23);
 		panel_2.add(btnAbrirCrucigrama);
 		
-		
-		/**
-		 * DESCARTAR PETICION DE AYUDA
-		 * 
-		 * */
 		JButton btnDescartarPeticin = new JButton("Descartar Petición");
 		btnDescartarPeticin.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-			
+				Peticiones pet = new Peticiones();
 				Crossword crAux = new Crossword();
+				Object[][] dataAux = new Object[8][8];
+				
 				int row = table.getSelectedRow();
-		
-				crAux.setAmigo(null);
-				crAux.setUserNick((String) table.getValueAt(row, 0));
-				crAux.setTitle((String) table.getValueAt(row, 1));
+				int column = table.getColumnCount();
+				for(int i = 0; i < column; i++) {
+					dataAux[row][i]= table.getValueAt(row, i);
+				   
+				   
+				}
+				
+				 crAux.setAmigo(null);
+				crAux.setUserNick((String) dataAux[row][0]);
+				crAux.setTitle((String) dataAux[row][1]);
+	
 				
 				
 				((DefaultTableModel)table.getModel()).removeRow(row);
@@ -395,68 +390,16 @@ public class UserMenu {
 		btnDescartarPeticin.setBounds(264, 225, 148, 23);
 		panel_2.add(btnDescartarPeticin);
 		
-	
-		
-		
-	}
-	
-	private int calcularFecha(User user)
-	{
-		
-		Calendar cal1 = Calendar.getInstance();
-		int year = cal1.get(Calendar.YEAR);
-		
-		String date = user.getBirthDate().toString();
-		
 
-		int birth = Integer.parseInt(date.substring(0,4));
-		
-		return (year - birth);
-	}
 	
-	private void addUserInterface(JFrame frame, User user)
-	{
+
+				
+				
+				
+				
+				
+				
 		
-		//Añadimos la foto a un boton
-		JButton btnNewButton_12 = new JButton();
-		btnNewButton_12.setBounds(111, 11, 89, 74);
-		frame.getContentPane().add(btnNewButton_12);
-		
-		if(user.getPicture()!=null) btnNewButton_12.setIcon(user.getPicture());
-		
-		//Añadimos el nick y le cambiamos color
-		JLabel lblNewLabel_1 = new JLabel("NICK:");
-		lblNewLabel_1.setBounds(222, 11, 112, 25);
-		lblNewLabel_1.setFont(new Font("Serif", Font.PLAIN, 24));
-		frame.getContentPane().add(lblNewLabel_1);
-		
-		JLabel lblNewLabel = new JLabel(user.getNick());
-		lblNewLabel.setForeground(Color.BLUE);
-		lblNewLabel.setFont(new Font("Serif", Font.PLAIN, 24));
-		lblNewLabel.setBounds(381, 11, 262, 27);
-		frame.getContentPane().add(lblNewLabel);
-		
-		JLabel lblPuntuacion = new JLabel("Puntuacion:");
-		lblPuntuacion.setBounds(222, 70, 112, 14);
-		frame.getContentPane().add(lblPuntuacion);
-		
-		JLabel lblNewLabel_2 = new JLabel(user.getPuntuacion() + " puntos");
-		lblNewLabel_2.setBounds(381, 70, 145, 14);
-		frame.getContentPane().add(lblNewLabel_2);
-		
-		
-		//Si el usuario tiene fecha de nacimiento, la calculamos y la ponemos
-		if(user.getBirthDate() != null)
-		{
-			JLabel lblEdad = new JLabel("Edad:");
-			lblEdad.setBounds(220, 45, 46, 14);
-			frame.getContentPane().add(lblEdad);
-			
-			JLabel lblAos = new JLabel(calcularFecha(user) + " años");
-			lblAos.setBounds(381, 45, 145, 14);
-			frame.getContentPane().add(lblAos);
-		
-		}
 		
 	}
 }

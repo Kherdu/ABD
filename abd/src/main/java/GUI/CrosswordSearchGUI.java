@@ -1,6 +1,7 @@
 package GUI;
 
-
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
 
 import javax.sql.DataSource;
 import javax.swing.DefaultListModel;
@@ -8,10 +9,12 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
-
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.ListModel;
+import javax.swing.border.EmptyBorder;
 
 import ABD.abd.Crossword;
 
@@ -97,13 +100,7 @@ public class CrosswordSearchGUI {
 		listField.setBounds(104, 105, 450, 297);
 
 		frame.setVisible(true);
-		
-		
-		/**
-		 * BUSCAMOS UN CRUCIGRAMA, SI NO SELECCIONAMOS TITULO MUESTRA TODOS
-		 * */
-		
-		
+
 		btnBuscar.addMouseListener(new MouseAdapter() {
 
 			public void mouseClicked(MouseEvent arg0) {
@@ -126,10 +123,6 @@ public class CrosswordSearchGUI {
 			}
 		});
 
-		
-		/**
-		 * AÑADIMOS UN CRUCIGRAMA A LA LISTA DE ACTIVOS
-		 * */
 		btnAdd.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

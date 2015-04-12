@@ -2,8 +2,6 @@ package ABD.abd;
 
 import java.sql.Blob;
 
-import javax.swing.ImageIcon;
-
 import es.ucm.abd.crossword.WordModel;
 
 public class Word implements WordModel{
@@ -13,16 +11,9 @@ public class Word implements WordModel{
 	private int coordX;
 	private int coordY;
 	private String orientation;
-	private ImageIcon picture;
-	private int puntuacion;
+	private Blob picture;
 	
 	
-	public int getPuntuacion() {
-		return puntuacion;
-	}
-	public void setPuntuacion(int puntuacion) {
-		this.puntuacion = puntuacion;
-	}
 	//Full constructor without picture
 	public Word(String w, String desc, int X, int Y, String ori)
 	{
@@ -41,17 +32,9 @@ public class Word implements WordModel{
 		this.coordY = Y;
 		this.orientation = ori;
 	}
-	public Word(String w,  int X, int Y, String ori, int punt)
-	{
-		this.word = w;
-		this.description = null;
-		this.coordX = X;
-		this.coordY = Y;
-		this.orientation = ori;
-		this.puntuacion = punt;
-	}
+	
 	//Full constructor with picture
-	public Word(String w, String desc, int X, int Y, String ori, ImageIcon pict)
+	public Word(String w, String desc, int X, int Y, String ori, Blob pict)
 	{
 		this.word = w;
 		this.description = desc;
@@ -70,7 +53,7 @@ public class Word implements WordModel{
 	
 	
 	//Word, description and picture
-	public Word(String w, String desc, ImageIcon pict)
+	public Word(String w, String desc, Blob pict)
 	{
 		this.word = w;
 		this.description = desc;
@@ -138,12 +121,12 @@ public class Word implements WordModel{
 	}
 
 
-	public ImageIcon getPicture() {
+	public Blob getPicture() {
 		return picture;
 	}
 
 
-	public void setPicture(ImageIcon picture) {
+	public void setPicture(Blob picture) {
 		this.picture = picture;
 	}
 
@@ -163,7 +146,7 @@ public class Word implements WordModel{
 
 	@Override
 	public boolean isHorizontal() {
-		if (orientation.equalsIgnoreCase("horizontal") ){
+		if (orientation.equalsIgnoreCase("h") ){
 			return true;
 		}
 		else return false;

@@ -22,22 +22,10 @@ public class User {
 	//should be this a crossword array or a new class with crossword, user and check?
 	private ArrayList<Crossword> helpCrosswords;
 	
-	private int puntuacion;
 	
 	
 	public User(String nick, String pass, Date birthDate, ImageIcon picture)
 	{
-		this.puntuacion = 0;
-		this.nick = nick;
-		this.pass = pass;
-		this.email = email;
-		this.birthDate = birthDate;
-		this.picture = picture;
-		
-	}
-	public User(String nick, String pass, Date birthDate, ImageIcon picture, int score)
-	{
-		this.puntuacion = score;
 		this.nick = nick;
 		this.pass = pass;
 		this.email = email;
@@ -52,7 +40,6 @@ public class User {
 		this.email = email;
 		this.avatar = picture;
 		this.birthDate = null;
-		this.puntuacion = 0;
 		
 	}
 	public User(String nick, String pass, String email, Date birthDate)
@@ -62,7 +49,6 @@ public class User {
 		this.email = email;
 		this.birthDate = birthDate;
 		this.avatar = null;
-		this.puntuacion = 0;
 		
 	}
 	public User(String nick, String pass)
@@ -70,7 +56,7 @@ public class User {
 		this.nick = nick;
 		this.pass = pass;
 		
-		this.puntuacion = 0;
+	    
 		
 		this.avatar = null;
 		
@@ -80,7 +66,7 @@ public class User {
 	{
 		this.nick = nick;
 		this.pass = null;
-		this.puntuacion = 0;
+		
 	    
 		
 		this.avatar = null;
@@ -94,7 +80,7 @@ public class User {
 		this.email = null;
 		this.birthDate = null;
 		this.avatar = null;
-		this.puntuacion = 0;
+		
 	}
 	
 	
@@ -189,12 +175,6 @@ public class User {
 	}
 	public void setPicture(ImageIcon picture) {
 		this.picture = picture;
-	}
-	public int getPuntuacion() {
-		return puntuacion;
-	}
-	public void setPuntuacion(int puntuacion) {
-		this.puntuacion = puntuacion;
 	}
 	
 }
