@@ -13,7 +13,7 @@ public class UsuarioMapper extends AbstractMapper<User, String> {
 
 	private static final String user_key_name = "Usuario";
 	private static final String[] user_column_names = new String[] { "Usuario",
-			"Contraseña", "FechaNacimiento", "Foto" };
+			"Contraseña", "FechaNacimiento", "Foto", "Puntuacion" };
 	private static final String user_table_name = "usuario";
 
 	public UsuarioMapper(DataSource ds) {
@@ -47,7 +47,7 @@ public class UsuarioMapper extends AbstractMapper<User, String> {
 		if(!rs.wasNull()) im = new ImageIcon(foto.getBytes(1, (int)foto.length()));
 		
 		return new User(rs.getString("Usuario"), rs.getString("Contraseña"),
-				rs.getDate("FechaNacimiento"), im);
+				rs.getDate("FechaNacimiento"), im, rs.getInt("Puntuacion"));
 	}
 
 	@Override
@@ -61,7 +61,7 @@ public class UsuarioMapper extends AbstractMapper<User, String> {
 	protected Object[] serializeObject(User object) {
 
 		return new Object[] { object.getNick(), object.getPass(),
-				object.getBirthDate(), object.getAvatar() };
+				object.getBirthDate(), object.getAvatar(), object.getPuntuacion() };
 	}
 
 	@Override

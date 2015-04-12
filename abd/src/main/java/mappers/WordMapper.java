@@ -1,9 +1,11 @@
 package mappers;
 
+import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.sql.DataSource;
+import javax.swing.ImageIcon;
 
 import ABD.abd.User;
 import ABD.abd.Word;
@@ -12,7 +14,7 @@ public class WordMapper extends AbstractMapper<Word, String> {
 
 	private static final String word_key_name = "Secuencia";
 	private static final String[] word_column_names = new String[] {
-			"Secuencia", "Desripcion", "Foto" };
+			"Secuencia", "Descripcion", "Foto_palabra" };
 	private static final String word_table_name = "palabra";
 
 	public WordMapper(DataSource ds) {
@@ -40,8 +42,16 @@ public class WordMapper extends AbstractMapper<Word, String> {
 
 	@Override
 	protected Word buildObject(ResultSet rs) throws SQLException {
+		Blob foto = rs.getBlob("Foto_palabra");
+		
+		ImageIcon im = null;
+		
+		
+		
+		if(!rs.wasNull()) im = new ImageIcon(foto.getBytes(1, (int)foto.length()));
+		
 		return new Word(rs.getString("Secuencia"), rs.getString("Descripcion"),
-				rs.getBlob("Foto"));
+				im);
 	}
 
 	@Override
@@ -65,14 +75,13 @@ public class WordMapper extends AbstractMapper<Word, String> {
 
 	@Override
 	protected Object[] serializeObjectKey(String object) {
-		// TODO Auto-generated method stub
-		return null;
+		return new Object[] { object };
 	}
 
 	@Override
 	protected String getKeyFromObject(Word Object) {
-		// TODO Auto-generated method stub
-		return null;
+
+		return Object.getWord();
 	}
 
 	@Override
