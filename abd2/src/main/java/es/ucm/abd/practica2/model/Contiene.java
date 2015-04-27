@@ -1,48 +1,59 @@
 package es.ucm.abd.practica2.model;
 
-public class Contiene {
+import java.io.Serializable;
 
-	private Integer id_crucigrama;
-	private Integer id_definicion;
+import javax.persistence.*;
+
+
+
+@Entity
+public class Contiene implements Serializable{
+
+	@Id
+	@ManyToOne
+	private Crucigrama crucigrama;
+	@Id
+	@ManyToOne
+	private Definicion definicion;
 	private Orientation orientacion;
 	private Integer fila;
 	private Integer columna;
 	
 	
 	
-	public Contiene(Integer id_crucigrama, Integer id_definicion,
+	public Contiene(Crucigrama crucigrama, Definicion definicion,
 			Orientation orientacion,Integer fila, Integer columna) {
 		
-		this.id_crucigrama = id_crucigrama;
-		this.id_definicion = id_definicion;
+		this.crucigrama = crucigrama;
+		this.definicion = definicion;
 		this.orientacion = orientacion;
-		this.setFila(fila);
-		this.setColumna(columna);
+		this.fila=fila;
+		this.columna=columna;
 	}
 	public Contiene(Crucigrama crossword, Definicion word, int row, int column,
 			Orientation orientation) {
-		this.id_crucigrama=crossword.getId();
-		this.id_definicion=word.getId();
+		this.crucigrama=crossword;
+		this.definicion=word;
 		this.orientacion=orientation;
-		this.setFila(row);
-		this.setColumna(column);
+		this.fila=row;
+		this.columna=column;
 	
 	}
-	public Integer getId_crucigrama() {
-		return id_crucigrama;
+	public Crucigrama get_crucigrama() {
+		return crucigrama;
 	}
-	public Integer getId_definicion() {
-		return id_definicion;
+	public Definicion get_definicion() {
+		return definicion;
 	}
 	public Orientation getOrientacion() {
 		return orientacion;
 	}
 	
-	public void setId_crucigrama(Integer id_crucigrama) {
-		this.id_crucigrama = id_crucigrama;
+	public void setcrucigrama(Crucigrama crucigrama) {
+		this.crucigrama = crucigrama;
 	}
-	public void setId_definicion(Integer id_definicion) {
-		this.id_definicion = id_definicion;
+	public void setdefinicion(Definicion definicion) {
+		this.definicion = definicion;
 	}
 	public void setOrientacion(Orientation orientacion) {
 		this.orientacion = orientacion;

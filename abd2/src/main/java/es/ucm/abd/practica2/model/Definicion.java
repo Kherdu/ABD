@@ -1,14 +1,23 @@
 package es.ucm.abd.practica2.model;
 
+import java.util.List;
+
+import javax.persistence.*;
+
 import com.mysql.jdbc.Blob;
 
+@Entity
 public class Definicion {
 
+		@Id
+		@GeneratedValue(strategy=GenerationType.AUTO)
 		private Integer id;
 		private String enunciado;
+		@Lob
 		private Blob imagen;
 		private String respuesta;
-		private String[] etiquetas;
+		@ElementCollection
+		private List<String> etiquetas;
 		
 		
 		public Definicion(){
@@ -21,7 +30,7 @@ public class Definicion {
 		}
 
 
-		public Definicion(String sequence, String hint, String[] tags) {
+		public Definicion(String sequence, String hint, List<String> tags) {
 			this.respuesta=sequence;
 			this.enunciado=hint;
 			this.etiquetas=tags;
@@ -48,7 +57,7 @@ public class Definicion {
 		}
 
 
-		public String[] getEtiquetas() {
+		public List<String> getEtiquetas() {
 			return etiquetas;
 		}
 
@@ -73,7 +82,7 @@ public class Definicion {
 		}
 
 
-		public void setEtiquetas(String[] etiquetas) {
+		public void setEtiquetas(List<String> etiquetas) {
 			this.etiquetas = etiquetas;
 		}
 }
