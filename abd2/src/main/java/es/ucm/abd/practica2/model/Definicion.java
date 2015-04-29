@@ -8,7 +8,7 @@ import com.mysql.jdbc.Blob;
 
 @Entity
 public class Definicion {
-
+		
 		@Id
 		@GeneratedValue(strategy=GenerationType.AUTO)
 		private Integer id;

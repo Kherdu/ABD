@@ -10,10 +10,12 @@ import javax.persistence.*;
 public class Contiene implements Serializable{
 
 	@Id
-	@ManyToOne
+
+
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Crucigrama crucigrama;
 	@Id
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Definicion definicion;
 	private Orientation orientacion;
 	private Integer fila;

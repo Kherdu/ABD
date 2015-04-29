@@ -3,6 +3,7 @@ import java.util.Date;
 import java.util.List;
 
 import es.ucm.abd.practica2.dao.AbstractCrosswordDAO;
+import es.ucm.abd.practica2.dao.CrosswordDAO;
 import es.ucm.abd.practica2.model.Contiene;
 import es.ucm.abd.practica2.model.Crucigrama;
 import es.ucm.abd.practica2.model.Definicion;
@@ -81,7 +82,9 @@ public class CrosswordFacade implements AbstractCrosswordFacade<Crucigrama,Defin
 	@Override
 	public AbstractCrosswordDAO<Crucigrama, Definicion> createDAO() {
 		// TODO Auto-generated method stub
-		return null;
+		AbstractCrosswordDAO<Crucigrama, Definicion> aux = new CrosswordDAO();
+		
+		return aux;
 	}
 	
 	
