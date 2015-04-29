@@ -22,7 +22,10 @@ public class Contiene implements Serializable{
 	private Integer columna;
 	
 	
-	
+	public Contiene(){
+		
+		
+	}
 	public Contiene(Crucigrama crucigrama, Definicion definicion,
 			Orientation orientacion,Integer fila, Integer columna) {
 		
