@@ -69,7 +69,7 @@ public class CrosswordDAO implements AbstractCrosswordDAO<Crucigrama, Definicion
 				+ "	FROM Crucigrama AS c LEFT JOIN Contiene AS co WITH c.id=co.crucigrama.id WHERE c.titulo LIKE ? GROUP BY c.id ");
 		*/
 		Query query = session.createQuery("SELECT c.crucigrama.id, c.crucigrama.titulo, c.crucigrama.Fecha_Creacion, COUNT (*)"
-				+ "	FROM Contiene AS c WHERE c.crucigrama.titulo LIKE ? GROUP BY c.id ");
+				+ "	FROM Contiene AS c WHERE c.crucigrama.titulo LIKE ? GROUP BY c.crucigrama.id ");
 		
 		query.setString(0, "%" + str + "%");
 		
