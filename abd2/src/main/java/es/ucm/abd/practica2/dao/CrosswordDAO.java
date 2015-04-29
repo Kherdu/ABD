@@ -65,10 +65,13 @@ public class CrosswordDAO implements AbstractCrosswordDAO<Crucigrama, Definicion
 		 * */
 		
 		this.session = this.sf.openSession();
-		Query query = session.createQuery("SELECT c.id, c.titulo, c.fecha_creacion FROM crucigrama c WHERE c.titulo LIKE '%" + str + "%' GROUP BY c.id ");
-		List<Object[]> resultados = query.list();
-	
+		Query query = session.createQuery("SELECT c.id, c.titulo, c.Fecha_Creacion "
+				+ "	FROM Crucigrama AS c WHERE c.titulo LIKE ? GROUP BY c.id ");
 		
+		query.setString(0, "%" + str + "%");
+		
+		@SuppressWarnings("unchecked")
+		List<Object[]> resultados = (List<Object[]>)query.list();
 		return resultados;
 	}
 
