@@ -81,13 +81,29 @@ public class CrosswordDAO implements AbstractCrosswordDAO<Crucigrama, Definicion
 	@Override
 	public List<Definicion> findWordsByTags(String[] tags) {
 		
-		/*this.session = this.sf.openSession();
-		Query query = session.createQuery("SELECT a.nombre, a.apellidos " +
-				 "FROM Autor AS a");
-		List<Object[]> resultados = query.list();
-
-		ArrayList<Definicion> aux = new ArrayList<>(); */
-		return null;
+				Query query;
+		this.session = this.sf.openSession();
+		
+		if(tags.length== 0)
+		{
+			query = session.createQuery("SELECT d	FROM Definicion AS d");
+			List<Definicion> aux = (List<Definicion>)query.list();
+			return aux;
+			
+		}
+		else
+		{
+			query = session.createQuery("SELECT d	FROM Definicion AS d WHERE d.enunciado LIKE ?");
+		
+			for(int i = 0; i< tags.length; i++)
+			{
+				query.setString(0, "%" + tags[i] + "%");
+			}
+			
+			List<Definicion> aux = (List<Definicion>)query.list();
+			return aux;
+		}
+		
 	}
 
 	@Override
