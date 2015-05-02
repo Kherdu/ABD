@@ -93,14 +93,16 @@ public class CrosswordDAO implements AbstractCrosswordDAO<Crucigrama, Definicion
 		}
 		else
 		{
-			query = session.createQuery("SELECT d	FROM Definicion AS d WHERE d.enunciado LIKE ?");
-		
+			query = session.createQuery("SELECT d FROM Definicion AS d WHERE d.enunciado LIKE ?");
+			List<Definicion> aux= new ArrayList<Definicion>();
 			for(int i = 0; i< tags.length; i++)
 			{
+				
 				query.setString(0, "%" + tags[i] + "%");
+				aux.addAll((List<Definicion>)query.list());
 			}
+			 
 			
-			List<Definicion> aux = (List<Definicion>)query.list();
 			return aux;
 		}
 		
