@@ -20,15 +20,15 @@ public class Crucigrama {
 	
 	private Date Fecha_Creacion;
 	
-	@ElementCollection
-	private List<Object[]> palabras;
+	@OneToMany(mappedBy="crucigrama")
+	private List<Contiene> palabras;
 	
 	public Crucigrama(){
 		
 		this.id=null;
 		this.titulo=null;
 		this.Fecha_Creacion=null;
-		this.palabras= new ArrayList<Object[]>();
+		this.palabras= new ArrayList<Contiene>();
 		
 	}
 
@@ -36,21 +36,35 @@ public class Crucigrama {
 	public Crucigrama(String title, Date date) {
 		this.titulo=title;
 		this.Fecha_Creacion=date;
-		this.palabras= new ArrayList<Object[]>();
+		this.palabras= new ArrayList<Contiene>();
 	}
 	
 	public List<Object[]> getPalabras() {
-		return palabras;
+		
+		//construir el array de objetos para sacarlo
+		
+		//cerdada padre
+		List <Object[]> l= new ArrayList<Object[]>();
+		for(Contiene c: palabras){
+			Object[] o= new Object[4];
+			o[0]=c.get_definicion().getEnunciado();
+			o[1]=c.getFila();
+			o[2]=c.getColumna();
+			o[3]=c.getOrientacion();
+			l.add(o);
+		}
+		
+		return l;
 	}
 
 
-	public void setPalabras(List<Object[]> palabras) {
+	public void setPalabras(List<Contiene> palabras) {
 		this.palabras = palabras;
 	}
 
-	public void addPalabra(Object[] palabra){
+	public void addPalabra(Contiene c){
 		
-		palabras.add(palabra);
+		palabras.add(c);
 	}
 	
 	public Integer getId() {

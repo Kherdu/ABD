@@ -36,9 +36,9 @@ public class CrosswordFacade implements AbstractCrosswordFacade<Crucigrama,Defin
 	@Override
 	public void addWordToCrossword(Crucigrama crossword, Definicion word,
 			int row, int column, Orientation orientation) {
-			new Contiene(crossword,word,row,column,orientation);
-			Object[] o= new Object[]{word.getRespuesta(),row,column,orientation};
-			crossword.addPalabra(o);
+			Contiene c=new Contiene(crossword,word,row,column,orientation);
+			//Object[] o= new Object[]{word.getRespuesta(),row,column,orientation};
+			crossword.addPalabra(c);;
 	}
 	@Override
 	public String getAnswerOfWord(Definicion word) {
@@ -74,8 +74,6 @@ public class CrosswordFacade implements AbstractCrosswordFacade<Crucigrama,Defin
 				return crossword.getPalabras();
 	
 	}
-	
-	
 	
 	
 	//este no se toca por ahora
