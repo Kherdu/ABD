@@ -18,14 +18,10 @@ public class Definicion {
 		private String respuesta;
 		@ElementCollection
 		private List<String> etiquetas;
-		
+	
 		
 		public Definicion(){
-			this.id=null;
-			this.enunciado=null;
-			this.imagen=null;
-			this.respuesta=null;
-			this.etiquetas=null;
+			
 			
 		}
 

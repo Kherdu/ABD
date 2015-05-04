@@ -6,24 +6,24 @@ import javax.persistence.*;
 
 
 
+@SuppressWarnings("serial")
 @Entity
 public class Contiene implements Serializable{
 
-	public Contiene() {
-		super();
-	}
+	
 	@Id
-
-
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private Crucigrama crucigrama;
 	@Id
-	@ManyToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	private Definicion definicion;
 	private Orientation orientacion;
 	private Integer fila;
 	private Integer columna;
 	
+	public Contiene() {
+		
+	}
 	
 	
 	public Contiene(Crucigrama crucigrama, Definicion definicion,

@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
-import javax.persistence.GenerationType;
 
 
 @Entity
@@ -15,20 +14,16 @@ public class Crucigrama {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
-	@Column(nullable=false)
 	private String titulo;
 	
 	private Date Fecha_Creacion;
 	
-	@OneToMany(mappedBy="crucigrama")
+	@OneToMany(mappedBy="crucigrama", cascade = CascadeType.ALL)
+	
 	private List<Contiene> palabras;
 	
 	public Crucigrama(){
 		
-		this.id=null;
-		this.titulo=null;
-		this.Fecha_Creacion=null;
-		this.palabras= new ArrayList<Contiene>();
 		
 	}
 
@@ -47,7 +42,7 @@ public class Crucigrama {
 		List <Object[]> l= new ArrayList<Object[]>();
 		for(Contiene c: palabras){
 			Object[] o= new Object[4];
-			o[0]=c.get_definicion().getEnunciado();
+			o[0]=c.get_definicion().getRespuesta();
 			o[1]=c.getFila();
 			o[2]=c.getColumna();
 			o[3]=c.getOrientacion();
