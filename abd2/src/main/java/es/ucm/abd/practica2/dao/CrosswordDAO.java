@@ -65,27 +65,10 @@ public class CrosswordDAO implements AbstractCrosswordDAO<Crucigrama, Definicion
 		 * */
 		
 		this.session = this.sf.openSession();
-		/*Query query = session.createQuery("SELECT c.id, c.titulo, c.Fecha_Creacion, COUNT (*)"
-				+ "	FROM Crucigrama AS c LEFT JOIN Contiene AS co WITH c.id=co.crucigrama.id WHERE c.titulo LIKE ? GROUP BY c.id ");
-				
-				SELECT cr.id, cr.titulo, cr.fechaCreacion, COUNT(con.id)"
-			+ " FROM Crucigrama AS cr LEFT JOIN cr.palabras AS con "
-			+ " WHERE cr.titulo LIKE :str GROUP BY cr.id"
-			
-			SELECT c.crucigrama.id, c.crucigrama.titulo, c.crucigrama.Fecha_Creacion, COUNT (list)"
-				+ "	FROM Contiene AS c LEFT JOIN c.crucigrama.palabras AS list "
-				+ "WHERE c.crucigrama.titulo LIKE ? GROUP BY c.crucigrama.id 
-			SELECT c.id, c.titulo, c.Fecha_Creacion, COUNT(*)
-				+ " FROM Crucigrama AS c LEFT JOIN c.palabras AS pal"
-				+ WHERE c.titulo LIKE ' GROUP BY c.id
-				
-				SELECT c.crucigrama.id, c.crucigrama.titulo, c.crucigrama.Fecha_Creacion, COUNT ()"
-				+ "	FROM Contiene AS c LEFT JOIN c.crucigrama.palabras AS list "
-				+ "WHERE c.crucigrama.titulo LIKE ? GROUP BY c.crucigrama.id 
-		*/
-		Query query = session.createQuery("SELECT c.crucigrama.id, c.crucigrama.titulo, c.crucigrama.Fecha_Creacion, COUNT (list)"
-				+ "	FROM Contiene AS c LEFT JOIN c.crucigrama.palabras AS list "
-				+ "WHERE c.crucigrama.titulo LIKE ? GROUP BY c.crucigrama.id ");
+		
+		Query query = session.createQuery("SELECT c.id, c.titulo, c.Fecha_Creacion, COUNT (list.crucigrama.id)"
+				+ "	FROM Crucigrama AS c LEFT JOIN c.palabras AS list "
+				+ "WHERE c.titulo LIKE ? GROUP BY c.id ");
 		
 		query.setString(0, "%" + str + "%");
 		
