@@ -1,201 +1,184 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE eurovision [
-<!ELEMENT eurovision (artista+, edicion+)>
-<!ELEMENT artista (nombre, descripcion?, imagen?)>
-<!ELEMENT edicion (ciudad, ubicacion, pais+)>
-<!ELEMENT pais (participante, cancion, orden, votos+)>
-<!ELEMENT votos (puntuacion)>
-<!ATTLIST artista id ID #REQUIRED>
-<!ATTLIST edicion numero CDATA #REQUIRED>
-<!ATTLIST pais nombre CDATA #REQUIRED>
-<!ATTLIST votos id_pais CDATA #REQUIRED>
-<!ATTLIST participante id IDREF #REQUIRED>
-]>
-
 <eurovision>
-	<artista id="c01">
-		<nombre> Chiqui chiqui</nombre>
-		<descripcion> La verguenza del pais </descripcion>
-		<imagen> nop.jpg </imagen>
-	</artista>
-
-	<artista id="c02">
-		<nombre> La de la barba</nombre>
-		<descripcion> Mucha barba </descripcion>
-		<imagen> harden.jpg </imagen>
-	</artista>
-	
-	<artista id="c03">
-		<nombre> John Umpa Lumpa</nombre>
-		<descripcion>pe</descripcion>
-		<imagen> cosas.jpg </imagen>
-	</artista>
-	
-	<artista id="c04">
-		<nombre> Definetly NOT Hitler</nombre>
-		<descripcion> Merkel seal of aprooval </descripcion>
-		<imagen> fotico.jpg </imagen>
-	</artista>
-	<artista id="c05">
-		<nombre>Nikolaev Chocklov A.K.A. Putin</nombre>
-		<descripcion> La antigua union sovietica está de acuerdo </descripcion>
-		<imagen> vladimir.jpg </imagen>
-	</artista>
-
-
-	<edicion numero="2015">
-		<ciudad> Estanbul </ciudad>
-		<ubicacion> Turquia </ubicacion>
-		
-		<pais nombre="francia">
-			<participante id="c01" />
-			<cancion> bbb </cancion>
-			<orden> 1 </orden>
-			<votos id_pais="china">
-				<puntuacion> 12 </puntuacion>
-			</votos>
-			<votos id_pais="turquia">
-				<puntuacion> 10 </puntuacion>
-			</votos>
-			<votos id_pais="portugal">
-				<puntuacion> 8 </puntuacion>
-			</votos>
-		</pais>
-		
-		<pais nombre="españa">
-			<participante id="c02" />
-			<cancion> no vamos a ganar </cancion>
-			<orden> 2 </orden>
-			<votos id_pais="portugal">
-				<puntuacion> 12 </puntuacion>
-			</votos>
-			<votos id_pais="andorra">
-				<puntuacion> 10 </puntuacion>
-			</votos>
-			<votos id_pais="portugal">
-				<puntuacion> 8 </puntuacion>
-			</votos>
-		</pais>
-		<pais nombre="alemania">
-			<participante id="c04" />
-			<cancion> hail merckel </cancion>
-			<orden> 3 </orden>
-			<votos id_pais="japon">
-				<puntuacion> 12 </puntuacion>
-			</votos>
-			<votos id_pais="italia">
-				<puntuacion> 10 </puntuacion>
-			</votos>
-			<votos id_pais="rusia">
-				<puntuacion> 0.25 </puntuacion>
-			</votos>
-			<votos id_pais="polonia">
-				<puntuacion> -4 </puntuacion>
-			</votos>
-		</pais>
-		<pais nombre="belgica">
-			<participante id="c03" />
-			<cancion> Chocolata para todos </cancion>
-			<orden> 4 </orden>
-			<votos id_pais="alemania">
-				<puntuacion> 12 </puntuacion>
-			</votos>
-			<votos id_pais="polonia">
-				<puntuacion> 10 </puntuacion>
-			</votos>
-			<votos id_pais="suiza">
-				<puntuacion> 8 </puntuacion>
-			</votos>
-		</pais>
-		<pais nombre="ucrania">
-			<participante id="c05" />
-			<cancion> za Rodinu </cancion>
-			<orden> 5 </orden>
-			<votos id_pais="belgica">
-				<puntuacion> 12 </puntuacion>
-			</votos>
-			<votos id_pais="españa">
-				<puntuacion> 10 </puntuacion>
-			</votos>
-		</pais>
-	</edicion>
-
-	<edicion numero="2019">
-		<ciudad> Taipei </ciudad>
-		<ubicacion> China </ubicacion>
-		<pais nombre="francia">
-			<participante id="c02" />
-			<cancion> Pas plus president </cancion>
-			<orden> 2 </orden>
-			<votos id_pais="andorra">
-				<puntuacion> 12 </puntuacion>
-			</votos>
-			<votos id_pais="turquia">
-				<puntuacion> 10 </puntuacion>
-			</votos>
-			<votos id_pais="portugal">
-				<puntuacion> 8 </puntuacion>
-			</votos>
-		</pais>
-		<pais nombre="andorra">
-			<participante id="c01" />
-			<cancion> Andorra is powerful </cancion>
-			<orden> 3 </orden>
-			<votos id_pais="portugal">
-				<puntuacion> 12 </puntuacion>
-			</votos>
-			<votos id_pais="alemania">
-				<puntuacion> 10 </puntuacion>
-			</votos>
-			<votos id_pais="inglaterra">
-				<puntuacion> 8 </puntuacion>
-			</votos>
-		</pais>
-		<pais nombre="alemania">
-			<participante id="c03" />
-			<cancion> merckel mola </cancion>
-			<orden> 1 </orden>
-			<votos id_pais="andorra">
-				<puntuacion> 12 </puntuacion>
-			</votos>
-			<votos id_pais="italia">
-				<puntuacion> 10 </puntuacion>
-			</votos>
-			<votos id_pais="polonia">
-				<puntuacion> -4 </puntuacion>
-			</votos>
-		</pais>
-		<pais nombre="belgica">
-			<participante id="c04" />
-			<cancion> The man and his dream </cancion>
-			<orden> 5 </orden>
-			<votos id_pais="andorra">
-				<puntuacion> 12 </puntuacion>
-			</votos>
-			<votos id_pais="italia">
-				<puntuacion> 10 </puntuacion>
-			</votos>
-			<votos id_pais="rusia">
-				<puntuacion> 0.25 </puntuacion>
-			</votos>
-			<votos id_pais="polonia">
-				<puntuacion> -4 </puntuacion>
-			</votos>
-		</pais>
-		<pais nombre="nueva rusia">
-			<participante id="c05" />
-			<cancion> Puttinsgrado khorosho</cancion>
-			<orden> 4 </orden>
-			<votos id_pais="rusia">
-				<puntuacion> 12 </puntuacion>
-			</votos>
-			<votos id_pais="andorra">
-				<puntuacion> 10 </puntuacion>
-			</votos>
-			<votos id_pais="polonia">
-				<puntuacion> 4 </puntuacion>
-			</votos>
-		</pais>
-	</edicion>
-
+    <artistas>
+        <artista id="c01">
+            <nombre> Chiqui chiqui</nombre>
+            <descripcion> La verguenza del pais </descripcion>
+            <imagen> nop.jpg </imagen>
+        </artista>
+        <artista id="c02">
+            <nombre> La de la barba</nombre>
+            <descripcion> Mucha barba </descripcion>
+            <imagen> harden.jpg </imagen>
+        </artista>
+        <artista id="c03">
+            <nombre> John Umpa Lumpa</nombre>
+            <descripcion>pe</descripcion>
+            <imagen> cosas.jpg </imagen>
+        </artista>
+        <artista id="c04">
+            <nombre> Definetly NOT Hitler</nombre>
+            <descripcion> Merkel seal of aprooval </descripcion>
+            <imagen> fotico.jpg </imagen>
+        </artista>
+        <artista id="c05">
+            <nombre>Nikolaev Chocklov A.K.A. Putin</nombre>
+            <descripcion> La antigua union sovietica está de acuerdo </descripcion>
+            <imagen> vladimir.jpg </imagen>
+        </artista>
+    </artistas>
+    <ediciones>
+        <edicion edId="e2015">
+            <anyo>2015</anyo>
+            <ciudad> Estanbul </ciudad>
+            <ubicacion> Turquia </ubicacion>
+            <pais nombre="Francia">
+                <participante id="c01"/>
+                <cancion> bbb </cancion>
+                <orden> 1 </orden>
+                <votos id_pais="España">
+                    <puntuacion> 12 </puntuacion>
+                </votos>
+                <votos id_pais="Turquia">
+                    <puntuacion> 10 </puntuacion>
+                </votos>
+                <votos id_pais="Ucrania">
+                    <puntuacion> 8 </puntuacion>
+                </votos>
+            </pais>
+            <pais nombre="España">
+                <participante id="c02"/>
+                <cancion> no vamos a ganar </cancion>
+                <orden> 2 </orden>
+                <votos id_pais="Alemania">
+                    <puntuacion> 12 </puntuacion>
+                </votos>
+                <votos id_pais="Ucrania">
+                    <puntuacion> 10 </puntuacion>
+                </votos>
+                <votos id_pais="Francia">
+                    <puntuacion> 8 </puntuacion>
+                </votos>
+            </pais>
+            <pais nombre="Alemania">
+                <participante id="c04"/>
+                <cancion> hail merckel </cancion>
+                <orden> 3 </orden>
+                <votos id_pais="Turquia">
+                    <puntuacion> 12 </puntuacion>
+                </votos>
+                <votos id_pais="Ucrania">
+                    <puntuacion> 10 </puntuacion>
+                </votos>
+                <votos id_pais="Francia">
+                    <puntuacion> 0.25 </puntuacion>
+                </votos>
+                <votos id_pais="España">
+                    <puntuacion> -4 </puntuacion>
+                </votos>
+            </pais>
+            <pais nombre="Turquia">
+                <participante id="c03"/>
+                <cancion> Chocolata para todos </cancion>
+                <orden> 4 </orden>
+                <votos id_pais="Alemania">
+                    <puntuacion> 12 </puntuacion>
+                </votos>
+                <votos id_pais="Francia">
+                    <puntuacion> 10 </puntuacion>
+                </votos>
+                <votos id_pais="Ucrania">
+                    <puntuacion> 8 </puntuacion>
+                </votos>
+            </pais>
+            <pais nombre="Ucrania">
+                <participante id="c05"/>
+                <cancion> za Rodinu </cancion>
+                <orden> 5 </orden>
+                <votos id_pais="Alemania">
+                    <puntuacion> 12 </puntuacion>
+                </votos>
+                <votos id_pais="España">
+                    <puntuacion> 10 </puntuacion>
+                </votos>
+            </pais>
+        </edicion>
+        <edicion edId="e2019">
+            <anyo>2019</anyo>
+            <ciudad> Taipei </ciudad>
+            <ubicacion> China </ubicacion>
+            <pais nombre="Polonia">
+                <participante id="c02"/>
+                <cancion> Pas plus president </cancion>
+                <orden> 2 </orden>
+                <votos id_pais="Andorra">
+                    <puntuacion> 12 </puntuacion>
+                </votos>
+                <votos id_pais="Belgica">
+                    <puntuacion> 10 </puntuacion>
+                </votos>
+                <votos id_pais="Nueva Rusia">
+                    <puntuacion> 8 </puntuacion>
+                </votos>
+            </pais>
+            <pais nombre="Andorra">
+                <participante id="c01"/>
+                <cancion> Andorra is powerful </cancion>
+                <orden> 3 </orden>
+                <votos id_pais="Polonia">
+                    <puntuacion> 12 </puntuacion>
+                </votos>
+                <votos id_pais="Alemania">
+                    <puntuacion> 10 </puntuacion>
+                </votos>
+                <votos id_pais="Belgica">
+                    <puntuacion> 8 </puntuacion>
+                </votos>
+            </pais>
+            <pais nombre="Alemania">
+                <participante id="c03"/>
+                <cancion> merckel mola </cancion>
+                <orden> 1 </orden>
+                <votos id_pais="Andorra">
+                    <puntuacion> 12 </puntuacion>
+                </votos>
+                <votos id_pais="Polonia">
+                    <puntuacion> 10 </puntuacion>
+                </votos>
+                <votos id_pais="Belgica">
+                    <puntuacion> -4 </puntuacion>
+                </votos>
+            </pais>
+            <pais nombre="Belgica">
+                <participante id="c04"/>
+                <cancion> The man and his dream </cancion>
+                <orden> 5 </orden>
+                <votos id_pais="Andorra">
+                    <puntuacion> 12 </puntuacion>
+                </votos>
+                <votos id_pais="Alemania">
+                    <puntuacion> 10 </puntuacion>
+                </votos>
+                <votos id_pais="Nueva Rusia">
+                    <puntuacion> 0.25 </puntuacion>
+                </votos>
+                <votos id_pais="Polonia">
+                    <puntuacion> -4 </puntuacion>
+                </votos>
+            </pais>
+            <pais nombre="Nueva Rusia">
+                <participante id="c05"/>
+                <cancion> Puttinsgrado khorosho</cancion>
+                <orden> 4 </orden>
+                <votos id_pais="Nueva Rusia">
+                    <puntuacion> 12 </puntuacion>
+                </votos>
+                <votos id_pais="Andorra">
+                    <puntuacion> 10 </puntuacion>
+                </votos>
+                <votos id_pais="Polonia">
+                    <puntuacion> 4 </puntuacion>
+                </votos>
+            </pais>
+        </edicion>
+    </ediciones>
 </eurovision>
