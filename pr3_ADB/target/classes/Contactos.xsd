@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.ucm.es/contactos" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.ucm.es/contactos">
+
+    <xsd:element name="agenda">
+    	<xsd:complexType>
+    		<xsd:sequence>
+    			<xsd:element name="contacto" maxOccurs="unbounded"
+    				minOccurs="0">
+    				<xsd:complexType>
+    					<xsd:sequence>
+    						<xsd:element name="nombre"
+    							type="xsd:string">
+    						</xsd:element>
+    						<xsd:element name="apellidos"
+    							type="xsd:string">
+    						</xsd:element>
+    						<xsd:element name="dirección" maxOccurs="1"
+    							minOccurs="0">
+    							<xsd:complexType>
+    								<xsd:sequence>
+    									<xsd:element name="calle"
+    										type="xsd:string">
+    									</xsd:element>
+    									<xsd:element name="numero"
+    										type="xsd:int">
+    									</xsd:element>
+    									<xsd:element
+    										name="código-postal" type="xsd:int">
+    									</xsd:element>
+    									<xsd:element name="localidad"
+    										type="xsd:string">
+    									</xsd:element>
+    									<xsd:element name="pais"
+    										type="xsd:string">
+    									</xsd:element>
+    								</xsd:sequence>
+    							</xsd:complexType>
+    						</xsd:element>
+    						<xsd:element name="telefono"
+    							maxOccurs="unbounded" minOccurs="0">
+    							<xsd:complexType>
+    								<xsd:simpleContent>
+    									<xsd:extension
+    										base="xsd:string">
+    										<xsd:attribute
+    											name="tipo">
+    											<xsd:simpleType>
+    												<xsd:restriction
+    													base="xsd:string">
+    													<xsd:enumeration
+    														value="casa">
+    													</xsd:enumeration>
+    													<xsd:enumeration
+    														value="movil">
+    													</xsd:enumeration>
+    													<xsd:enumeration
+    														value="trabajo">
+    													</xsd:enumeration>
+    												</xsd:restriction>
+    											</xsd:simpleType>
+    										</xsd:attribute>
+    									</xsd:extension>
+    								</xsd:simpleContent>
+    							</xsd:complexType>
+    						</xsd:element>
+    					</xsd:sequence>
+    					<xsd:attribute name="dni" type="xsd:string">
+    					</xsd:attribute>
+    				</xsd:complexType>
+    			</xsd:element>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    </xsd:element>
+</xsd:schema>

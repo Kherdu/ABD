@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE libros SYSTEM "Libros.dtd">
+<libros>
+    <libro año="2011">
+        <titulo>Database System Concepts</titulo>
+        <autores>
+            <autor id="a01"/>
+            <autor id="a02"/>
+            <autor id="a03"/>
+        </autores>
+        <editorial>McGraw-Hill</editorial>
+        <precio>61.20</precio>
+    </libro>
+    
+    <libro año="2007">
+        <titulo>Sistemas de Bases de Datos: un enfoque práctico para diseño, implementación y gestión</titulo>
+        <autores>
+            <autor id="a04"/>
+            <autor id="a05"/>
+        </autores>
+        <editorial>Pearson Educación</editorial>
+        <precio>72.00</precio>
+    </libro>
+    
+    <libro año="2007">
+     	<titulo>XQuery</titulo>
+     	<autores>
+     	 	<autor id="a06"/>    	
+     	</autores>
+     	<editorial>O'Reilly</editorial>
+     	<precio>37.90</precio>
+    </libro>
+    
+    <libro año="2010">
+     	<titulo>Operating System Concepts</titulo>
+     	<autores>
+     	 	<autor id="a01"/>
+     	 	<autor id="a07"/>
+     	 	<autor id="a08"/>    	
+     	</autores>
+     	<editorial>John Wiley &amp; Sons</editorial>
+     	<precio>51.30</precio>
+    </libro>
+    
+    <libro año="2012">
+     	<titulo>Beginning XML</titulo>
+     	<autores>
+     	 	<autor id="a09"/>
+     	</autores>
+     	<editorial>John Wiley &amp; Sons</editorial>
+     	<precio>33.30</precio>
+    </libro>
+    
+</libros>
