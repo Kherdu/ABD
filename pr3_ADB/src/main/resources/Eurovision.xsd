@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<xsd:schema targetNamespace="http://www.ucm.es/Eurovision" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.ucm.es/Eurovision">
- <xsd:element name="Eurovision">
+<xsd:schema targetNamespace="http://www.ucm.es/eurovision" 
+elementFormDefault="qualified" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+xmlns="http://www.ucm.es/eurovision">
+ <xsd:element name="eurovision">
  <xsd:complexType>
  		<xsd:sequence>
-    <xsd:element name="Artista">
+    <xsd:element name="artista" maxOccurs="unbounded" minOccurs="0">
         	
     	<xsd:complexType>
     		<xsd:sequence>
@@ -16,7 +19,7 @@
     	</xsd:complexType>
     </xsd:element>
 
-    <xsd:element name="Edicion">
+    <xsd:element name="edicion" maxOccurs="unbounded" minOccurs="0">
     	<xsd:complexType>
     		<xsd:sequence>
     			<xsd:element name="ciudad" type="xsd:string"></xsd:element>
