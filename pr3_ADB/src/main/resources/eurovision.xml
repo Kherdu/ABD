@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 
-<eurovision xmlns="http://www.ucm.es/eurovision"
+<eurovision xmlns="http://www.ucm.es/Eurovision"
 			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		    xsi:schemaLocation="http://www.ucm.es/eurovision Eurovision.xsd">
+		      xsi:schemaLocation="http://www.ucm.es/Eurovision Eurovision.xsd">
 	
 	<artista id="c01">
 		<nombre> Chiqui chiqui</nombre>

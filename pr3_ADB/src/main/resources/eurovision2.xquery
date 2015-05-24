@@ -6,7 +6,7 @@ let $ed := doc("Eurovision.xml")//edicion[anyo/text()=$anyo]
 for $pais in $ed/pais
 let $idAut := $pais//participante/@id
 let $artista := doc("Eurovision.xml")//artista[idc/text()=$idAut]
-let $puntuacion := sum($pais//puntuacion)
+let $puntuacion := sum($ed//votos[@id_pais=$pais/@nombre])
 order by $puntuacion descending
 return <clasificacion pais=" {data($pais/@nombre)} " cancion=" {$pais/cancion/text()} "
 artista=" {$artista/nombre/text()} " puntos=" {$puntuacion} "/>

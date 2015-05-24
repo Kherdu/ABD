@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema targetNamespace="http://www.ucm.es/eurovision" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.ucm.es/eurovision">
 
+<xsd:schema targetNamespace="http://www.ucm.es/Eurovision" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.ucm.es/Eurovision">
+ <xsd:element name="Eurovision">
+ <xsd:complexType>
+ 		<xsd:sequence>
     <xsd:element name="Artista">
+        	
     	<xsd:complexType>
     		<xsd:sequence>
     			<xsd:element name="nombre" type="xsd:string"></xsd:element>
@@ -59,4 +63,8 @@
     		<xsd:attribute name="numero" type="xsd:string"></xsd:attribute>
     	</xsd:complexType>
     </xsd:element>
+    </xsd:sequence>
+    </xsd:complexType>
+   </xsd:element>
+    
 </xsd:schema>
