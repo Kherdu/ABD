@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE eurovision [
+<!ELEMENT eurovision (artista+, edicion+)>
+<!ELEMENT artista (nombre, descripcion?, imagen?)>
+<!ELEMENT edicion (ciudad, ubicacion, pais+)>
+<!ELEMENT pais (participante, cancion, orden, votos+)>
+<!ELEMENT votos (puntuacion)>
+<!ATTLIST artista id ID #REQUIRED>
+<!ATTLIST edicion numero CDATA #REQUIRED>
+<!ATTLIST pais nombre CDATA #REQUIRED>
+<!ATTLIST votos id_pais CDATA #REQUIRED>
+<!ATTLIST participante id IDREF #REQUIRED>
+]>
 
-
-<eurovision xmlns="http://www.ucm.es/eurovision"
+<eurovision xmlns="http://www.ucm.es/Eurovision"
 			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		    xsi:schemaLocation="http://www.ucm.es/eurovision Eurovision.xsd">
-	
+		 	xsi:schemaLocation="http://www.ucm.es/Eurovision Eurovision.xsd">
 	<artista id="c01">
 		<nombre> Chiqui chiqui</nombre>
 		<descripcion> La verguenza del pais </descripcion>
@@ -81,7 +91,9 @@
 			<votos id_pais="rusia">
 				<puntuacion> 0.25 </puntuacion>
 			</votos>
-		
+			<votos id_pais="polonia">
+				<puntuacion> -4 </puntuacion>
+			</votos>
 		</pais>
 		<pais nombre="belgica">
 			<participante id="c03" />

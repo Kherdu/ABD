@@ -1,5 +1,0 @@
-<!ELEMENT pedido (articulo+)>
-<!ELEMENT articulo EMPTY>
-
-<!ATTLIST articulo titulo CDATA #REQUIRED
-                   cantidad CDATA "1">

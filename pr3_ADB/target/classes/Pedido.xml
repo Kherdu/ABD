@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE pedido SYSTEM "Pedido.dtd">
-<pedido>
-	<articulo titulo="Database System Concepts" cantidad="2"/>
-	<articulo titulo="XQuery" cantidad="1"/>
-</pedido>

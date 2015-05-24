@@ -12,7 +12,7 @@ return
 
 <h1> {data($a/ubicacion)} ( {data($a/ciudad)} )</h1>
 <ol>
-Para cada actuación debe mostrarse lo siguiente:
+
 
 
 {for $b in $a/pais

@@ -1,5 +1,0 @@
-<!ELEMENT autores (autor*)>
-<!ELEMENT autor (nombre, apellidos)>
-<!ELEMENT nombre (#PCDATA)>
-<!ELEMENT apellidos (#PCDATA)>
-<!ATTLIST autor id ID #REQUIRED>
