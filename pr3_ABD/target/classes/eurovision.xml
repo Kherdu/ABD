@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<eurovision xmlns="http://www.ucm.es/eurovision"
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		     xsi:schemaLocation="http://www.ucm.es/eurovision eurovision.xsd">
+	
+	 <artista id="c01">
+        <nombre> Chiqui chiqui</nombre>
+        <descripcion> La verguenza del pais </descripcion>
+        <imagen> nop.jpg </imagen>
+    </artista>
+    <artista id="c02">
+        <nombre> La de la barba</nombre>
+        <descripcion> Mucha barba </descripcion>
+        <imagen> harden.jpg </imagen>
+    </artista>
+    <artista id="c03">
+        <nombre> John Umpa Lumpa</nombre>
+        <descripcion>pe</descripcion>
+        <imagen> cosas.jpg </imagen>
+    </artista>
+    <artista id="c04">
+        <nombre> Definetly NOT Hitler</nombre>
+        <descripcion> Merkel seal of aprooval </descripcion>
+        <imagen> fotico.jpg </imagen>
+    </artista>
+    <artista id="c05">
+        <nombre>Nikolaev Chocklov A.K.A. Putin</nombre>
+        <descripcion> La antigua union sovietica está de acuerdo               </descripcion>
+        <imagen> vladimir.jpg </imagen>
+    </artista>
+    <edicion numero="2015">
+        <ciudad> Estanbul </ciudad>
+        <ubicacion> Turquia </ubicacion>
+        <pais nombre="francia">
+            <participante id="c01"/>
+            <cancion> bbb </cancion>
+            <orden> 1 </orden>
+            <votos id_pais="españa">
+                <puntuacion> 12 </puntuacion>
+            </votos>
+            <votos id_pais="ucrania">
+                <puntuacion> 10 </puntuacion>
+            </votos>
+            <votos id_pais="belgica">
+                <puntuacion> 8 </puntuacion>
+            </votos>
+        </pais>
+        <pais nombre="españa">
+            <participante id="c02"/>
+            <cancion> no vamos a ganar </cancion>
+            <orden> 2 </orden>
+            <votos id_pais="ucrania">
+                <puntuacion> 12 </puntuacion>
+            </votos>
+            <votos id_pais="belgica">
+                <puntuacion> 10 </puntuacion>
+            </votos>
+            <votos id_pais="alemania">
+                <puntuacion> 8 </puntuacion>
+            </votos>
+        </pais>
+        <pais nombre="alemania">
+            <participante id="c04"/>
+            <cancion> hail merckel </cancion>
+            <orden> 3 </orden>
+            <votos id_pais="francia">
+                <puntuacion> 12 </puntuacion>
+            </votos>
+            <votos id_pais="ucrania">
+                <puntuacion> 10 </puntuacion>
+            </votos>
+            <votos id_pais="españa">
+                <puntuacion> 0.25 </puntuacion>
+            </votos>
+        </pais>
+        <pais nombre="belgica">
+            <participante id="c03"/>
+            <cancion> Chocolata para todos </cancion>
+            <orden> 4 </orden>
+            <votos id_pais="alemania">
+                <puntuacion> 12 </puntuacion>
+            </votos>
+            <votos id_pais="ucrania">
+                <puntuacion> 10 </puntuacion>
+            </votos>
+            <votos id_pais="belgica">
+                <puntuacion> 8 </puntuacion>
+            </votos>
+        </pais>
+        <pais nombre="ucrania">
+            <participante id="c05"/>
+            <cancion> za Rodinu </cancion>
+            <orden> 5 </orden>
+            <votos id_pais="belgica">
+                <puntuacion> 12 </puntuacion>
+            </votos>
+            <votos id_pais="españa">
+                <puntuacion> 10 </puntuacion>
+            </votos>
+        </pais>
+    </edicion>
+    <edicion numero="2019">
+        <ciudad> Taipei </ciudad>
+        <ubicacion> China </ubicacion>
+        <pais nombre="polonia">
+            <participante id="c02"/>
+            <cancion> Pas plus president </cancion>
+            <orden> 2 </orden>
+            <votos id_pais="andorra">
+                <puntuacion> 12 </puntuacion>
+            </votos>
+            <votos id_pais="rusia">
+                <puntuacion> 10 </puntuacion>
+            </votos>
+            <votos id_pais="alemania">
+                <puntuacion> 8 </puntuacion>
+            </votos>
+        </pais>
+        <pais nombre="andorra">
+            <participante id="c01"/>
+            <cancion> Andorra is powerful </cancion>
+            <orden> 3 </orden>
+            <votos id_pais="portugal">
+                <puntuacion> 12 </puntuacion>
+            </votos>
+            <votos id_pais="alemania">
+                <puntuacion> 10 </puntuacion>
+            </votos>
+            <votos id_pais="inglaterra">
+                <puntuacion> 8 </puntuacion>
+            </votos>
+        </pais>
+        <pais nombre="alemania">
+            <participante id="c03"/>
+            <cancion> merckel mola </cancion>
+            <orden> 1 </orden>
+            <votos id_pais="andorra">
+                <puntuacion> 12 </puntuacion>
+            </votos>
+            <votos id_pais="nueva rusia">
+                <puntuacion> 10 </puntuacion>
+            </votos>
+            <votos id_pais="polonia">
+                <puntuacion> -4 </puntuacion>
+            </votos>
+        </pais>
+        <pais nombre="rusia">
+            <participante id="c04"/>
+            <cancion> The man and his dream </cancion>
+            <orden> 5 </orden>
+            <votos id_pais="andorra">
+                <puntuacion> 12 </puntuacion>
+            </votos>
+            <votos id_pais="alemania">
+                <puntuacion> 10 </puntuacion>
+            </votos>
+            <votos id_pais="rusia">
+                <puntuacion> 0.25 </puntuacion>
+            </votos>
+            <votos id_pais="polonia">
+                <puntuacion> -4 </puntuacion>
+            </votos>
+        </pais>
+        <pais nombre="nueva rusia">
+            <participante id="c05"/>
+            <cancion> Puttinsgrado khorosho</cancion>
+            <orden> 4 </orden>
+            <votos id_pais="rusia">
+                <puntuacion> 12 </puntuacion>
+            </votos>
+            <votos id_pais="andorra">
+                <puntuacion> 10 </puntuacion>
+            </votos>
+            <votos id_pais="polonia">
+                <puntuacion> 4 </puntuacion>
+            </votos>
+        </pais>
+    </edicion>
+</eurovision>

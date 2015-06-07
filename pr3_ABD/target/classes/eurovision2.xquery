@@ -1,12 +1,12 @@
 xquery version "3.0";
 
-declare variable $anyo as xs:integer external;
+declare variable $anyo as xs:integer := 2015;
 
-let $ed := doc("Eurovision.xml")//edicion[anyo/text()=$anyo]
+for $ed in doc("eurovision.xml")/eurovision/edicion
 for $pais in $ed/pais
-let $idAut := $pais//participante/@id
-let $artista := doc("Eurovision.xml")//artista[idc/text()=$idAut]
+let $artista := doc("eurovision.xml")//artista[@id=$pais/participante/@id]
 let $puntuacion := sum($ed//votos[@id_pais=$pais/@nombre])
+where $ed/@numero=$anyo
 order by $puntuacion descending
 return <clasificacion pais=" {data($pais/@nombre)} " cancion=" {$pais/cancion/text()} "
 artista=" {$artista/nombre/text()} " puntos=" {$puntuacion} "/>
