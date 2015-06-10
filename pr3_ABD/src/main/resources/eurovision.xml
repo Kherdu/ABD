@@ -4,7 +4,7 @@
 			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		     xsi:schemaLocation="http://www.ucm.es/eurovision eurovision.xsd">
 	
-	 <artista id="c01">
+	<artista id="c01">
         <nombre> Chiqui chiqui</nombre>
         <descripcion> La verguenza del pais </descripcion>
         <imagen> nop.jpg </imagen>
@@ -127,7 +127,7 @@
             <votos id_pais="alemania">
                 <puntuacion> 10 </puntuacion>
             </votos>
-            <votos id_pais="inglaterra">
+            <votos id_pais="nueva rusia">
                 <puntuacion> 8 </puntuacion>
             </votos>
         </pais>
