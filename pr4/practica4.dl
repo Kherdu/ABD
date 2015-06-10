@@ -94,19 +94,23 @@ envia(4, 19, 1).
 envia(1, 19, 3).
 envia(1, 19, 7).
 
+
 %icono_azul(Origen)
 icono_azul(Origen):- group_by(envia(Origen,27,Destino),[Origen], Contador=count(Destino)), Contador>=10.
 
-%comic_sans(Usuario)
+%comic_sans(Usuario) esta hecho, porque lo hice antes del aviso, pero si ligamos las variables con A y C en vez de poner anonimas para comparar que sean distintas no funciona
 comic_sans(Usuario):- envia(_,3,Usuario), not envia(Usuario,3, _).
+
 %reenvio_doble(Origen,Mensaje,Destino)
 reenvio_doble(Origen,Mensaje,Destino):- envia(Origen,Mensaje,Destino), group_by(envia(Destino,Mensaje,Otro),[Destino], Cnt=count(Otro)), Cnt>=3.
 %triple_arco_iris(Usuario)
 triple_arco_iris(Usuario):- group_by(reenvio_doble(Usuario,14,Primero), [Usuario], Cont=count(Primero)), Cont>=10.
 
 
-%aux reenvio 1º
-reenvio_nivel_1(Usuario, Numero):- group_by(envia(Usuario,19,_),[Usuario], Contador=count(Destino)), Contador>=10.
+%envios_multiples
+envios_multiples(Origen,Destino):- envia(Origen,19,Destino).
+envios_multiples(Origen,Destino):- envia(Origen,19,Otro), envios_multiples(Otro,Destino), Origen \=Destino.
+
 %fortuna_usuario
-fortuna_usuario(Usuario,CantidadDinero):-
+fortuna_usuario(Usuario,Dinero):- group_by(envios_multiples(Usuario,Destino), [Usuario], Reenvios=count(Destino)), Dinero is Reenvios*245.
 
